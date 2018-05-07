@@ -60,3 +60,4 @@ gem 'kaminari'
 gem 'ransack'
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
+gem 'gon'#railsとjsの変数受け渡し用
