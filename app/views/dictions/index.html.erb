@@ -1,0 +1,100 @@
+<div class="container-fluid">
+	<div class="row">
+		<p>Dictiomanyトップ > 辞書</p>
+		<div class="col-xs-9">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<p>辞書検索</p>
+				</div>
+				<div class="panel-body" style="padding-bottom: 0;">
+					<p>「サンゴ礁」 の検索結果 56件中5件</p>
+				</div>
+				<table class="table table-default">
+					<thead>
+						<tr>
+							<th>カテゴリー</th>
+							<th>名前</th>
+							<th>ユーザ名</th>
+							<th>お気に入り登録数</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @dictions.each do |d| %>
+						<tr>
+							<td><%= d.category %></td>
+							<td><%= link_to d.name, diction_path(d) %></td>
+							<td><% user_name = User.find(d.user_id) %>
+								<%= user_name.name %>
+							</td>
+							<td></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				<div class="panel-footer">
+					<p>前の検索結果に戻る　ページネーション</p>
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+
+
+
+
+
+	</div>
+</div>
+
+
+
+<%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+
+
+
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#new-diction" data-backdrop="static">
+	新規辞書作成
+</button>
+
+
+<!-- モーダル・ダイアログ -->
+<div class="modal fade" id="new-diction" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>✖</span></button>
+				<h4 class="modal-title">New Dictionally</h4>
+			</div>
+			<div class="modal-body">
+				<%= form_for(@new_diction, url:dictions_path , html: {:class => "form-group"}) do |f| %>
+					<div>
+					<%= f.label "名前", {class: "form-label"} %>
+					<%= f.text_field :name, class: "form-control" %>
+				</div>
+				<div class="signup">
+					<%= f.label "カテゴリー", {class: "form-label"} %>
+					<%= f.select :category, @categories2, class: "form-control" %>
+
+						<select name="category">
+							<option>メニュー</option>
+							<option>メニュー</option>
+							<option>メニュー</option>
+						</select>
+				</div>
+				<div class="signup">
+					<%= f.submit "作成する", class: "btn btn-primary" %>
+				</div>
+
+				<% end %>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+				<button type="button" class="btn btn-primary">ボタン</button>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>

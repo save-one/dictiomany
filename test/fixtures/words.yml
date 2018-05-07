@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  kana: MyString
+  category: MyString
+  diction: one
+
+two:
+  name: MyString
+  kana: MyString
+  category: MyString
+  diction: two

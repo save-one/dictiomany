@@ -1,0 +1,29 @@
+<%= form_for(@diction, url:dictions_path ) do |f| %>
+
+	<%= f.text_field :name %>
+
+	<%= f.text_field :category %>
+
+	<%= f.submit %>
+
+<% end %>
+
+<%= form_for(@word, url:"1/words") do |f| %>
+
+	<%= f.text_field :name %>
+
+	<%= f.text_field :kana %>
+
+	<%= f.text_field :category %>
+
+	<%= f.submit %>
+
+<% end %>
+
+<%= form_for(@meaning, url: "1/words/1/meanings") do |f| %>
+
+	<%= f.text_field :content %>
+
+	<%= f.submit %>
+
+<% end %>

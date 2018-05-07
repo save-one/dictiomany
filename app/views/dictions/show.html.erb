@@ -1,0 +1,41 @@
+<div class="container-fluid">
+	<div class="row">
+		<p>Dictiomanyトップ > 辞書 > 単語</p>
+		<div class="col-xs-9">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<p><%= @diction.name %></p>
+				</div>
+				<div class="panel-body" style="padding-bottom: 0;">
+				</div>
+				<table class="table table-default">
+					<thead>
+						<tr>
+							<th>カテゴリー</th>
+							<th>名前</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @words.each do |w| %>
+						<tr>
+							<td><%= w.category %></td>
+							<td><%= link_to w.name, diction_word_path(diction_id: @diction.id, word_id: w.id) %></td>
+							<td>
+							</td>
+							<td></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				<div class="panel-footer">
+					<p>前の検索結果に戻る　ページネーション</p>
+				</div>
+			</div>
+
+		</div>
+			</div>
+		</div>
+	</div>
+</div>

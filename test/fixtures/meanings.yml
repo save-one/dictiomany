@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  public_flg: false
+  word: one
+  word_name: MyString
+  word_category: MyString
+
+two:
+  content: MyText
+  public_flg: false
+  word: two
+  word_name: MyString
+  word_category: MyString

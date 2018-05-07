@@ -1,0 +1,41 @@
+<div class="container-fluid">
+	<div class="row">
+		<p>Dictiomanyトップ > 辞書 > 単語 > 意味</p>
+		<div class="col-xs-9">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<p><%= link_to @diction.name, diction_path(@diction.id) %>：<%= @word.name %></p>
+				</div>
+				<div class="panel-body" style="padding-bottom: 0;">
+				</div>
+				<table class="table table-default">
+					<thead>
+						<tr>
+							<th>投稿日</th>
+							<th>意味</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @meanings.each do |m| %>
+						<tr>
+							<td><%= m.created_at.strftime('%Y年%m月%d日') %></td>
+							<td><%= link_to m.content, diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, meaning_id: m.id) %></td>
+							<td>
+							</td>
+							<td></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				<div class="panel-footer">
+					<p>前の検索結果に戻る　ページネーション</p>
+				</div>
+			</div>
+
+		</div>
+			</div>
+		</div>
+	</div>
+</div>
