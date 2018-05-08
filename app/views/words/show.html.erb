@@ -1,10 +1,13 @@
 <div class="container-fluid">
 	<div class="row">
-		<p>Dictiomanyトップ > 辞書 > 単語 > 意味</p>
+		<p>Dictiomanyトップ > <%= link_to "辞書", dictions_path %> > <%= link_to "単語", diction_path(@diction.id) %> > <%= link_to "意味", diction_word_path(diction_id: @diction.id, id: @word.id) %></p>
 		<div class="col-xs-9">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<p><%= link_to @diction.name, diction_path(@diction.id) %>：<%= @word.name %></p>
+					<%= link_to @diction.name, diction_path(@diction.id) %>：<%= @word.name %>
+					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#new-meaning" data-backdrop="static">
+						<span class="glyphicon glyphicon-plus"></span>
+					</button>
 				</div>
 				<div class="panel-body" style="padding-bottom: 0;">
 				</div>
@@ -21,7 +24,7 @@
 						<% @meanings.each do |m| %>
 						<tr>
 							<td><%= m.created_at.strftime('%Y年%m月%d日') %></td>
-							<td><%= link_to m.content, diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, meaning_id: m.id) %></td>
+							<td><%= link_to m.content, diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: m.id) %></td>
 							<td>
 							</td>
 							<td></td>
@@ -39,3 +42,5 @@
 		</div>
 	</div>
 </div>
+
+<%= render partial: "layouts/newmeaning" %>

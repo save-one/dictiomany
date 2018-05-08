@@ -1,2 +1,48 @@
-<h1>Meanings#show</h1>
-<p>Find me in app/views/meanings/show.html.erb</p>
+<div class="container-fluid">
+	<div class="row">
+		<p>Dictiomanyトップ > <%= link_to "辞書", dictions_path %> > <%= link_to "単語", diction_path(@diction.id) %> > <%= link_to "意味", diction_word_path(diction_id: @diction.id, id: @word.id) %> > コメント</p>
+		<div class="col-xs-9">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<%= link_to @diction.name, diction_path(@diction.id) %>：<%= link_to @word.name, diction_word_path(diction_id: @diction, id: @word.id) %> : <%= @meaning.content %>
+					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#new-comment" data-backdrop="static">
+						<span class="glyphicon glyphicon-plus"></span>
+					</button>
+				</div>
+				<div class="panel-body" style="padding-bottom: 0;">
+				</div>
+				<table class="table table-default">
+					<thead>
+						<tr>
+							<th>投稿日</th>
+							<th>意味</th>
+							<th>ユーザ名</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @comments.each do |c| %>
+						<tr>
+							<td><%= c.created_at.strftime('%Y年%m月%d日') %></td>
+							<td><%= c.content %></td>
+							<td>
+								<% user = User.find(c.user.id) %>
+								<%= user.name %>
+							</td>
+							<td></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				<div class="panel-footer">
+					<p>前の検索結果に戻る　ページネーション</p>
+				</div>
+			</div>
+
+		</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= render partial: "layouts/newcomment" %>

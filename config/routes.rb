@@ -1,13 +1,19 @@
 Rails.application.routes.draw do
 
-  devise_for :users
-  root 'dictions#index'
+  get 'tops/show'
 
+  devise_for :users
+  root 'tops#show'
+
+  resource :tops, only: [:show]
+  resources :users, only: [:index, :show, :update]
   resources :dictions do
 
   	resources :words, only: [:show, :create, :update, :destroy] do
 
-  		resources :meanings, only: [:show, :create, :update, :destroy]
+  		resources :meanings, only: [:show, :create, :update, :destroy] do
+  			resources :comments, only: [:create, :destroy]
+  		end
   	end
   end
 

@@ -1,0 +1,40 @@
+<div class="container-fluid">
+	<div class="row">
+		<p>Dictiomanyトップ > ユーザー</p>
+		<div class="col-xs-9">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<p>ユーザー検索</p>
+				</div>
+				<div class="panel-body" style="padding-bottom: 0;">
+					<p>「サンゴ礁」 の検索結果 56件中5件</p>
+				</div>
+				<table class="table table-default">
+					<thead>
+						<tr>
+							<th>アイコン</th>
+							<th>名前</th>
+							<th>公開辞書数</th>
+							<th>公開単語数</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @users.each do |u| %>
+						<tr>
+							<td></td>
+							<td><%= link_to u.name, user_path(u.id) %></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				<div class="panel-footer">
+					<p>前の検索結果に戻る　ページネーション</p>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>

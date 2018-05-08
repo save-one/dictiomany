@@ -10,7 +10,14 @@ private
   end
 
   def newdiction
+  	#dictionally
   	@new_diction = Diction.new
+  	#word
+  	@new_word = Word.new
+  	#meaning
+  	@new_meaning = Meaning.new
+  	#comment
+  	@new_comment = Comment.new
 
   	#親カテゴリ
   	@parents = ["金融", "建設・不動産", "物流・運送", "IT・メディア", "エネルギー・資源", "自動車・機械", "電機・精密", "食品", "小売・卸", "生活関連", "衣料・装飾", "サービス", "飲食", "娯楽・レジャー"]

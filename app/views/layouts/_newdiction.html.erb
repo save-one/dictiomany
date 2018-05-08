@@ -1,0 +1,53 @@
+<!-- モーダル・ダイアログ -->
+<!-- diction -->
+<div class="modal fade" id="new-diction" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>✖</span></button>
+				<h4 class="modal-title">New Dictionally</h4>
+			</div>
+			<div class="modal-body newform-body">
+				<%= form_for(@new_diction, url:dictions_path, html: {:class => "form-group"}) do |f| %>
+				<div>
+					<%= f.label "名前", {class: "form-label"} %>
+					<%= f.text_field :name, class: "form-control", required:true %>
+				</div>
+
+
+				<div class="signup">
+					<%= f.label "カテゴリー（大）", {class: "form-label"} %>
+					<div style="width: 30%;">
+						<select name="category_parent" id="parent" class="form-control" required><!--selectにrequiredでoptionのvalue=""は拒否される-->
+								<option value="">----------</option>
+								<% @parents.each do |p| %>
+								<option value=<%= p %>><%= p %></option>
+								<% end %>
+						</select>
+					</div>
+				</div>
+				<div class="signup">
+					<%= f.label "カテゴリー（小）", {class: "form-label"} %>
+					<div style="width: 30%;">
+						<select name="category" id="child" class="form-control" required>
+							<option value="">----------</option>
+						</select>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer row newform-footer">
+				<div class="col-xs-9">
+					<%= f.submit "作成する", class: "btn btn-primary form-control" %>
+				</div>
+				<div class="col-xs-3" >
+					<button type="button" class="btn btn-default form-control" data-dismiss="modal">閉じる</button>
+				</div>
+
+				<% end %>
+				<!-- <button type="button" class="btn btn-primary">ボタン</button -->
+			</div>
+
+		</div>
+	</div>
+</div>

@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180507083234) do
+ActiveRecord::Schema.define(version: 20180508083029) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "meaning_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meaning_id"], name: "index_comments_on_meaning_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "dictions", force: :cascade do |t|
     t.string "name"
@@ -48,6 +58,7 @@ ActiveRecord::Schema.define(version: 20180507083234) do
     t.string "word_category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "word_category_parent"
     t.index ["word_id"], name: "index_meanings_on_word_id"
   end
 
@@ -88,6 +99,7 @@ ActiveRecord::Schema.define(version: 20180507083234) do
     t.integer "diction_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category_parent"
     t.index ["diction_id"], name: "index_words_on_diction_id"
   end
 

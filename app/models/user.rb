@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :dictions
   has_many :group_users
+  has_many :comments
 end
