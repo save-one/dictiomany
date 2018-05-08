@@ -15,8 +15,10 @@ class DictionsController < ApplicationController
   end
 
   def create
-  	@diction = Diction.new(diction_params)
-  	@diction.save
+  	diction = current_user.dictions.new(diction_params)
+    diction.category_parent = params[:category_parent]
+    diction.category = params[:category]
+  	diction.save
   	redirect_to dictions_path
   end
 

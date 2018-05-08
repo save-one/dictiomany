@@ -1,10 +1,13 @@
 <div class="container-fluid">
 	<div class="row">
-		<p>Dictiomanyトップ > 辞書 > 単語</p>
+		<p>Dictiomanyトップ > <%= link_to "辞書", dictions_path %> > <%= link_to "単語", diction_path(@diction.id) %></p>
 		<div class="col-xs-9">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<p><%= @diction.name %></p>
+					<%= @diction.name %>
+					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#new-word" data-backdrop="static">
+						<span class="glyphicon glyphicon-plus"></span>
+					</button>
 				</div>
 				<div class="panel-body" style="padding-bottom: 0;">
 				</div>
@@ -20,8 +23,8 @@
 					<tbody>
 						<% @words.each do |w| %>
 						<tr>
-							<td><%= w.category %></td>
-							<td><%= link_to w.name, diction_word_path(diction_id: @diction.id, word_id: w.id) %></td>
+							<td><%= w.category_parent %> / <%= w.category %></td>
+							<td><%= link_to w.name, diction_word_path(diction_id: @diction.id, id: w.id) %></td>
 							<td>
 							</td>
 							<td></td>
@@ -39,3 +42,5 @@
 		</div>
 	</div>
 </div>
+
+<%= render partial: "layouts/newword" %>
