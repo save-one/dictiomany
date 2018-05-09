@@ -104,7 +104,38 @@ $(function(){
 	});
 });
 
-//
+//プロフィール画像を変更したいときに出る説明
 $(function(){
 	$('[data-toggle="tooltip"]').tooltip();
+});
+
+//
+$(function() {
+	var setFileInput = $('#acount_image_input'),
+	setFileImage = $('#acount_image_view');
+
+	var selfFile = $(this),
+	selfInput = $(this).find('input[type=file]'),
+	prevElm = selfFile.find(setFileImg),
+	orgPass = prevElm.attr('src');
+
+	selfInput.change(function() {
+		var file = $(this).prop('files'),
+		fileRdr = new FileReader();
+
+		if (!this.files.length) {
+			prevElm.attr('src', orgPass);
+			return;
+		} else {
+			if (!file.type.match('image.*')){
+				prevElm.arrt('src', orgPass);
+				return;
+			} else {
+				fileRdr.onload = function() {
+					prevElm.attr('src', fileRdr.result);
+				}
+				fileRdr.readAsDataURL(file);
+			}
+		}
+	});
 });

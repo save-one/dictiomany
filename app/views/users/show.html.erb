@@ -99,10 +99,10 @@
 
 				<!--画像用　こういう記述で画像をinputとしてクリックできる（ラベルとdisplay:none;に注目）-->
 				<div class="row">
-					<div class="col-xs-3" data-toggle="tooltip" title="<h5><b style='color: #fff'>プロフィール画像を変更</b></h5>" data-placement="right" data-animation="true" data-html="true" %>
+					<div class="col-xs-3" id="acount_image_input" data-toggle="tooltip" title="<h5><b style='color: #fff'>プロフィール画像を変更</b></h5>" data-placement="right" data-animation="true" data-html="true" %>
 						<%= f.attachment_field :image, style: "display:none;" %>
 						<%= f.label :image do %>
-						<%= attachment_image_tag @user, :image, format: "png", fallback: "img/acount_image1.png", :class => "acount_image center-block", id:"acount_image_edit" %>
+						<%= attachment_image_tag @user, :image, format: "png", fallback: "img/acount_image1.png", :class => "acount_image center-block", id:"acount_image_view" %>
 						<% end %>
 					</div>
 					<div class="col-xs-9">
