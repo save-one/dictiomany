@@ -110,32 +110,48 @@ $(function(){
 });
 
 //
+// $(function() {
+// 	var setFileInput = $('#acount_image_input'),
+// 	setFileImage = $('#acount_image_view');
+
+// 	var selfFile = $(this),
+// 	selfInput = $(this).find('input[type=file]'),
+// 	prevElm = selfFile.find(setFileImg),
+// 	orgPass = prevElm.attr('src');
+
+// 	selfInput.change(function() {
+// 		var file = $(this).prop('files'),
+// 		fileRdr = new FileReader();
+
+// 		if (!this.files.length) {
+// 			prevElm.attr('src', orgPass);
+// 			return;
+// 		} else {
+// 			if (!file.type.match('image.*')){
+// 				prevElm.arrt('src', orgPass);
+// 				return;
+// 			} else {
+// 				fileRdr.onload = function() {
+// 					prevElm.attr('src', fileRdr.result);
+// 				}
+// 				fileRdr.readAsDataURL(file);
+// 			}
+// 		}
+// 	});
+// });
+
+// $(function() {
+// 	$('#user_image').on('change', function() {
+// 		var image_new = document.getElementById('user_image');
+// 		var image = new Image();
+// 		image.src = image_new;
+// 		document.body.appendChild(image);
+// 	});
+// });
+
+//プロフィール画像の変更時のプレビュー表示
 $(function() {
-	var setFileInput = $('#acount_image_input'),
-	setFileImage = $('#acount_image_view');
-
-	var selfFile = $(this),
-	selfInput = $(this).find('input[type=file]'),
-	prevElm = selfFile.find(setFileImg),
-	orgPass = prevElm.attr('src');
-
-	selfInput.change(function() {
-		var file = $(this).prop('files'),
-		fileRdr = new FileReader();
-
-		if (!this.files.length) {
-			prevElm.attr('src', orgPass);
-			return;
-		} else {
-			if (!file.type.match('image.*')){
-				prevElm.arrt('src', orgPass);
-				return;
-			} else {
-				fileRdr.onload = function() {
-					prevElm.attr('src', fileRdr.result);
-				}
-				fileRdr.readAsDataURL(file);
-			}
-		}
-	});
+	$('form input:file').uploadThumbs();
 });
+
+
