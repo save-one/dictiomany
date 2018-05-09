@@ -24,10 +24,10 @@
     <div class="btn-group" data-toggle="buttons">
       <!--checked:trueが一発で反映されないからactive しかもちゃんと変化するすごい-->
       <label class="btn btn-default active">
-      <%= f.radio_button :gender, "男性", checked: true, required:true %>男性<br>
+      <%= f.radio_button :gender, "男性", checked: true %>男性<br>
       </label>
       <label class="btn btn-default">
-      <%= f.radio_button :gender, "女性", required:true %>女性
+      <%= f.radio_button :gender, "女性" %>女性
       </label>
     </div>
   </div>

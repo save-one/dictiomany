@@ -1,0 +1,165 @@
+<div class="container-fluid">
+	<div class="row">
+		<p>Dictiomanyトップ > ユーザー > マイページ</p>
+		<div class="col-xs-9">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h2>マイページ</h2>
+				</div>
+				<div class="panel-body" style="padding-bottom: 0;">
+
+					<div>
+					<!--タブ-->
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#user_content1" data-toggle="tab">マイ辞書</a></li>
+							<li><a href="#user_content2" data-toggle="tab">お気に入り</a></li>
+							<li><a href="#user_content3" data-toggle="tab">アカウント設定</a></li>
+						</ul>
+
+						<!--タブの内容-->
+						<div class="tab-content">
+							<div class="tab-pane active" id="user_content1">
+								<h4>マイ辞書</h4>
+
+								<div class="col-xs-2">
+									<div class="center-block">
+										<%= image_tag "img/book_image2.png", :class => "book-image" %>
+									</div>
+									<h5 class="text-center"><a href="">インフラ辞書</a></h5>
+								</div>
+
+
+
+
+
+
+
+
+
+
+
+
+							</div>
+							<div class="tab-pane" id="user_content2">
+								<P>tabu2</P>
+							</div>
+							<div class="tab-pane" id="user_content3">
+								<h3>tabu3</h3>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="panel-footer">
+					<p>前の検索結果に戻る　ページネーション</p>
+				</div>
+			</div>
+
+		</div>
+
+
+		<div class="panel panel-default col-xs-3">
+			<div class="panel-body col-xs-12">
+				<div class="">
+					<%= link_to dictions_path do %>
+					<%= attachment_image_tag @user, :image, format: "png", fallback: "img/acount_image1.png", :class => "acount_image center-block" %>
+					<% end %>
+					<h3 class="text-center"><%= current_user.name %></h3>
+				</div>
+				
+				<div class="list-group">
+					<a href="" class="list-group-item" data-toggle="modal" data-target="#edit_user" data-backdrop="static"><span class="glyphicon glyphicon-user" %></span>　アカウント情報の編集</a>
+					<a href="" class="list-group-item"></a>
+					<a href="" class="list-group-item">お問い合わせ</a>
+					<%= link_to "ログアウト", destroy_user_session_path, method: :delete, :class => "list-group-item" %>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+
+
+
+
+<!-- モーダル・ダイアログ -->
+<!-- diction -->
+<div class="modal fade" id="edit_user" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>✖</span></button>
+				<h4 class="modal-title">アカウント情報の編集</h4>
+			</div>
+			<div class="modal-body newform-body">
+				<%= form_for(@user, url:user_path, html: {:class => "form-group"}) do |f| %>
+
+				<!--画像用　こういう記述で画像をinputとしてクリックできる（ラベルとdisplay:none;に注目）-->
+				<div class="row">
+					<div class="col-xs-3" data-toggle="tooltip" title="<h5><b style='color: #fff'>プロフィール画像を変更</b></h5>" data-placement="right" data-animation="true" data-html="true" %>
+						<%= f.attachment_field :image, style: "display:none;" %>
+						<%= f.label :image do %>
+						<%= attachment_image_tag @user, :image, format: "png", fallback: "img/acount_image1.png", :class => "acount_image center-block", id:"acount_image_edit" %>
+						<% end %>
+					</div>
+					<div class="col-xs-9">
+					</div>
+				</div>
+
+				<div class="signup">
+					<%= f.label "アカウント名", {class: "form-label"} %>
+					<%= f.text_field :name, class: "form-control", required:true %>
+				</div>
+
+				<div class="signup">
+					<%= f.label "ステータスメッセージ", {class: "form-label"} %>
+					<%= f.text_field :user_word, class: "form-control" %>
+				</div>
+
+				<div class="signup">
+				    <%= f.label "性別", {class: "form-label"} %><br />
+				    <div class="btn-group" data-toggle="buttons">
+				        <!--checked:trueが一発で反映されないからactive しかもちゃんと変化するすごい-->
+				        <!-- 上記のことはedit部分では、checkedが使えないためにif文でactiveを判断して配置する -->
+				        <% if @user.gender == "男性" %>
+				        <label class="btn btn-default active">
+				        	<%= f.radio_button :gender, "男性", checked:"" %>男性<br>
+				        </label>
+				        <label class="btn btn-default">
+				        	<%= f.radio_button :gender, "女性", checked:"" %>女性
+				        </label>
+				        <% elsif @user.gender == "女性" %>
+				        <label class="btn btn-default">
+				        	<%= f.radio_button :gender, "男性", checked:"" %>男性<br>
+				        </label>
+				        <label class="btn btn-default active">
+				        	<%= f.radio_button :gender, "女性", checked:"" %>女性
+				        </label>
+				        <% end %>
+				    </div>
+				</div>
+
+				<div class="signup">
+					<%= f.label "生年月日", {class: "form-label"} %>
+					<%= f.date_field :birthday, class: "form-control", required:true %>
+				</div>
+
+			</div>
+			<div class="modal-footer row newform-footer">
+				<div class="col-xs-9">
+					<%= f.submit "変更を保存する", class: "btn btn-primary form-control" %>
+				</div>
+				<div class="col-xs-3" >
+					<button type="button" class="btn btn-default form-control" data-dismiss="modal">閉じる</button>
+				</div>
+
+				<% end %>
+				<!-- <button type="button" class="btn btn-primary">ボタン</button -->
+			</div>
+
+		</div>
+	</div>
+</div>

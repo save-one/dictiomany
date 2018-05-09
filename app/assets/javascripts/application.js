@@ -94,3 +94,17 @@ var noValue = $('#child_word').html(); //最初の状態を保存
 		}
 	});
 });
+
+//プロフィール画像の編集時、カーソルを合わせると透けるもの
+$(function(){
+	$('#acount_image_edit').hover(function(){
+		$(this).css('opacity', '0.7');
+	}, function() {
+		$(this).css('opacity', '1');
+	});
+});
+
+//
+$(function(){
+	$('[data-toggle="tooltip"]').tooltip();
+});
