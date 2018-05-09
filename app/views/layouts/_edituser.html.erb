@@ -41,17 +41,17 @@
 				        <!-- 上記のことはedit部分では、checkedが使えないためにif文でactiveを判断して配置する -->
 				        <% if @user.gender == "男性" %>
 				        <label class="btn btn-default active">
-				        	<%= f.radio_button :gender, "男性", checked:"" %>男性<br>
+				        	<%= f.radio_button :gender, "男性" %>男性<br>
 				        </label>
 				        <label class="btn btn-default">
-				        	<%= f.radio_button :gender, "女性", checked:"" %>女性
+				        	<%= f.radio_button :gender, "女性" %>女性
 				        </label>
 				        <% elsif @user.gender == "女性" %>
 				        <label class="btn btn-default">
-				        	<%= f.radio_button :gender, "男性", checked:"" %>男性<br>
+				        	<%= f.radio_button :gender, "男性" %>男性<br>
 				        </label>
 				        <label class="btn btn-default active">
-				        	<%= f.radio_button :gender, "女性", checked:"" %>女性
+				        	<%= f.radio_button :gender, "女性" %>女性
 				        </label>
 				        <% end %>
 				    </div>
