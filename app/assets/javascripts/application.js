@@ -94,3 +94,48 @@ var noValue = $('#child_word').html(); //最初の状態を保存
 		}
 	});
 });
+
+//プロフィール画像の編集時、カーソルを合わせると透けるもの
+$(function(){
+	$('#acount_image_edit').hover(function(){
+		$(this).css('opacity', '0.7');
+	}, function() {
+		$(this).css('opacity', '1');
+	});
+});
+
+//プロフィール画像を変更したいときに出る説明
+$(function(){
+	$('[data-toggle="tooltip"]').tooltip();
+});
+
+//
+$(function() {
+	var setFileInput = $('#acount_image_input'),
+	setFileImage = $('#acount_image_view');
+
+	var selfFile = $(this),
+	selfInput = $(this).find('input[type=file]'),
+	prevElm = selfFile.find(setFileImg),
+	orgPass = prevElm.attr('src');
+
+	selfInput.change(function() {
+		var file = $(this).prop('files'),
+		fileRdr = new FileReader();
+
+		if (!this.files.length) {
+			prevElm.attr('src', orgPass);
+			return;
+		} else {
+			if (!file.type.match('image.*')){
+				prevElm.arrt('src', orgPass);
+				return;
+			} else {
+				fileRdr.onload = function() {
+					prevElm.attr('src', fileRdr.result);
+				}
+				fileRdr.readAsDataURL(file);
+			}
+		}
+	});
+});
