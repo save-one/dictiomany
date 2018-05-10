@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
+
 //= require jquery
 //= require bootstrap-sprockets
 //= require_tree .
@@ -21,6 +21,7 @@
 
 //dictionally
 $(document).ready(function(){//後で読み込ませたいときは絶対に必要！！！
+//$(window).load(function() {
 	$('#parent').on('change', function(){
 
 		var categories = {};
@@ -59,6 +60,7 @@ var noValue = $('#child').html(); //最初の状態を保存
 
 //word
 $(document).ready(function(){//後で読み込ませたいときは絶対に必要！！！
+//$(window).load(function() {
 	$('#parent_word').on('change', function(){
 
 		var categories = {};
@@ -97,6 +99,7 @@ var noValue = $('#child_word').html(); //最初の状態を保存
 
 //プロフィール画像の編集時、カーソルを合わせると透けるもの
 $(function(){
+//$(window).load(function() {
 	$('#acount_image_edit').hover(function(){
 		$(this).css('opacity', '0.7');
 	}, function() {
@@ -106,6 +109,7 @@ $(function(){
 
 //プロフィール画像を変更したいときに出る説明
 $(function(){
+//$(window).load(function() {
 	$('[data-toggle="tooltip"]').tooltip();
 });
 

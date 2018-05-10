@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 	#マイページ
 	def show
 		@user = User.find(params[:id])
+		@my_dictions = Diction.where(user_id: @user.id)
 	end
 
 	def update

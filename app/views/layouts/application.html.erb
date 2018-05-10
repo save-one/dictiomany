@@ -4,9 +4,9 @@
     <title>Dictiomany</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script><!--javascriptより前に置く-->
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
     <script src="jquery.upload_thumbs.js"></script>
     <!--gon-->
     <%= include_gon %>
@@ -59,8 +59,10 @@
 	    					</ul>
 	    				</div>
 	    				</li>
+	    				<% if current_user.present? %>
 	    				<li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
 	    				<li><%= link_to "マイページ", user_path(current_user.id) %></li>
+	    				<% end %>
 	    				<li>
 	    					<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#new-diction" data-backdrop="static">
 								<span class="glyphicon glyphicon-plus"></span>
