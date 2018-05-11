@@ -3,7 +3,7 @@
 		<p>Dictiomanyトップ > <%= link_to "辞書", dictions_path %> > <%= link_to "単語", diction_path(@diction.id) %></p>
 		<div class="col-xs-9">
 			<div class="panel panel-info">
-				<div class="panel-heading">
+				<div class="panel-heading" style="font-size: 21px;">
 					<%= @diction.name %>
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#new-word" data-backdrop="static">
 						<span class="glyphicon glyphicon-plus"></span>
@@ -14,20 +14,23 @@
 				<table class="table table-default">
 					<thead>
 						<tr>
-							<th>カテゴリー</th>
 							<th>名前</th>
-							<th></th>
+							<th>意味</th>
+							<th>カテゴリー</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<% @words.each do |w| %>
 						<tr>
-							<td><%= w.category_parent %> / <%= w.category %></td>
 							<td><%= link_to w.name, diction_word_path(diction_id: @diction.id, id: w.id) %></td>
 							<td>
+								<% if meaning_first = Meaning.where(word_id: w.id).first %>
+								<%= link_to meaning_first.content, diction_word_meaning_path(diction_id: @diction.id, word_id: w.id, id: meaning_first.id) %>
+								<% end %>
 							</td>
-							<td></td>
+							<td><%= w.category_parent %> / <%= w.category %></td>
+
 						</tr>
 						<% end %>
 					</tbody>

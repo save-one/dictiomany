@@ -18,6 +18,10 @@ class DictionsController < ApplicationController
   	diction = current_user.dictions.new(diction_params)
     diction.category_parent = params[:category_parent]
     diction.category = params[:category]
+
+    #public化
+    diction.public_flg = true if params[:public] === "on"
+
   	diction.save
   	redirect_to dictions_path
   end

@@ -1,26 +1,35 @@
-<!-- モーダル・ダイアログ -->
-<!-- diction -->
-<div class="modal fade" id="new-diction" tabindex="-1">
+<!-- word -->
+<div class="modal fade" id="new-public" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span>✖</span></button>
-				<h4 class="modal-title">New Dictionally</h4>
+				<h4 class="modal-title">New Public</h4>
 			</div>
 			<div class="modal-body newform-body">
-				<%= form_for(@new_diction, url:dictions_path, html: {:class => "form-group"}) do |f| %>
-
-				<!-- 名前 -->
+				<%= form_for(@new_public_word, url: publics_path, mothod: "post", html: {:class => "form-group"}) do |f| %>
 				<div>
 					<%= f.label "名前", {class: "form-label"} %>
 					<%= f.text_field :name, class: "form-control", required:true %>
 				</div>
 
-				<!-- カテゴリ -->
+				<div class="signup">
+					<%= f.label "フリガナ", {class: "form-label"} %>
+					<%= f.text_field :kana, class: "form-control", required:true %>
+				</div>
+
+				<%= f.fields_for :meanings do |m| %>
+				<div class="signup">
+					<%= m.label "意味", {class: "form-label"} %>
+					<%= m.text_field :content, class: "form-control", required:true %>
+				</div>
+				<% end %>
+
+
 				<div class="signup">
 					<%= f.label "カテゴリー（大）", {class: "form-label"} %>
 					<div style="width: 30%;">
-						<select name="category_parent" id="parent" class="form-control" required><!--selectにrequiredでoptionのvalue=""は拒否される-->
+						<select name="category_parent" id="parent_public" class="form-control" required>
 								<option value="">----------</option>
 								<% @parents.each do |p| %>
 								<option value=<%= p %>><%= p %></option>
@@ -31,29 +40,16 @@
 				<div class="signup">
 					<%= f.label "カテゴリー（小）", {class: "form-label"} %>
 					<div style="width: 30%;">
-						<select name="category" id="child" class="form-control" required>
+						<select name="category" id="child_public" class="form-control" required>
 							<option value="">----------</option>
 						</select>
 					</div>
 				</div>
 
-				<!-- 共有 -->
-				<div class="signup">
-					<!-- <input type="checkbox" class="" name="share"><%= f.label "他のアカウントと共有する", {class: "form-label"} %> -->
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#share_user_search" data-backdrop="static">
-						他のアカウントと共有
-					</button>
-				</div>
-
-				<div class="signup">
-					<input type="checkbox" name="public" ><label class="form-label">この辞書を公開しますか？</label><br>
-					（公開すると世界中がこの辞書を閲覧可能になります。）
-				</div>
-
 			</div>
 			<div class="modal-footer row newform-footer">
 				<div class="col-xs-9">
-					<%= f.submit "作成する", class: "btn btn-primary form-control", data: {disable_with: "作成中..."} %>
+					<%= f.submit "投稿する", class: "btn btn-primary form-control", data: {disable_with: "投稿中..."} %>
 				</div>
 				<div class="col-xs-3" >
 					<button type="button" class="btn btn-default form-control" data-dismiss="modal">閉じる</button>
@@ -61,12 +57,8 @@
 
 				<% end %>
 				<!-- <button type="button" class="btn btn-primary">ボタン</button -->
-
 			</div>
 
 		</div>
 	</div>
 </div>
-
-
-

@@ -1,2 +1,44 @@
-<h1>Publics#index</h1>
-<p>Find me in app/views/publics/index.html.erb</p>
+<div class="container-fluid">
+	<div class="row">
+		<p>Dictiomanyトップ > パブリック辞書</p>
+		<div class="col-xs-9">
+			<div class="panel panel-info">
+				<div class="panel-heading" style="font-size: 21px;">
+					パブリック辞書
+					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#new-word" data-backdrop="static">
+						<span class="glyphicon glyphicon-plus"></span>
+					</button>
+				</div>
+				<div class="panel-body" style="padding-bottom: 0;">
+				</div>
+				<table class="table table-default">
+					<thead>
+						<tr>
+							<th>カテゴリー</th>
+							<th>名前</th>
+							<th>意味</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @public_words.each do |p| %>
+						<tr>
+							<td><%= p.category_parent %> / <%= p.category %></td>
+							<td><%= link_to p.name, public_path(p.id) %></td>
+							<% meaning_first = Meaning.where(word_id: p.id).first %>
+							<td></td>
+							<td></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				<div class="panel-footer">
+					<p>前の検索結果に戻る　ページネーション</p>
+				</div>
+			</div>
+
+		</div>
+			</div>
+		</div>
+	</div>
+</div>

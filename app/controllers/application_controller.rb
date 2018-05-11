@@ -3,10 +3,25 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :newdiction
+  before_action :create_public_diction
 private
 
   def configure_permitted_parameters
   	devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :gender, :birthday])
+  end
+
+  #マイパブリック辞書の作成 デフォルトで必要なパブリックに投稿した単語の保存用
+  def create_public_diction
+    if user_signed_in?
+      if @public_diction = Diction.find_by(user_id: current_user.id, default_public_flg: true)
+        else
+          @public_diction = current_user.dictions.build
+          @public_diction.name = "マイパブリック辞書"
+          @public_diction.public_flg = true
+          @public_diction.default_public_flg = true
+          @public_diction.save
+      end
+    end
   end
 
   def newdiction
@@ -18,6 +33,16 @@ private
   	@new_meaning = Meaning.new
   	#comment
   	@new_comment = Comment.new
+    #public
+    @new_public_word = Word.new
+    @new_public_word.meanings.build
+
+    #グループ辞書作成、共有用 検索
+    # @q = User.search(params[:q])
+    # @search_users = @q.result
+    # unless params[:q].blank?
+    #   render json: @search_users.select("id").map {|e| e.id }.to_json
+    # end
 
   	#親カテゴリ
   	@parents = ["金融", "建設・不動産", "物流・運送", "IT・メディア", "エネルギー・資源", "自動車・機械", "電機・精密", "食品", "小売・卸", "生活関連", "衣料・装飾", "サービス", "飲食", "娯楽・レジャー"]

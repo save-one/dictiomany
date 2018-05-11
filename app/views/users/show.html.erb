@@ -27,7 +27,7 @@
 										<div class="center-block">
 											<%= image_tag "img/book_image2.png", :class => "book-image" %>
 										</div>
-										<h5 class="text-center"><%= m.name %></h5>
+										<h5 class="text-center font-normal"><%= m.name %></h5>
 									</div>
 									<% end %>
 								<% end %>
@@ -69,7 +69,7 @@
 					<%= link_to dictions_path do %>
 					<%= attachment_image_tag @user, :image, format: "png", fallback: "img/acount_image1.png", :class => "acount_image center-block" %>
 					<% end %>
-					<h3 class="text-center"><%= current_user.name %></h3>
+					<h3 class="text-center font-45"><%= current_user.name %></h3>
 					<h4 class="user_word text-center"><%= @user.user_word %></h4>
 				</div>
 
