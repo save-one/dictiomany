@@ -5,9 +5,19 @@
 			<div class="panel panel-info">
 				<div class="panel-heading" style="font-size: 21px;">
 					<%= @diction.name %>
+					<!-- new word -->
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#new-word" data-backdrop="static">
 						<span class="glyphicon glyphicon-plus"></span>
 					</button>
+
+					<% if @diction.default_public_flg === false && @diction.user_id === current_user.id %>
+					<!-- edit diction -->
+					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#edit-diction" data-backdrop="static">
+						編集
+					</button>
+					<p id="d_p_category" style="display: none"><%= @diction.category_parent %></p>
+					<p id="d_category" style="display: none"><%= @diction.category %></p>
+					<% end %>
 				</div>
 				<div class="panel-body" style="padding-bottom: 0;">
 				</div>
@@ -47,3 +57,4 @@
 </div>
 
 <%= render partial: "layouts/newword" %>
+<%= render partial: "layouts/editdiction" %>
