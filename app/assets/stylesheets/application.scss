@@ -47,6 +47,7 @@
  }
 
 
+
 /*プロフィール写真の変更でプレビュー時に出るimgタグの決まっているclass名*/
  .thumb {
  	width: 120px;
@@ -54,4 +55,44 @@
  	border-radius: 50%;
  	border: 1px solid #dcdcdc;
  	object-fit: cover;
+ }
+
+ .user_word {
+ 	color: grey;
+ }
+
+ .font-normal {
+ 	font-size: 17px;
+ }
+
+ .font-21 {
+ 	font-size: 21px;
+ }
+
+ .font-45 {
+ 	font-size: 45px;
+ }
+
+ th {
+ 	font-size: 17px;
+ }
+
+ td {
+ 	font-size: 16px;
+ }
+
+ a {
+ 	font-size: 16px;
+ }
+
+ p {
+ 	font-size: 16px;
+ }
+
+ body {
+ 	font-size: 16px;
+ }
+
+ .btn {
+ 	font-size: 16px;
  }

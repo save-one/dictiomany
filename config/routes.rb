@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
 
-  get 'tops/show'
-
   devise_for :users
   root 'tops#show'
 
   resource :tops, only: [:show]
   resources :users, only: [:index, :show, :update]
+  resources :publics, only: [:index, :show, :create, :destroy]#destroy欲しいか
+  get 'publics/:public_id/means/:id' => 'publics#mean', as: "mean"
+  #destroy欲しいか
   resources :dictions do
 
   	resources :words, only: [:show, :create, :update, :destroy] do

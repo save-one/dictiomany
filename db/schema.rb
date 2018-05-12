@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180508083029) do
+ActiveRecord::Schema.define(version: 20180511091705) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20180508083029) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "category_parent"
+    t.boolean "default_public_flg", default: false, null: false
     t.index ["group_id"], name: "index_dictions_on_group_id"
     t.index ["user_id"], name: "index_dictions_on_user_id"
   end
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 20180508083029) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "word_category_parent"
+    t.string "word_kana"
     t.index ["word_id"], name: "index_meanings_on_word_id"
   end
 
@@ -67,6 +69,8 @@ ActiveRecord::Schema.define(version: 20180508083029) do
     t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "kana"
+    t.string "category_parent"
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
 	def index
-		@users = User.all
+		@q = User.search(params[:q])
+		@users = @q.result
 	end
 
 	#マイページ
 	def show
 		@user = User.find(params[:id])
+		@my_dictions = Diction.where(user_id: @user.id)
 	end
 
 	def update
