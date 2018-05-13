@@ -2,12 +2,38 @@
 	<div class="row">
 		<p>Dictiomanyトップ > <%= link_to "辞書", dictions_path %> > <%= link_to "単語", diction_path(@diction.id) %> > <%= link_to "意味", diction_word_path(diction_id: @diction.id, id: @word.id) %> > コメント</p>
 		<div class="col-xs-9">
+
+			<div class="panel panel-default">
+				<!-- <div class="panel-heading">
+					
+				</div> -->
+				<div class="panel-body meaning-panel-body">
+					<div>
+						<span class="font-37"><%= @word.name %></span><span>とは...</span>
+					</div>
+					<div class="signup ">
+						<p class="font-21"><span class="label label-warning" style="padding: 6px 10px;">主な意味</span> <%= @meaning.content %></p>
+					</div>
+				</div>
+				<div class="panel-footer">
+					
+				</div>
+			</div>
+
+
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<%= link_to @diction.name, diction_path(@diction.id) %>：<%= link_to @word.name, diction_word_path(diction_id: @diction, id: @word.id) %> : <%= @meaning.content %>
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#new-comment" data-backdrop="static">
 						<span class="glyphicon glyphicon-plus"></span>
 					</button>
+
+					<% if @diction.default_public_flg === false && @diction.user_id === current_user.id %>
+					<!-- edit meaning -->
+					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#edit-meaning" data-backdrop="static">
+						編集
+					</button>
+					<% end %>
 				</div>
 				<div class="panel-body" style="padding-bottom: 0;">
 				</div>
@@ -15,7 +41,7 @@
 					<thead>
 						<tr>
 							<th>投稿日</th>
-							<th>意味</th>
+							<th>コメント</th>
 							<th>ユーザ名</th>
 							<th></th>
 						</tr>
@@ -46,3 +72,4 @@
 </div>
 
 <%= render partial: "layouts/newcomment" %>
+<%= render partial: "layouts/editmeaning" %>

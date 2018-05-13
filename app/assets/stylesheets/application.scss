@@ -18,7 +18,8 @@
 
  body {
  	padding-top: 50px;
- 	margin: 0 75px;
+ 	margin: 0 82px;
+ 	font-size: 16px;
  }
 
  .signup {
@@ -69,6 +70,10 @@
  	font-size: 21px;
  }
 
+ .font-37 {
+ 	font-size: 37px;
+ }
+
  .font-45 {
  	font-size: 45px;
  }
@@ -89,10 +94,10 @@
  	font-size: 16px;
  }
 
- body {
+ .btn {
  	font-size: 16px;
  }
 
- .btn {
- 	font-size: 16px;
+ .meaning-panel-body {
+ 	padding: 10px 30px;
  }
