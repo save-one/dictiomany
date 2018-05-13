@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   	resources :words, only: [:show, :create, :update, :destroy] do
 
   		resources :meanings, only: [:show, :create, :update, :destroy] do
-  			resources :comments, only: [:create, :destroy]
+  			resources :comments, only: [:create, :destroy]#updateはいらないと考える
   		end
   	end
   end
