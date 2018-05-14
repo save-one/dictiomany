@@ -6,6 +6,7 @@ class DictionsController < ApplicationController
   def show
     @diction = Diction.find(params[:id])
     @words = Word.where(diction_id: @diction.id)
+    #gon.diction_id = @diction.id
     #編集用
     #@edit_diction = Diction.find(params[:id])
   end
@@ -25,7 +26,7 @@ class DictionsController < ApplicationController
     diction.public_flg = true if params[:public] === "on"
 
   	diction.save
-  	redirect_to diction_path
+  	redirect_to diction_path(diction)
   end
 
   def update

@@ -8,4 +8,6 @@ class User < ApplicationRecord
   has_many :dictions
   has_many :group_users
   has_many :comments
+  has_many :favorite_dictions
+  has_many :favorite_meanings
 end

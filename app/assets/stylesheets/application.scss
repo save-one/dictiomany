@@ -16,10 +16,20 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
+ #header .navbar-default {
+ 	background-color: #fa9632;
+ }
+
+ #header .navbar-default .navbar-brand {
+ 	color: #fff;
+ }
+
  body {
  	padding-top: 50px;
  	margin: 0 82px;
  	font-size: 16px;
+ 	font-family: "Midashi Go MB31";
+ 	background-color: #faf0e6;
  }
 
  .signup {
@@ -70,6 +80,10 @@
  	font-size: 21px;
  }
 
+ .font-30 {
+ 	font-size: 30px;
+ }
+
  .font-37 {
  	font-size: 37px;
  }
@@ -84,6 +98,7 @@
 
  td {
  	font-size: 16px;
+ 	font-weight: bold;
  }
 
  a {
@@ -96,8 +111,21 @@
 
  .btn {
  	font-size: 16px;
+ 	font-weight: bold;
+ }
+
+ .btn[disabled] {
+ 	opacity: 1;
  }
 
  .meaning-panel-body {
  	padding: 10px 30px;
+ }
+
+ .pluss {
+ 	margin-bottom: 15px;
+ }
+
+ .mean-b a {
+ 	font-size: 21px;
  }

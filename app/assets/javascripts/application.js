@@ -274,35 +274,86 @@ $(function() {
 });
 
 //
-$(function() {
-	$('#user_search').keyup(function() {
-		//$('#user_search').find("input[type='submit']").click();
-		document.getElementById('user_search_submit').click();
-	});
-});
+// $(function() {
+// 	$('#user_search').keyup(function() {
+// 		//$('#user_search').find("input[type='submit']").click();
+// 		document.getElementById('user_search_submit').click();
+// 	});
+// });
 
-$(function() {
-	$('#user_search').change(function() {
-		//$('#user_search').find("input[type='submit']").click();
-		document.getElementById('user_search_submit').click();
+// $(function() {
+// 	$('#user_search').change(function() {
+// 		//$('#user_search').find("input[type='submit']").click();
+// 		document.getElementById('user_search_submit').click();
 
-	});
-});
+// 	});
+// });
 
 // $(function() {
 // 	$('#user_search').on ('ajax:success', (event, results)
 // 		$select = $('#user_search')
 // });
 
-$(function() {
-	$('#user_select_submit').on('click', function() {
-		var element = document.getElementById('check_user');
-		var radio = element.select_user1;
-		var radioValue = $radio.value;
-		if (radioValue == 0) {
+// $(function() {
+// 	$('#user_select_submit').on('click', function() {
+// 		var element = document.getElementById('check_user');
+// 		var radio = element.select_user1;
+// 		var radioValue = $radio.value;
+// 		if (radioValue == 0) {
 
-		} else {
-			$('#test5').html("成功");
-		}
+// 		} else {
+// 			$('#test5').html("成功");
+// 		}
+// 	});
+// });
+
+
+
+
+$(function() {
+	$('#f-d-button-c').click(function() {
+		window.addEventListener('load', function () {
+			dojQueryAjax();
+		});
+	});
+});
+
+//唯一の成功例
+// function dojQueryAjax() {
+// 	var id = gon.diction_id;
+// 	$.ajax({
+// 		type: "GET",
+// 		url: id,
+// 		cache: false,
+// 		success: function (data) {
+			
+// 			$('body').html(data);
+// 			alert('Ajax通信成功２');
+// 		},
+// 		error: function() {
+// 			alert('Ajax通信エラー');
+// 		}
+// 	});
+// }
+// window.addEventListener('load', function () {
+// 	setTimeout(dojQueryAjax, 8000);
+// });
+
+//お気に入り追加と削除ボタンのクリック後の挙動
+$(function() {
+	$('#f-d-button-c').click(function() {
+		$(this).css('background-color', '#fa9632')
+		.css('border-color', "#fa9632")
+		.text("追加しました")
+		.attr('disabled', '');
+	});
+});
+
+$(function() {
+	$('#f-d-button-d').click(function() {
+		$(this).css('background-color', '#fa9632')
+		.css('border-color', "#fa9632")
+		.text("削除しました")
+		.attr('disabled', '');
 	});
 });

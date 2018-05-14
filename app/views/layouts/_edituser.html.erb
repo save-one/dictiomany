@@ -1,5 +1,4 @@
 <!-- モーダル・ダイアログ -->
-<!-- diction -->
 <div class="modal fade" id="edit_user" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -8,7 +7,8 @@
 				<h4 class="modal-title">アカウント情報の編集</h4>
 			</div>
 			<div class="modal-body newform-body">
-				<%= form_for(@user, url:user_path, html: {:class => "form-group"}) do |f| %>
+				<% @user_edit = current_user %>
+				<%= form_for(@user_edit, url:user_path(@user_edit), html: {:class => "form-group"}) do |f| %>
 
 				<!--画像用　こういう記述で画像をinputとしてクリックできる（ラベルとdisplay:none;に注目）-->
 				<div class="row">
@@ -16,7 +16,7 @@
 
 						<%= f.label :image do %>
 						<%= f.attachment_field :image, style: "display:none;" %>
-						<%= attachment_image_tag @user, :image, format: "png", fallback: "img/acount_image1.png", :class => "thumb center-block uploaded thumbs" %>
+						<%= attachment_image_tag @user_edit, :image, format: "png", fallback: "img/acount_image1.png", :class => "thumb center-block uploaded thumbs" %>
 						<% end %>
 
 					</div>
@@ -39,14 +39,14 @@
 				    <div class="btn-group" data-toggle="buttons">
 				        <!--checked:trueが一発で反映されないからactive しかもちゃんと変化するすごい-->
 				        <!-- 上記のことはedit部分では、checkedが使えないためにif文でactiveを判断して配置する -->
-				        <% if @user.gender == "男性" %>
+				        <% if @user_edit.gender == "男性" %>
 				        <label class="btn btn-default active">
 				        	<%= f.radio_button :gender, "男性" %>男性<br>
 				        </label>
 				        <label class="btn btn-default">
 				        	<%= f.radio_button :gender, "女性" %>女性
 				        </label>
-				        <% elsif @user.gender == "女性" %>
+				        <% elsif @user_edit.gender == "女性" %>
 				        <label class="btn btn-default">
 				        	<%= f.radio_button :gender, "男性" %>男性<br>
 				        </label>
