@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180511091705) do
+ActiveRecord::Schema.define(version: 20180514101645) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -34,6 +34,24 @@ ActiveRecord::Schema.define(version: 20180511091705) do
     t.boolean "default_public_flg", default: false, null: false
     t.index ["group_id"], name: "index_dictions_on_group_id"
     t.index ["user_id"], name: "index_dictions_on_user_id"
+  end
+
+  create_table "favorite_dictions", force: :cascade do |t|
+    t.integer "diction_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["diction_id"], name: "index_favorite_dictions_on_diction_id"
+    t.index ["user_id"], name: "index_favorite_dictions_on_user_id"
+  end
+
+  create_table "favorite_meanings", force: :cascade do |t|
+    t.integer "meaning_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meaning_id"], name: "index_favorite_meanings_on_meaning_id"
+    t.index ["user_id"], name: "index_favorite_meanings_on_user_id"
   end
 
   create_table "group_users", force: :cascade do |t|

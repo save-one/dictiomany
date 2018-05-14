@@ -4,19 +4,33 @@
 		<div class="col-xs-9">
 
 			<div class="panel panel-default">
-				<!-- <div class="panel-heading">
-					
-				</div> -->
 				<div class="panel-body meaning-panel-body">
 					<div>
-						<span class="font-37"><%= @word.name %></span><span>とは...</span>
+						<span class="font-37"><b><%= @word.name %></b></span><span class="font-30"> の意味</span>
+						<button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#new-meaning" data-backdrop="static">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+						<% if user_signed_in? %>
+							<% if @diction.default_public_flg === false && @diction.user_id === current_user.id %>
+								<!-- edit word -->
+								<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#edit-word" data-backdrop="static">
+									単語を編集する
+								</button>
+								<p id="w_p_category" style="display: none"><%= @word.category_parent %></p>
+								<p id="w_category" style="display: none"><%= @word.category %></p>
+							<% end %>
+						<% end %>
 					</div>
+
 					<div class="signup ">
-						<p class="font-21"><span class="label label-warning" style="padding: 6px 10px;">主な意味</span> <%= @meanings.first.content %></p>
+						<% user_name = User.find(@diction.user_id) %>
+						<p class="font-21">
+							<span class="label label-warning" style="padding: 6px 10px;"><b>主な意味</b></span>
+							<% if @meanings.present? %>
+							<b class="mean-b"> <%= link_to @meanings.first.content, diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: @meanings.first.id) %></b>（<%= user_name.name %> さんの投稿）
+							<% end %>
+						</p>
 					</div>
-				</div>
-				<div class="panel-footer">
-					
 				</div>
 			</div>
 
@@ -30,53 +44,41 @@
 
 
 			<!-- 意味の一覧テーブル -->
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<%= link_to @diction.name, diction_path(@diction.id) %>：<%= @word.name %>
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#new-meaning" data-backdrop="static">
-						<span class="glyphicon glyphicon-plus"></span>
-					</button>
-
-					<% if @diction.default_public_flg === false && @diction.user_id === current_user.id %>
-					<!-- edit word -->
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#edit-word" data-backdrop="static">
-						編集
-					</button>
-					<p id="w_p_category" style="display: none"><%= @word.category_parent %></p>
-					<p id="w_category" style="display: none"><%= @word.category %></p>
-					<% end %>
-				</div>
+			<div class="panel panel-default">
+				
 				<div class="panel-body" style="padding-bottom: 0;">
-				</div>
 				<table class="table table-default">
-					<thead>
+					<!-- <thead>
 						<tr>
 							<th>投稿日</th>
 							<th>意味</th>
 							<th></th>
 							<th></th>
 						</tr>
-					</thead>
+					</thead> -->
 					<tbody>
 						<% @meanings.each do |m| %>
 						<tr>
 							<td><%= m.created_at.strftime('%Y年%m月%d日') %></td>
-							<td><%= link_to m.content, diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: m.id) %></td>
+							<td>意味： <%= link_to m.content, diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: m.id) %></td>
 							<td>
+								アクセス数： 335回
 							</td>
-							<td></td>
 						</tr>
 						<% end %>
 					</tbody>
 				</table>
-				<div class="panel-footer">
-					<p>前の検索結果に戻る　ページネーション</p>
 				</div>
+				<!-- <div class="panel-footer">
+					<p>前の検索結果に戻る　ページネーション</p>
+				</div> -->
 			</div>
 
 		</div>
-			</div>
-		</div>
+
+
+<%= render partial: "layouts/sidebar" %>
+
 	</div>
 </div>
 
