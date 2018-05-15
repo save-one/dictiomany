@@ -11,7 +11,7 @@ class WordsController < ApplicationController
     word.category_parent = params[:category_parent]
     word.category = params[:category]
   	word.save
-    redirect_to diction_path(diction.id)
+    redirect_to diction_word_path(diction_id: diction.id, id: word.id)
   end
 
   def update
@@ -24,6 +24,10 @@ class WordsController < ApplicationController
   end
 
   def destroy
+    diction = Diction.find(params[:diction_id])
+    word = Word.find(params[:id])
+    word.destroy
+    redirect_to diction_path(diction)
   end
 
   private

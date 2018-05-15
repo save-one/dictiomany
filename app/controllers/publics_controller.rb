@@ -6,10 +6,18 @@ class PublicsController < ApplicationController
 
   #一単語に対する意味の一覧
   def show
+    @public = Public.find(params[:id])
+    @p_meanings = Meaning.where(word_name: @public.name, word_kana: @public.kana, word_category_parent: @public.category_parent, word_category: @public.category)
+
   end
 
  #一意味に対するコメントの一覧
   def mean
+    @public = Public.find(params[:public_id])
+    @p_meaning = Meaning.find(params[:id])
+    @p_comments = Comment.where(meaning_id: @p_meaning.id)
+    @word = Word.find(@p_meaning.word_id)
+    @diction = Diction.find(@word.diction_id)
   end
 
   def create
@@ -27,13 +35,17 @@ class PublicsController < ApplicationController
   	meaning.word_category = word.category
   	meaning.update(word_id: word.id)
 
-  	new_public = Public.new
-  	new_public.name = word.name
-  	new_public.kana = word.kana
-    new_public.category_parent = word.category_parent
-  	new_public.category = word.category
-  	new_public.save
-  	redirect_to public_path(new_public)
+    if publicn = Public.find_by(name: word.name, kana: word.kana, category_parent: word.category_parent, category: word.category)
+      redirect_to public_path(publicn)
+    else
+    	new_public = Public.new
+    	new_public.name = word.name
+    	new_public.kana = word.kana
+      new_public.category_parent = word.category_parent
+    	new_public.category = word.category
+    	new_public.save
+      redirect_to public_path(new_public)
+    end
   end
 
   private

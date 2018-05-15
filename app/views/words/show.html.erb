@@ -28,7 +28,12 @@
 							<span class="label label-warning" style="padding: 6px 10px;"><b>主な意味</b></span>
 							<% if @meanings.present? %>
 							<b class="mean-b"> <%= link_to @meanings.first.content, diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: @meanings.first.id) %></b>（<%= user_name.name %> さんの投稿）
+							<% else %>
+								<b class="mean-b noone"> まだ投稿されていません</b>
 							<% end %>
+							<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#new-meaning" data-backdrop="static">
+								意味を投稿する
+							</button>
 						</p>
 					</div>
 				</div>

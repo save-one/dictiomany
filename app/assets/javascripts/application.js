@@ -136,6 +136,45 @@ var noValue = $('#child_public').html(); //最初の状態を保存
 	});
 });
 
+//public-showアクション 追加形式
+$(document).ready(function(){//後で読み込ませたいときは絶対に必要！！！
+//$(window).load(function() {
+	$('#parent_public_s').on('change', function(){
+
+		var categories = {};
+			//optionのvalue:#childに行く配列のリスト
+			categories['金融'] = gon.categories1;
+			categories['建設・不動産'] = gon.categories2;
+			categories['物流・運送'] = gon.categories3;
+			categories['IT・メディア'] = gon.categories4;
+			categories['エネルギー・資源'] = gon.categories5;
+			categories['自動車・機械'] = gon.categories6;
+			categories['電機・精密'] = gon.categories7;
+			categories['食品'] = gon.categories8;
+			categories['小売・卸'] = gon.categories9;
+			categories['生活関連'] = gon.categories10;
+			categories['衣料・装飾'] = gon.categories11;
+			categories['サービス'] = gon.categories12;
+			categories['飲食'] = gon.categories13;
+			categories['娯楽・レジャー'] = gon.categories14;
+
+var noValue = $('#child_public_s').html(); //最初の状態を保存
+		var cat = $(this).val();//選択されたvalueを取得
+		if(cat){
+			var item = categories[`${cat}`];//リストから配列を取得
+
+			$('#child_public_s').html('');//childを空にする
+				var option;
+				for(var i = 0; i < item.length; i++){
+					option = `<option value="${ item[i] }">${ item[i] }</option>`;
+					$('#child_public_s').append(option);
+				}
+		}else{ //catが空の時
+			$('#child_public_s').html('<option value="">----------</option>');
+		}
+	});
+});
+
 //diction編集
 $(document).ready(function(){
 	$('#parent_edit').on('change', function(){
@@ -340,6 +379,7 @@ $(function() {
 // });
 
 //お気に入り追加と削除ボタンのクリック後の挙動
+//diction
 $(function() {
 	$('#f-d-button-c').click(function() {
 		$(this).css('background-color', '#fa9632')
@@ -351,6 +391,67 @@ $(function() {
 
 $(function() {
 	$('#f-d-button-d').click(function() {
+		$(this).css('background-color', '#fa9632')
+		.css('border-color', "#fa9632")
+		.text("削除しました")
+		.attr('disabled', '');
+	});
+});
+
+//meaning
+$(function() {
+	$('#f-m-button-c').click(function() {
+		$(this).css('background-color', '#fa9632')
+		.css('border-color', "#fa9632")
+		.text("追加しました")
+		.attr('disabled', '');
+	});
+});
+
+$(function() {
+	$('#f-m-button-d').click(function() {
+		$(this).css('background-color', '#fa9632')
+		.css('border-color', "#fa9632")
+		.text("削除しました")
+		.attr('disabled', '');
+	});
+});
+
+
+//削除したら表示を消す
+//comment
+$(function() {
+	$('.comment-destroy').click(function() {
+		var num = $('.comment-destroy').index(this);
+		//console.log(num);
+		$('.comment-list').eq(num).css('display', 'none');
+	});
+});
+
+//詳細ページでの削除
+//diction
+$(function() {
+	$('#d-destroy-button').click(function() {
+		$(this).css('background-color', '#fa9632')
+		.css('border-color', "#fa9632")
+		.text("削除しました")
+		.attr('disabled', '');
+	});
+});
+
+//word
+$(function() {
+	$('#w-destroy-button').click(function() {
+		$(this).css('background-color', '#fa9632')
+		.css('border-color', "#fa9632")
+		.text("削除しました")
+		.attr('disabled', '');
+	});
+});
+
+//meaning
+$(function() {
+	$('#m-destroy-button').click(function() {
 		$(this).css('background-color', '#fa9632')
 		.css('border-color', "#fa9632")
 		.text("削除しました")

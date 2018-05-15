@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resource :tops, only: [:show]
   resources :users, only: [:index, :show, :update]
   resources :publics, only: [:index, :show, :create, :destroy]#destroy欲しいか
-  get 'publics/:public_id/means/:id' => 'publics#mean', as: "mean"
+  get 'publics/:public_id/meanings/:id' => 'publics#mean', as: "mean"
   #destroy欲しいか
   resources :dictions do
 
@@ -20,8 +20,8 @@ Rails.application.routes.draw do
   	end
   end
 
-  post 'meanings/:meaning_id/favorites' => 'favorites#create_meanfavo', as: "create_favorites"
-  delete 'meanings/:meaning_id/favorites/:id' => 'favorites#destroy_meanfavo', as: "destroy_favorites"
+  post 'meanings/:meaning_id/favorites' => 'favorites#create_meanfavo', as: "create_meanfavo"
+  delete 'meanings/:meaning_id/favorites/:id' => 'favorites#destroy_meanfavo', as: "destroy_meanfavo"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

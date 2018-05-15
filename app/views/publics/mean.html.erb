@@ -1,5 +1,101 @@
-<h1>Publics#mean</h1>
-<p>Find me in app/views/publics/mean.html.erb</p>
+<div class="container-fluid">
+	<div class="row">
+		<p>Dictiomanyトップ > <%= link_to "辞書", dictions_path %> >  コメント</p>
+		<div class="col-xs-9">
 
+			<div class="panel panel-default">
+				<!-- <div class="panel-heading">
+					
+				</div> -->
+				<div class="panel-body meaning-panel-body">
+					<div>
+						<span class="font-37"><b><%= @public.name %></b></span><span class="font-30"> の意味</span>
+						<!-- <button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#new-comment" data-backdrop="static">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button> -->
+
+						<% favorite = FavoriteMeaning.find_by(user_id: current_user.id, meaning_id: @p_meaning.id) %>
+						<% if favorite.present? %>
+							<%= link_to destroy_meanfavo_path(meaning_id: @p_meaning.id, id: favorite.id), method: :delete do %>
+								<button type="button" class="btn btn-danger pull-right" id="f-m-button-d" >お気に入りから削除</button>
+							<% end %>
+						<% else %>
+							<%= link_to create_meanfavo_path(@p_meaning), method: :post do %>
+								<button type="button" class="btn btn-warning pull-right" id="f-m-button-c">お気に入りに追加</button>
+							<% end %>
+						<% end %>
+
+					</div>
+					<div class="signup ">
+						<% user_name = User.find(@diction.user_id) %>
+						<p class="font-21">
+							<span class="label label-warning" style="padding: 6px 10px;"><b>主な意味</b></span>
+							<b> <%= @p_meaning.content %></b>（<%= user_name.name %> さんの投稿）
+							<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#p-comment" data-backdrop="static">
+								コメントを投稿する
+							</button>
+
+						</p>
+					</div>
+				</div>
+				<!-- <div class="panel-footer">
+
+				</div> -->
+			</div>
+
+
+			<div class="panel panel-default">
+
+				<div class="panel-body" style="padding-bottom: 0;">
+					<table class="table table-default">
+						<!-- <thead>
+							<tr>
+								<th>投稿日</th>
+								<th>コメント</th>
+								<th>ユーザ名</th>
+								<th></th>
+							</tr>
+						</thead> -->
+						<tbody>
+							<% @p_comments.each do |c| %>
+							<tr class="comment-list">
+								<td><%= c.created_at.strftime('%Y年%m月%d日') %></td>
+								<td>コメント： <%= c.content %></td>
+								<td>
+									<% user = User.find(c.user.id) %>
+									アカウント名： <%= user.name %>
+								</td>
+								<td>
+									<div class="dropdown">
+				    					<button type="button" class="btn btn-default btn-xs dropdown-toggle" id="down-icon" data-toggle="dropdown" >
+				    						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+				    					</button>
+				    					<ul class="dropdown-menu" role="menu">
+				    						<% if user === current_user %>
+				    							<li role="presentation"><%= link_to "コメントを削除する", diction_word_meaning_comment_path(diction_id: @diction.id, word_id: @word.id, meaning_id: @p_meaning.id, id:c.id), method: :delete, class: "comment-destroy" %></li>
+				    						<% end %>
+				    						<li role="presentation"><a href="">通報する</a></li>
+				    					</ul>
+				    				</div>
+								</td>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+				<!-- <div class="panel-footer">
+					<p>前の検索結果に戻る　ページネーション</p>
+				</div> -->
+			</div>
+
+		</div>
+			
+		
 
 <%= render partial: "layouts/sidebar" %>
+
+
+	</div>
+</div>
+
+<%= render partial: "layouts/pcomment" %>

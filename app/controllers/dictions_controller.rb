@@ -37,8 +37,23 @@ class DictionsController < ApplicationController
     #public化
     if params[:public] === "on"
       diction.public_flg = true
+
+      words = Word.where(diction_id: diction.id)
+      words.each do |w|
+        if publicn = Public.find_by(name: w.name, kana: w.kana, category_parent: w.category_parent, category: w.category)
+
+        else
+          new_public = Public.new
+          new_public.name = w.name
+          new_public.kana = w.kana
+          new_public.category_parent = w.category_parent
+          new_public.category = w.category
+          new_public.save
+        end
+      end
     else
       diction.public_flg = false
+
     end
 
     diction.update(diction_params)
@@ -46,6 +61,9 @@ class DictionsController < ApplicationController
   end
 
   def destroy
+    diction = Diction.find(params[:id])
+    diction.destroy
+    redirect_to dictions_path
   end
 
   private

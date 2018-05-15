@@ -15,6 +15,14 @@
 					<%= f.text_field :content, class: "form-control", required:true %>
 				</div>
 
+				<div class="signup clearfix">
+					<%= link_to diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: @meaning.id), method: :delete do %>
+							<button type="button" class="btn btn-danger pull-right" id= "m-destroy-button">
+								意味を削除する
+							</button>
+					<% end %>
+				</div>
+
 			</div>
 			<div class="modal-footer row newform-footer">
 				<div class="col-xs-9">

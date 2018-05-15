@@ -34,13 +34,20 @@
 						</select>
 					</div>
 				</div>
-				<div class="signup">
+
+				<div class="signup clearfix">
 					<%= f.label "カテゴリー（小）", {class: "form-label"} %>
 					<div style="width: 30%;">
-						<select name="category" id="word_child_edit" class="form-control" required>
+						<select name="category" id="word_child_edit" class="form-control col-xs-3" required>
 							<option value="">----------</option>
 						</select>
 					</div>
+
+					<%= link_to diction_word_path(diction_id: @diction.id, id: @word.id), method: :delete do %>
+						<button type="button" class="btn btn-danger pull-right" id= "w-destroy-button">
+							単語を削除する
+						</button>
+					<% end %>
 				</div>
 
 			</div>
