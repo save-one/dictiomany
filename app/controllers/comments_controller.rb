@@ -6,10 +6,17 @@ class CommentsController < ApplicationController
 		comment = meaning.comments.new(comment_params)
 		comment.user_id = current_user.id
 		comment.save
-		redirect_to diction_word_meaning_path(diction_id: diction.id, word_id: word.id, id: meaning.id)
+		if params[:pub]
+			publicn = Public.find_by(name: word.name, kana: word.kana, category_parent: word.category_parent, category: word.category)
+			redirect_to mean_path(public_id: publicn.id, id: meaning.id)
+		else
+			redirect_to diction_word_meaning_path(diction_id: diction.id, word_id: word.id, id: meaning.id)
+		end
 	end
 
 	def destroy
+		comment = Comment.find(params[:id])
+		comment.destroy
 	end
 
 	private

@@ -1,70 +1,59 @@
-<!-- モーダル・ダイアログ -->
-<!-- diction -->
-<div class="modal fade" id="edit-diction" tabindex="-1">
+<!-- word -->
+<div class="modal fade" id="p-meaning" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span>✖</span></button>
-				<h4 class="modal-title">Edit Dictionally</h4>
+				<h4 class="modal-title">New Meaning</h4>
 			</div>
 			<div class="modal-body newform-body">
-				<%= form_for(@diction, url:diction_path, html: {:class => "form-group"}) do |f| %>
-
-				<!-- 名前 -->
-				<div>
+				<%= form_for(@new_public_word, url: publics_path, mothod: "post", html: {:class => "form-group"}) do |f| %>
+				<div class=" p-none">
 					<%= f.label "名前", {class: "form-label"} %>
-					<%= f.text_field :name, class: "form-control", required:true %>
+					<%= f.text_field :name, class: "form-control p-none", required:true, value: @public.name %>
+					<p id="p_name"><%= @public.name %></p>
 				</div>
 
-				<!-- カテゴリ -->
+				<div class="signup p-none">
+					<%= f.label "フリガナ", {class: "form-label"} %>
+					<%= f.text_field :kana, class: "form-control p-none", required:true, value: @public.kana %>
+					<p id="p_kana"><%= @public.kana %></p>
+				</div>
+
+				<%= f.fields_for :meanings do |m| %>
 				<div class="signup">
+					<%= m.label "意味", {class: "form-label"} %>
+					<%= m.text_field :content, class: "form-control", required:true %>
+				</div>
+				<% end %>
+
+
+				<div class="signup p-none">
 					<%= f.label "カテゴリー（大）", {class: "form-label"} %>
 					<div style="width: 30%;">
-						<select name="category_parent" id="parent_edit" class="form-control" required><!--selectにrequiredでoptionのvalue=""は拒否される-->
+						<select name="category_parent" id="parent_public_s" class="form-control p-none" required value="<%= @public.category_parent %>">
 								<option value="">----------</option>
 								<% @parents.each do |p| %>
 								<option value=<%= p %>><%= p %></option>
 								<% end %>
 						</select>
+						<p id="p_p_category"><%= @public.category_parent %></p>
 					</div>
 				</div>
-				<div class="signup">
+				<div class="signup p-none">
 					<%= f.label "カテゴリー（小）", {class: "form-label"} %>
 					<div style="width: 30%;">
-						<select name="category" id="child_edit" class="form-control" required>
+						<select name="category" id="child_public_s" class="form-control p-none" required value="<%= @public.category %>">
 							<option value="">----------</option>
 						</select>
+						<p id="p_category"><%= @public.category %></p>
 					</div>
-				</div>
-
-				<!-- 共有 -->
-				<div class="signup">
-					<!-- <input type="checkbox" class="" name="share"><%= f.label "他のアカウントと共有する", {class: "form-label"} %> -->
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#share_user_search" data-backdrop="static">
-						他のアカウントと共有
-					</button>
-					<%= link_to diction_path(@diction), method: :delete do %>
-						<button type="button" class="btn btn-danger pull-right" id= "d-destroy-button">
-							辞書を削除する
-						</button>
-					<% end %>
-
-				</div>
-
-				<div class="signup">
-					<% if @diction.public_flg === false %>
-					<input type="checkbox" name="public" ><label class="form-label">この辞書を公開しますか？</label><br>
-					（公開すると世界中がこの辞書を閲覧可能になります。）
-					<% elsif @diction.public_flg === true %>
-					<input type="checkbox" name="public" checked><label class="form-label">この辞書を公開しますか？</label><br>
-					（公開すると世界中がこの辞書を閲覧可能になります。）
-					<% end %>
 				</div>
 
 			</div>
 			<div class="modal-footer row newform-footer">
 				<div class="col-xs-9">
-					<%= f.submit "変更する", class: "btn btn-primary form-control", data: {disable_with: "変更中..."} %>
+					<%= f.submit "投稿する", class: "btn btn-primary form-control", data: {disable_with: "投稿中..."} %>
 				</div>
 				<div class="col-xs-3" >
 					<button type="button" class="btn btn-default form-control" data-dismiss="modal">閉じる</button>
@@ -72,7 +61,6 @@
 
 				<% end %>
 				<!-- <button type="button" class="btn btn-primary">ボタン</button -->
-
 			</div>
 
 		</div>
@@ -97,12 +85,12 @@
 			categories['飲食'] = gon.categories13;
 			categories['娯楽・レジャー'] = gon.categories14;
 
-	var category_parent = document.getElementById('d_p_category'),
-		category = document.getElementById('d_category'),
+	var category_parent = document.getElementById('p_p_category'),
+		category = document.getElementById('p_category'),
 		parent = category_parent.textContent,
 		child = category.textContent;
 
-	$('#parent_edit').val(parent);
+	$('#parent_public_s').val(parent);
 
 
 	var item = categories[`${parent}`];//リストから配列を取得
@@ -110,9 +98,9 @@
 	var option;
 	for(var i = 0; i < item.length; i++){
 		option = `<option value="${ item[i] }">${ item[i] }</option>`;
-		$('#child_edit').append(option);
+		$('#child_public_s').append(option);
 	}
 
-	$('#child_edit').val(child);
+	$('#child_public_s').val(child);
 
 </script>

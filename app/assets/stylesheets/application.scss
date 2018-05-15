@@ -118,6 +118,10 @@
  	opacity: 1;
  }
 
+ #down-icon .glyphicon {
+ 	top: 3.5px;
+ }
+
  .meaning-panel-body {
  	padding: 10px 30px;
  }
@@ -128,4 +132,13 @@
 
  .mean-b a {
  	font-size: 21px;
+ }
+
+ .noone {
+ 	color: grey;
+ }
+
+/*publicでの意味だけの追加*/
+ .p-none {
+ 	display: none;
  }

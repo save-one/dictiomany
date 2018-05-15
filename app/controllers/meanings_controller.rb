@@ -10,10 +10,10 @@ class MeaningsController < ApplicationController
     diction = Diction.find(params[:diction_id])
   	word = Word.find(params[:word_id])
   	meaning = word.meanings.new(meaning_params)
-  	# meaning.word_name = word.name
-    # meaning.word_kana = word.kana
-    # meaning.word_category_parent = word.category_parent
-  	# meaning.word_category = word.category
+  	meaning.word_name = word.name
+    meaning.word_kana = word.kana
+    meaning.word_category_parent = word.category_parent
+  	meaning.word_category = word.category
   	meaning.save
     redirect_to diction_word_path(diction_id: diction.id, id: word.id)
   end
@@ -27,6 +27,11 @@ class MeaningsController < ApplicationController
   end
 
   def destroy
+    diction = Diction.find(params[:diction_id])
+    word = Word.find(params[:word_id])
+    meaning = Meaning.find(params[:id])
+    meaning.destroy
+    redirect_to diction_word_path(diction_id: diction.id, id: word.id)
   end
 
   private
