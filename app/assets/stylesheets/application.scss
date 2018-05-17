@@ -68,6 +68,18 @@
  	object-fit: cover;
  }
 
+ .index-user-icon {
+ 	width: 50px;
+ 	height: 50px;
+ 	border-radius: 50%;
+ 	border: 1px solid #dcdcdc;
+ 	object-fit: cover;
+ }
+
+ .index-user-tr td {
+ 	vertical-align: middle !important;
+ }
+
  .user_word {
  	color: grey;
  }

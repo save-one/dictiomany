@@ -7,7 +7,7 @@
 				<h4 class="modal-title">アカウント情報の編集</h4>
 			</div>
 			<div class="modal-body newform-body">
-				<% @user_edit = current_user %>
+				<% @user_edit = @side_user %>
 				<%= form_for(@user_edit, url:user_path(@user_edit), html: {:class => "form-group"}) do |f| %>
 
 				<!--画像用　こういう記述で画像をinputとしてクリックできる（ラベルとdisplay:none;に注目）-->

@@ -25,6 +25,8 @@ private
   end
 
   def newdiction
+    #current_user
+    @side_user = current_user #userのshowアクションでのみ、アクション内でparamsにあったものに切り替える
   	#dictionally
   	@new_diction = Diction.new
   	#word
