@@ -4,6 +4,7 @@ class MeaningsController < ApplicationController
     @word = Word.find(params[:word_id])
     @meaning = Meaning.find(params[:id])
     @comments = Comment.where(meaning_id: @meaning.id)
+    @new_c_report = Report.new
   end
 
   def create

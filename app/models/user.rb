@@ -10,4 +10,6 @@ class User < ApplicationRecord
   has_many :comments
   has_many :favorite_dictions
   has_many :favorite_meanings
+  has_many :contacts
+  has_many :reports
 end

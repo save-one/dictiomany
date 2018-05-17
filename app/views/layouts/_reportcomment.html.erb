@@ -1,0 +1,39 @@
+<!-- reports -->
+<div class="modal fade" id="report-comment" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>✖</span></button>
+				<h4 class="modal-title">この投稿を通報します</h4>
+			</div>
+			<div class="modal-body newform-body">
+				<%= form_for(@new_c_report, url:comment_reports_path(comment_id: 1) , html: {:class => "form-group", id: "new_c_report"}) do |f| %>
+				<div>
+					<%= f.label "対象のコメント", {class: "form-label"} %>
+					<p id="this-comment"></p>
+					<p id="this-comment-num" style="display: none;"></p>
+				</div>
+
+				<div class="signup">
+					<%= f.label "通報する理由を以下から選んでください", {class: "form-label"} %><br>
+				    <%= f.radio_button :reason, "スパムな投稿です", checked:true %> スパムな投稿です<br>
+				    <%= f.radio_button :reason, "不適切な表現です" %> 不適切な表現です<br>
+				    <%= f.radio_button :reason, "個人情報を投稿しています" %> 個人情報を投稿しています<br>
+				    <%= f.radio_button :reason, "いやがらせ目的の投稿です" %> いやがらせ目的の投稿です<br>
+				</div>
+
+			</div>
+			<div class="modal-footer row newform-footer">
+				<div class="col-xs-9">
+					<%= f.submit "通報する", class: "btn btn-primary form-control", id: "report-c-submit" %>
+				</div>
+				<div class="col-xs-3" >
+					<button type="button" class="btn btn-default form-control" id="report-c-close" data-dismiss="modal">閉じる</button>
+				</div>
+
+				<% end %>
+			</div>
+
+		</div>
+	</div>
+</div>
