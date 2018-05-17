@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180514101645) do
+ActiveRecord::Schema.define(version: 20180517063605) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20180514101645) do
     t.datetime "updated_at", null: false
     t.index ["meaning_id"], name: "index_comments_on_meaning_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.text "reply"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
   create_table "dictions", force: :cascade do |t|
@@ -89,6 +99,23 @@ ActiveRecord::Schema.define(version: 20180514101645) do
     t.datetime "updated_at", null: false
     t.string "kana"
     t.string "category_parent"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string "reason"
+    t.integer "user_id"
+    t.integer "diction_id"
+    t.integer "word_id"
+    t.integer "meaning_id"
+    t.integer "comment_id"
+    t.boolean "deal", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_reports_on_comment_id"
+    t.index ["diction_id"], name: "index_reports_on_diction_id"
+    t.index ["meaning_id"], name: "index_reports_on_meaning_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
+    t.index ["word_id"], name: "index_reports_on_word_id"
   end
 
   create_table "users", force: :cascade do |t|

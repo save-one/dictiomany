@@ -91,9 +91,15 @@
 				    						<% if user === current_user %>
 				    							<li role="presentation"><%= link_to "コメントを削除する", diction_word_meaning_comment_path(diction_id: @diction.id, word_id: @word.id, meaning_id: @meaning.id, id:c.id), method: :delete, class: "comment-destroy" %></li>
 				    						<% end %>
-				    						<li role="presentation"><a href="">通報する</a></li>
+				    						<li role="presentation">
+				    							<a data-toggle="modal" data-target="#report-comment" data-backdrop="static" class="cursor c-report">
+													通報する
+												</a>
+				    						</li>
 				    					</ul>
 				    				</div>
+				    				<p class="c-id-for-report" style="display: none;"><%= c.id %></p>
+				    				<p class="c-content-for-report" style="display: none;"><%= c.content %></p>
 								</td>
 							</tr>
 							<% end %>
@@ -118,3 +124,4 @@
 <%= render partial: "layouts/newcomment" %>
 <%= render partial: "layouts/editword" %>
 <%= render partial: "layouts/editmeaning" %>
+<%= render partial: "layouts/reportcomment" %>

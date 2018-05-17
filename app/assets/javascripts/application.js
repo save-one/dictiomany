@@ -349,13 +349,13 @@ $(function() {
 
 
 
-$(function() {
-	$('#f-d-button-c').click(function() {
-		window.addEventListener('load', function () {
-			dojQueryAjax();
-		});
-	});
-});
+// $(function() {
+// 	$('#f-d-button-c').click(function() {
+// 		window.addEventListener('load', function () {
+// 			dojQueryAjax();
+// 		});
+// 	});
+// });
 
 //唯一の成功例
 // function dojQueryAjax() {
@@ -424,7 +424,7 @@ $(function() {
 	$('.comment-destroy').click(function() {
 		var num = $('.comment-destroy').index(this);
 		//console.log(num);
-		$('.comment-list').eq(num).css('display', 'none');
+		$('.comment-list').eq(num).fadeOut('slow');
 	});
 });
 
@@ -458,3 +458,51 @@ $(function() {
 		.attr('disabled', '');
 	});
 });
+
+//通報後の表示切替
+//comment
+// $(function() {
+// 	$('#report-comment').click(function() {
+// 		var button = $('<button>').text("通報しました");
+// 		$('#down-icon').hide();
+// 	})
+// });
+
+//通報時の理由選択フォームの出現に伴うルーティングの変更と対象の表示
+$(function() {
+	$('.c-report').click(function() {
+		var num = $('.c-report').index(this),
+		id = $('.c-id-for-report').eq(num).text();
+		url = '/comments/' + id + '/reports',
+		content = $('.c-content-for-report').eq(num).text();
+		// console.log(num);
+		// console.log(id);
+		// console.log(url);
+		$('#new_c_report').attr('action', url);
+		content = '・ ' + content;
+		$('#this-comment').text(content);
+		$('#this-comment-num').text(num);
+	});
+});
+
+//通報後の表示切替
+//comment
+$(function() {
+	$('#report-c-submit').click(function() {
+		Push.create('Dictiomany', {
+		　　body: '通報が完了しました',
+		// 　　icon: 'icon.png',
+		　　timeout: 8000, // 通知が消えるタイミング
+		　　vibrate: [100, 100, 100], // モバイル端末でのバイブレーション秒数
+		　　onClick: function() {
+		　　　　// 通知がクリックされた場合の設定
+		　　　　console.log('click');
+		　　}
+		});
+	});
+});
+
+//通知を許可するか出すもの ユーザに出ることを伝えて拒否されないようにする必要あり
+$(function() {
+	Push.Permission.request();
+})

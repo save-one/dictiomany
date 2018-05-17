@@ -12,8 +12,12 @@
 				<div class="list-group">
 					<a href="" class="list-group-item" data-toggle="modal" data-target="#edit_user" data-backdrop="static"><span class="glyphicon glyphicon-user" %></span>　アカウント情報の編集</a>
 					<a href="" class="list-group-item"></a>
-					<a href="" class="list-group-item">お問い合わせ</a>
-					<%= link_to "ログアウト", destroy_user_session_path, method: :delete, :class => "list-group-item" %>
+					<%= link_to user_contacts_path(user_id: @side_user.id), class: "list-group-item" do %>
+						<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>　お問い合わせ
+					<% end %>
+					<%= link_to destroy_user_session_path, method: :delete, :class => "list-group-item" do %>
+						<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>　ログアウト
+					<% end %>
 				</div>
 			</div>
 	</div>
