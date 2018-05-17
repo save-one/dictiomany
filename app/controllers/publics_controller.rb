@@ -7,8 +7,17 @@ class PublicsController < ApplicationController
   #一単語に対する意味の一覧
   def show
     @public = Public.find(params[:id])
-    @p_meanings = Meaning.where(word_name: @public.name, word_kana: @public.kana, word_category_parent: @public.category_parent, word_category: @public.category)
+    p_meanings = Meaning.where(word_name: @public.name, word_kana: @public.kana, word_category_parent: @public.category_parent, word_category: @public.category)
+    @p_meanings = []
+    p_meanings.each do |m|
+      word = Word.find(m.word_id)
+      diction = Diction.find(word.diction_id)
 
+      #dictionのpublic_flgで公開設定を確認する
+      if diction.public_flg === true
+        @p_meanings.push(m)
+      end
+    end
   end
 
  #一意味に対するコメントの一覧

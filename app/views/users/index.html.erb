@@ -1,54 +1,64 @@
 <div class="container-fluid">
 	<div class="row">
-		<p>Dictiomanyトップ > ユーザー</p>
+		<p>Dictiomanyトップ > アカウント検索</p>
 		<div class="col-xs-9">
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<p>ユーザー検索</p>
-				</div>
 
-				<%= search_form_for(@q, class: "form-group") do |f| %>
-				<div class="">
-					<div class="signup col-xs-5 input-group col-xs-offset-1">
-						<span class="input-group-addon">アカウント名</span>
-						<%= f.search_field :name_cont, class: "form-control", placeholder: "名前を入力してください" %>
-						<span class="input-group-btn"><%= f.submit "検索する", class: "btn btn-primary form-control", data: {disable_with: "検索中..."} %></span>
+			<div class="panel panel-default" id="favo-d-div">
+				<div class="panel-body meaning-panel-body">
+					<div>
+						<span class="font-37"><b>アカウント</b></span><span class="font-30"> の一覧</span>
+
+						<%= search_form_for(@q, class: "form-group") do |f| %>
+							<div class="">
+								<div class="signup col-xs-5 input-group col-xs-offset-1">
+									<span class="input-group-addon">アカウント名</span>
+									<%= f.search_field :name_cont, class: "form-control", placeholder: "名前を入力してください" %>
+									<span class="input-group-btn"><%= f.submit "検索する", class: "btn btn-default form-control", data: {disable_with: "検索中..."} %></span>
+								</div>
+						<% end %>
+							</div>
+
 					</div>
-				<% end %>
 				</div>
+			</div>
+
+
+
+			<div class="panel panel-default">
 
 				<div class="panel-body" style="padding-bottom: 0;">
-					<p>「サンゴ礁」 の検索結果 56件中5件</p>
-				</div>
+					<table class="table table-default">
 
-				<table class="table table-default">
-					<thead>
-						<tr>
-							<th>アイコン</th>
-							<th>名前</th>
-							<th>公開辞書数</th>
-							<th>公開単語数</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% @users.each do |u| %>
-						<tr>
-							<td><%= attachment_image_tag u, :image, format: "png", fallback: "img/acount_image1.png", :class => "thumb center-block" %></td>
-							<td><%= link_to u.name, user_path(u.id) %></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<% end %>
-					</tbody>
-				</table>
+						<tbody>
+							<% @users.each do |u| %>
+							<tr class="index-user-tr">
+								<td>
+									<%= attachment_image_tag u, :image, format: "png", fallback: "img/acount_image1.png", :class => "index-user-icon center-block" %>
+								</td>
+								<td>
+									<%= link_to u.name, user_path(u.id) %>
+								</td>
+								<% p_dictions = Diction.where(user_id: u.id, public_flg: true) %>
+								<td>公開辞書数： <%= p_dictions.count %></td>
+								<% quantity = 0 %>
+								<% p_dictions.each do |d| %>
+									<% m = d.words.count %>
+									<% quantity += m %>
+								<% end %>
+								<td>公開単語数： <%= quantity %></td>
+
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
 				<div class="panel-footer">
 					<p>前の検索結果に戻る　ページネーション</p>
 				</div>
 			</div>
 
 		</div>
-
+			
 <%= render partial: "layouts/sidebar" %>
-
 	</div>
 </div>
