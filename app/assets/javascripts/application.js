@@ -506,3 +506,11 @@ $(function() {
 $(function() {
 	Push.Permission.request();
 })
+
+
+$(function() {
+	$('#refine-category').hierarchySelect({
+		width: 200
+	});
+});
+
