@@ -7,9 +7,12 @@
 				<div class="panel-body meaning-panel-body">
 					<div>
 						<span class="font-37"><b><%= @word.name %></b></span><span class="font-30"> の意味</span>
+						<% if @diction.user_id === current_user.id %>
 						<button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#new-meaning" data-backdrop="static">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
+						<% end %>
+
 						<% if user_signed_in? %>
 							<% if @diction.default_public_flg === false && @diction.user_id === current_user.id %>
 								<!-- edit word -->
@@ -31,9 +34,12 @@
 							<% else %>
 								<b class="mean-b noone"> まだ投稿されていません</b>
 							<% end %>
+
+							<% if @diction.user_id === current_user.id %>
 							<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#new-meaning" data-backdrop="static">
 								意味を投稿する
 							</button>
+							<% end %>
 						</p>
 					</div>
 				</div>
@@ -59,6 +65,10 @@
 							<td>意味： <%= link_to m.content, diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: m.id) %></td>
 							<td>
 								アクセス数： 335回
+							</td>
+							<td>
+								<% favo = FavoriteMeaning.where(meaning_id: m.id).count %>
+								<span class="glyphicon glyphicon-star" aria-hidden="true"></span>： <%= favo %>
 							</td>
 						</tr>
 						<% end %>

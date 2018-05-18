@@ -1,10 +1,14 @@
 class DictionsController < ApplicationController
   def index
-    @dictions = Diction.all
+    @search = Diction.search(params[:q])
+    @dictions = @search.result
+    q = params[:q]
+    @search_content = q["name_or_category_parent_or_category_cont"]
   end
 
   def show
     @diction = Diction.find(params[:id])
+    redirect_back(fallback_location: root_path) unless @diction.public_flg === true || @diction.user_id === current_user.id
     @words = Word.where(diction_id: @diction.id)
     #gon.diction_id = @diction.id
     #編集用
