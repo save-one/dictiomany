@@ -90,5 +90,23 @@ private
   	gon.categories12 = @categories12
   	gon.categories13 = @categories13
   	gon.categories14 = @categories14
+
+    #検索時にカテゴリを表示選択させるための変数
+    @category_all = []
+    @category_all.push(@categories1)
+    @category_all.push(@categories2)
+    @category_all.push(@categories3)
+    @category_all.push(@categories4)
+    @category_all.push(@categories5)
+    @category_all.push(@categories6)
+    @category_all.push(@categories7)
+    @category_all.push(@categories8)
+    @category_all.push(@categories9)
+    @category_all.push(@categories10)
+    @category_all.push(@categories11)
+    @category_all.push(@categories12)
+    @category_all.push(@categories13)
+    @category_all.push(@categories14)
+
   end
 end

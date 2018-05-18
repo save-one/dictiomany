@@ -1,11 +1,28 @@
 class DictionsController < ApplicationController
   def index
-    @dictions = Diction.all
+    # category = params[:refine_category]
+    # q_before = {"category_parent_or_category_eq" => category}
+    # before = Diction.search(q_before)
+    # refined = before.result
+    @search = Diction.search(params[:q])#refined.search(params[:q])
+    @dictions = @search.result
+    @dictions = @dictions.where(category_parent: params[:refine_category]).or(@dictions.where(category: params[:refine_category])) if params[:refine_category].present?
+    @dictions = @dictions.where.not(name: "マイパブリック辞書")
+    @c_selected = params[:refine_category]
+    q = params[:q]
+    @search_content = q["name_or_category_parent_or_category_cont"] if params[:q].present?
   end
 
   def show
     @diction = Diction.find(params[:id])
-    @words = Word.where(diction_id: @diction.id)
+    redirect_back(fallback_location: root_path) unless @diction.public_flg === true || @diction.user_id === current_user.id
+    @search = Word.search(params[:q])
+    @words = @search.result
+    @words = @words.where(diction_id: @diction.id)
+    @words = @words.where(category_parent: params[:refine_category]).or(@words.where(category: params[:refine_category])) if params[:refine_category].present?
+    @c_selected = params[:refine_category]
+    q = params[:q]
+    @search_content = q["name_or_kana_or_category_parent_or_category_cont"] if params[:q].present?
     #gon.diction_id = @diction.id
     #編集用
     #@edit_diction = Diction.find(params[:id])

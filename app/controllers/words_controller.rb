@@ -1,6 +1,7 @@
 class WordsController < ApplicationController
   def show
     @diction = Diction.find(params[:diction_id])
+    redirect_back(fallback_location: root_path) unless @diction.public_flg === true || @diction.user_id === current_user.id
     @word = Word.find(params[:id])
     @meanings = Meaning.where(word_id: @word.id)
   end
