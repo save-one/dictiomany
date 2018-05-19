@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 	def index
-		@q = User.search(params[:q])
-		@users = @q.result
+		@search = User.search(params[:q])
+		@users = @search.result
+		@users = @users.page(params[:page])
 	end
 
 	#マイページ

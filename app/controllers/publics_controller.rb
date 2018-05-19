@@ -2,12 +2,21 @@ class PublicsController < ApplicationController
 	#単語一覧
   def index
   	@public_words = Public.all
+    @search = Public.search(params[:q])
+    @public_words = @search.result
+    @public_words = @public_words.where(category_parent: params[:refine_category]).or(@public_words.where(category: params[:refine_category])) if params[:refine_category].present?
+    @public_words = @public_words.page(params[:page])
+    @c_selected = params[:refine_category]
+    q = params[:q]
+    @search_content = q["name_or_kana_or_category_parent_or_category_cont"] if params[:q].present?
   end
 
   #一単語に対する意味の一覧
   def show
     @public = Public.find(params[:id])
-    p_meanings = Meaning.where(word_name: @public.name, word_kana: @public.kana, word_category_parent: @public.category_parent, word_category: @public.category)
+    @search = Meaning.search(params[:q])
+    p_meanings = @search.result
+    p_meanings = p_meanings.where(word_name: @public.name, word_kana: @public.kana, word_category_parent: @public.category_parent, word_category: @public.category)
     @p_meanings = []
     p_meanings.each do |m|
       word = Word.find(m.word_id)
@@ -18,6 +27,9 @@ class PublicsController < ApplicationController
         @p_meanings.push(m)
       end
     end
+    @p_meanings = Kaminari.paginate_array(@p_meanings).page(params[:page])
+    q = params[:q]
+    @search_content = q["content_cont"] if params[:q].present?
   end
 
  #一意味に対するコメントの一覧

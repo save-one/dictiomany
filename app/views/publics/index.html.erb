@@ -12,10 +12,59 @@
 						<button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#new-word" data-backdrop="static">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
-
-
-
 					</div>
+
+					<div class="signup">
+						<%= search_form_for(@search, url: publics_path(@public_words)) do |f| %>
+							<div class="col-xs-3">
+								<!-- <select class="form-control" name="refine">
+									<option value="all">すべてのカテゴリー</option>
+								</select> -->
+								<div class="btn-group hierarchy-select" data-resize="auto" id="refine-category">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+										<span class="selected-label pull-left">&nbsp;</span>
+										<span class="caret"></span>
+										<span class="sr-only">Toggle Dropdown</span>
+									</button>
+
+									<!-- 絞り込み用のカテゴリ選択フォーム　検索してカテゴリ選択もできる -->
+									<div class="dropdown-menu open">
+										<div class="hs-searchbox">
+											<input type="text" class="form-control" autocomplete="off">
+										</div>
+										<p style="display: none;" id="d-refine-select-set"><%= @c_selected %></p>
+										<ul class="dropdown-menu inner" role="menu" id="search-category-select">
+											<li data-value="" data-level="1" data-default-selected="" class="category-select-refine">
+												<a href="#">すべてのカテゴリー</a>
+											</li>
+											<% @parents.zip(@category_all).each do |cp, ca| %>
+												<li data-value=<%= cp %> data-level="1" class="category-select-refine">
+													<a href="#"><%= cp %></a>
+												</li>
+												<% ca.each do |a| %>
+													<li data-value=<%= a %> data-level="2" class="category-select-refine">
+														<a href="#"><%= a %></a>
+													</li>
+												<% end %>
+											<% end %>
+										</ul>
+									</div>
+									<input class="hidden hidden-field" name="refine_category" readonly="readonly" aria-hidden="true" type="text"/>
+								</div>
+							</div>
+
+							<div class= "input-group col-xs-9">
+							<%= f.search_field :name_or_kana_or_category_parent_or_category_cont, class: "form-control search-field" %>
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-default search-submit-button">
+									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+								</button>
+							</span>
+							</div>
+
+						<% end %>
+					</div>
+
 				</div>
 			</div>
 
@@ -24,6 +73,21 @@
 			<div class="panel panel-default">
 				
 				<div class="panel-body" style="padding-bottom: 0;">
+
+					<p>
+						<b>" <%= @search_content %> "</b> の検索結果
+						<%= @public_words.total_count %>件中 <%= @public_words.offset_value %>～<%= @public_words.offset_value + @public_words.length %>件を表示しています
+						<%= sort_link(@search, :category) do %>
+						<button type="button" class="btn btn-default pull-right sort-button">カテゴリー順</button>
+						<% end %>
+						<%= sort_link(@search, :kana) do %>
+						<button type="button" class="btn btn-default pull-right sort-button">五十音順</button>
+						<% end %>
+						<%= sort_link(@search, :id) do %>
+						<button type="button" class="btn btn-default pull-right sort-button">投稿順</button>
+						<% end %>
+					</p>
+
 					<table class="table table-default">
 
 						<tbody>
@@ -43,7 +107,17 @@
 					</table>
 				</div>
 				<div class="panel-footer">
-					<p>前の検索結果に戻る　ページネーション</p>
+					<% if @public_words.count < 25 %>
+						<nav>
+						    <ul class="pagination">
+						    	<li class="page-item active">
+						    		<a href="#" >1</a>
+						    	</li>
+						    </ul>
+						</nav>
+					<% else %>
+						<%= paginate @public_words %>
+					<% end %>
 				</div>
 			</div>
 
@@ -52,3 +126,14 @@
 <%= render partial: "layouts/sidebar" %>
 	</div>
 </div>
+
+<script>
+	// カテゴリの絞り込み用セレクトボックスの初期値の設定
+	var value = $('#d-refine-select-set').text();
+	// console.log(value);
+	var c = $(`.category-select-refine[data-value='${value}']`).html();
+	// console.log(c);
+	$('.category-select-refine[data-value=\'\']').removeAttr("data-default-selected");
+	$(`.category-select-refine[data-value='${value}']`).attr('data-default-selected', "");
+
+</script>

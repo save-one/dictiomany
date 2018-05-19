@@ -7,13 +7,16 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script><!--javascriptより前に置く-->
     <%= javascript_include_tag 'application' %>
-    <script src="jquery.upload_thumbs.js"></script>
+    <script src="/assets/jquery.upload_thumbs.js"></script>
     <!-- push通知 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js"></script>
     <!-- 検索用のセレクトボックスでカテゴリを階層表示とボックス内で検索選択 -->
-    <script src="huerarchy-select.min.js"></script>
-    <link rel="stylesheet" href="pygments.css">
-    <link rel="stylesheet" href="hierarchy-select.min.css">
+    <script src="/assets/hierarchy-select.min.js"></script>
+    <link rel="stylesheet" href="/assets/pygments.css">
+    <link rel="stylesheet" href="/assets/hierarchy-select.min.css">
+    <!-- fontawasome -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!--gon-->
     <%= include_gon %>
   </head>

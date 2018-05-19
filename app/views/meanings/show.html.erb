@@ -17,11 +17,11 @@
 						<% favorite = FavoriteMeaning.find_by(user_id: current_user.id, meaning_id: @meaning.id) %>
 						<% if favorite.present? %>
 							<%= link_to destroy_meanfavo_path(meaning_id: @meaning.id, id: favorite.id), method: :delete do %>
-								<button type="button" class="btn btn-danger pull-right" id="f-m-button-d" >お気に入りから削除</button>
+								<button type="button" class="btn btn-danger pull-right button-margin-left" id="f-m-button-d" >お気に入りから削除</button>
 							<% end %>
 						<% else %>
 							<%= link_to create_meanfavo_path(@meaning), method: :post do %>
-								<button type="button" class="btn btn-warning pull-right" id="f-m-button-c">お気に入りに追加</button>
+								<button type="button" class="btn btn-warning pull-right button-margin-left" id="f-m-button-c">お気に入りに追加</button>
 							<% end %>
 						<% end %>
 
@@ -40,8 +40,8 @@
 						<% user_name = User.find(@diction.user_id) %>
 						<p class="font-21">
 							<span class="label label-warning" style="padding: 6px 10px;"><b>主な意味</b></span>
-							<b> <%= @meaning.content %></b>（<%= user_name.name %> さんの投稿）
-							<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#new-comment" data-backdrop="static">
+							<b> <%= @meaning.content %></b>（ <i class="fas fa-user"></i> <%= user_name.name %> さんの投稿）
+							<button type="button" class="btn btn-default pull-right button-margin-left" data-toggle="modal" data-target="#new-comment" data-backdrop="static">
 								コメントを投稿する
 							</button>
 							<% if user_signed_in? %>
@@ -80,7 +80,7 @@
 								<td>コメント： <%= c.content %></td>
 								<td>
 									<% user = User.find(c.user.id) %>
-									アカウント名： <%= user.name %>
+									<i class="fas fa-user"></i> <%= user.name %>
 								</td>
 								<td>
 									<div class="dropdown">

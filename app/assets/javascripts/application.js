@@ -507,10 +507,17 @@ $(function() {
 	Push.Permission.request();
 })
 
-
+//検索時のcategoryの絞り込み用選択ボックスの設定
 $(function() {
 	$('#refine-category').hierarchySelect({
 		width: 200
+	});
+});
+
+//word showでの検索フォームの出現の切り替え
+$(function() {
+	$('#search-drop-button').click(function() {
+		$('#search-drop-box').slideToggle();
 	});
 });
 

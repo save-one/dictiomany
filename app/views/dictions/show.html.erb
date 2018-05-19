@@ -6,7 +6,7 @@
 			<div class="panel panel-default" id="favo-d-div">
 				<div class="panel-body meaning-panel-body">
 					<div>
-						<span class="font-37"><b><%= @diction.name %></b></span><span class="font-30"> の単語一覧</span>
+						<span class="font-37"><b><i class="fas fa-book"></i> <%= @diction.name %></b></span><span class="font-30"> の単語一覧</span>
 						<% if @diction.user_id === current_user.id %>
 							<button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#new-word" data-backdrop="static">
 								<span class="glyphicon glyphicon-plus"></span>
@@ -16,11 +16,11 @@
 						<% favorite = FavoriteDiction.find_by(user_id: current_user.id, diction_id: @diction.id) %>
 						<% if favorite.present? %>
 							<%= link_to diction_favorite_path(diction_id: @diction.id, id: favorite.id), method: :delete do %>
-								<button type="button" class="btn btn-danger pull-right" id="f-d-button-d" >お気に入りから削除</button>
+								<button type="button" class="btn btn-danger pull-right button-margin-left" id="f-d-button-d" >お気に入りから削除</button>
 							<% end %>
 						<% else %>
 							<%= link_to diction_favorites_path(@diction), method: :post do %>
-								<button type="button" class="btn btn-warning pull-right" id="f-d-button-c">お気に入りに追加</button>
+								<button type="button" class="btn btn-warning pull-right button-margin-left" id="f-d-button-c">お気に入りに追加</button>
 							<% end %>
 						<% end %>
 
@@ -97,6 +97,7 @@
 				<div class="panel-body" style="padding-bottom: 0;">
 					<p>
 						<b>" <%= @search_content %> "</b> の検索結果
+						<%= @words.total_count %>件中 <%= @words.offset_value %>～<%= @words.offset_value + @words.length %>件を表示しています
 						<%= sort_link(@search, :category) do %>
 						<button type="button" class="btn btn-default pull-right sort-button">カテゴリー順</button>
 						<% end %>
@@ -133,7 +134,17 @@
 					</table>
 				</div>
 				<div class="panel-footer">
-					<p>前の検索結果に戻る　ページネーション</p>
+					<% if @words.count < 25 %>
+						<nav>
+						    <ul class="pagination">
+						    	<li class="page-item active">
+						    		<a href="#" >1</a>
+						    	</li>
+						    </ul>
+						</nav>
+					<% else %>
+						<%= paginate @words %>
+					<% end %>
 				</div>
 			</div>
 
