@@ -8,6 +8,7 @@ class DictionsController < ApplicationController
     @dictions = @search.result
     @dictions = @dictions.where(category_parent: params[:refine_category]).or(@dictions.where(category: params[:refine_category])) if params[:refine_category].present?
     @dictions = @dictions.where.not(name: "マイパブリック辞書")
+    @dictions = @dictions.page(params[:page])
     @c_selected = params[:refine_category]
     q = params[:q]
     @search_content = q["name_or_category_parent_or_category_cont"] if params[:q].present?
@@ -20,6 +21,7 @@ class DictionsController < ApplicationController
     @words = @search.result
     @words = @words.where(diction_id: @diction.id)
     @words = @words.where(category_parent: params[:refine_category]).or(@words.where(category: params[:refine_category])) if params[:refine_category].present?
+    @words = @words.page(params[:page])
     @c_selected = params[:refine_category]
     q = params[:q]
     @search_content = q["name_or_kana_or_category_parent_or_category_cont"] if params[:q].present?

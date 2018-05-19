@@ -48,21 +48,21 @@
 													<th>名前</th>
 													<th>カテゴリー</th>
 													<th>ユーザ名</th>
-													<th>お気に入り登録数</th>
+													<th></th>
 												</tr>
 											</thead>
 											<tbody>
 												<% @my_dictions.each do |d| %>
 												<tr>
-													<td><%= link_to d.name, diction_path(d) %></td>
+													<td><i class="fas fa-book"></i> <%= link_to d.name, diction_path(d) %></td>
 													<td><%= d.category_parent %> / <%= d.category %></td>
 													<td>
 														<% user_name = User.find(d.user_id) %>
-														<%= user_name.name %>
+														<i class="fas fa-user"></i> <%= user_name.name %>
 													</td>
 													<td>
 														<% favo = FavoriteDiction.where(diction_id: d.id) %>
-														<span class="glyphicon glyphicon-star" aria-hidden="true"></span>： <%= favo.count %>
+														<i class="fas fa-star"></i> <%= favo.count %>
 													</td>
 												</tr>
 												<% end %>
@@ -97,21 +97,21 @@
 													<th>名前</th>
 													<th>カテゴリー</th>
 													<th>ユーザ名</th>
-													<th>お気に入り登録数</th>
+													<th></th>
 												</tr>
 											</thead>
 											<tbody>
 												<% @my_favorite_dictions.each do |d| %>
 												<tr>
-													<td><%= link_to d.name, diction_path(d) %></td>
+													<td><i class="fas fa-book"></i> <%= link_to d.name, diction_path(d) %></td>
 													<td><%= d.category_parent %> / <%= d.category %></td>
 													<td>
 														<% user_name = User.find(d.user_id) %>
-														<%= user_name.name %>
+														<i class="fas fa-user"></i> <%= user_name.name %>
 													</td>
 													<td>
 														<% favo = FavoriteDiction.where(diction_id: d.id) %>
-														<span class="glyphicon glyphicon-star" aria-hidden="true"></span>： <%= favo.count %>
+														<i class="fas fa-star"></i> <%= favo.count %>
 													</td>
 												</tr>
 												<% end %>
@@ -132,7 +132,7 @@
 													<th>カテゴリー</th>
 													<th>意味</th>
 													<th>アカウント名</th>
-													<th>お気に入り登録数</th>
+													<th></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -158,11 +158,13 @@
 														</td>
 														<td>
 															<% user_name = User.find(d.user_id) %>
-															<%= user_name.name %>
+															<i class="fas fa-user"></i> <%= user_name.name %>
 														</td>
 														<td>
 															<% favo = FavoriteMeaning.where(meaning_id: m.id) %>
-															<span class="glyphicon glyphicon-star" aria-hidden="true"></span>： <%= favo.count %>
+															<i class="fas fa-star"></i> <%= favo.count %>
+															<% come = Comment.where(meaning_id: m.id).count %>
+															　　<i class="fas fa-comment"></i> <%= come %>
 														</td>
 													</tr>
 													<% end %>
@@ -184,7 +186,7 @@
 													<th>カテゴリー</th>
 													<th>意味</th>
 													<th>アカウント名</th>
-													<th>お気に入り登録数</th>
+													<th></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -199,11 +201,13 @@
 														<td><%= link_to m.content, diction_word_meaning_path(diction_id: d.id, word_id: w.id, id: m.id) %></td>
 														<td>
 															<% user_name = User.find(d.user_id) %>
-															<%= user_name.name %>
+															<i class="fas fa-user"></i> <%= user_name.name %>
 														</td>
 														<td>
 															<% favo = FavoriteMeaning.where(meaning_id: m.id) %>
-															<span class="glyphicon glyphicon-star" aria-hidden="true"></span>： <%= favo.count %>
+															<i class="fas fa-star"></i> <%= favo.count %>
+															<% come = Comment.where(meaning_id: m.id).count %>
+															　　<i class="fas fa-comment"></i> <%= come %>
 														</td>
 													</tr>
 												<% end %>

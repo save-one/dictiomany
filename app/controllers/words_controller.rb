@@ -3,7 +3,13 @@ class WordsController < ApplicationController
     @diction = Diction.find(params[:diction_id])
     redirect_back(fallback_location: root_path) unless @diction.public_flg === true || @diction.user_id === current_user.id
     @word = Word.find(params[:id])
-    @meanings = Meaning.where(word_id: @word.id)
+    #@meanings = Meaning.where(word_id: @word.id)
+    @search = Meaning.search(params[:q])
+    @meanings = @search.result
+    @meanings = @meanings.where(word_id: @word.id)
+    @meanings = @meanings.page(params[:page])
+    q = params[:q]
+    @search_content = q["content_cont"] if params[:q].present?
   end
 
   def create

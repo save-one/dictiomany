@@ -19,19 +19,38 @@
 								<% word = Word.find(@p_meanings.first.word_id) %>
 								<% diction = Diction.find(word.diction_id) %>
 								<% user_name = User.find(diction.user_id) %>
-								<b class="mean-b"> <%= @p_meanings.first.content %></b>（<%= user_name.name %> さんの投稿）
+								<b class="mean-b"> <%= @p_meanings.first.content %></b>（ <i class="fas fa-user"></i> <%= user_name.name %> さんの投稿）
 							<% else %>
 								<b class="mean-b noone"> まだ投稿されていません</b>
 							<% end %>
-							<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#p-meaning" data-backdrop="static">
+							<button type="button" class="btn btn-default pull-right	button-margin-left" data-toggle="modal" data-target="#p-meaning" data-backdrop="static">
 								意味を投稿する
 							</button>
+							<!-- 検索フォーム表示切替 -->
+							<button type="button" class="btn btn-default pull-right" id="search-drop-button">検索する</button>
+							<!-- jquery用　publicデータ -->
 							<p id="p_name" style="display: none;"><%= @public.name %></p>
 							<p id="p_kana" style="display: none;"><%= @public.kana %></p>
 							<p id="p_p_category" style="display: none;"><%= @public.category_parent %></p>
 							<p id="p_category" style="display: none;"><%= @public.category %></p>
 						</p>
 					</div>
+
+					<div class="signup" id="search-drop-box">
+						<%= search_form_for(@search, url: public_path(@public)) do |f| %>
+
+							<div class= "input-group col-xs-9">
+							<%= f.search_field :content_cont, class: "form-control search-field" %>
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-default search-submit-button button-margin-left">
+									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+								</button>
+							</span>
+							</div>
+
+						<% end %>
+					</div>
+
 				</div>
 			</div>
 
@@ -39,6 +58,18 @@
 			<div class="panel panel-default">
 				
 				<div class="panel-body" style="padding-bottom: 0;">
+
+					<p>
+						<b>" <%= @search_content %> "</b> の検索結果
+						<%= @p_meanings.total_count %>件中 <%= @p_meanings.offset_value %>～<%= @p_meanings.offset_value + @p_meanings.length %>件を表示しています
+						<%= sort_link(@search, :content) do %>
+						<button type="button" class="btn btn-default pull-right sort-button">五十音順</button>
+						<% end %>
+						<%= sort_link(@search, :id) do %>
+						<button type="button" class="btn btn-default pull-right sort-button">投稿順</button>
+						<% end %>
+					</p>
+
 				<table class="table table-default">
 					<!-- <thead>
 						<tr>
@@ -54,23 +85,26 @@
 							<td><%= m.created_at.strftime('%Y年%m月%d日') %></td>
 							<td>意味： <%= link_to m.content, mean_path(public_id: @public.id, id: m.id) %></td>
 							<td>
-								<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>： 335回
+								<i class="fas fa-eye"></i> 335
 							</td>
 							<td>
-								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>： <%= user_name.name %>
+								<i class="fas fa-user"></i> <%= user_name.name %>
 							</td>
 							<td>
 								<% favo = FavoriteMeaning.where(meaning_id: m.id).count %>
-								<span class="glyphicon glyphicon-star" aria-hidden="true"></span>： <%= favo %>
+								<!-- <span class="glyphicon glyphicon-star" aria-hidden="true"></span> -->
+								<i class="fas fa-star"></i> <%= favo %>　
+								<% come = Comment.where(meaning_id: m.id).count %>
+								　　<i class="fas fa-comment"></i> <%= come %>
 							</td>
 						</tr>
 						<% end %>
 					</tbody>
 				</table>
 				</div>
-				<!-- <div class="panel-footer">
-					<p>前の検索結果に戻る　ページネーション</p>
-				</div> -->
+				<div class="panel-footer">
+					<%= paginate @p_meanings %>
+				</div>
 			</div>
 
 		</div>

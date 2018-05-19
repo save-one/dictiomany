@@ -30,7 +30,7 @@
 						<% user_name = User.find(@diction.user_id) %>
 						<p class="font-21">
 							<span class="label label-warning" style="padding: 6px 10px;"><b>主な意味</b></span>
-							<b> <%= @p_meaning.content %></b>（<%= user_name.name %> さんの投稿）
+							<b> <%= @p_meaning.content %></b>（ <i class="fas fa-user"></i> <%= user_name.name %> さんの投稿）
 							<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#p-comment" data-backdrop="static">
 								コメントを投稿する
 							</button>
@@ -63,7 +63,7 @@
 								<td>コメント： <%= c.content %></td>
 								<td>
 									<% user = User.find(c.user.id) %>
-									アカウント名： <%= user.name %>
+									<i class="fas fa-user"></i> <%= user.name %>
 								</td>
 								<td>
 									<div class="dropdown">

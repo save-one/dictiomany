@@ -20,6 +20,7 @@
 			<div class="panel panel-default">
 				
 				<div class="panel-body" style="padding-bottom: 0;">
+					<p><%= @contacts.total_count %>件中 <%= @contacts.offset_value %>～<%= @contacts.offset_value + @contacts.length %>件を表示しています</p>
 					<table class="table table-default">
 						<thead>
 							<tr>
@@ -46,7 +47,17 @@
 					</table>
 				</div>
 				<div class="panel-footer">
-					<p>前の検索結果に戻る　ページネーション</p>
+					<% if @contacts.count < 25 %>
+						<nav>
+						    <ul class="pagination">
+						    	<li class="page-item active">
+						    		<a href="#" >1</a>
+						    	</li>
+						    </ul>
+						</nav>
+					<% else %>
+						<%= paginate @contacts %>
+					<% end %>
 				</div>
 			</div>
 
