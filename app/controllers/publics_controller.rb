@@ -30,6 +30,7 @@ class PublicsController < ApplicationController
     @p_meanings = Kaminari.paginate_array(@p_meanings).page(params[:page])
     q = params[:q]
     @search_content = q["content_cont"] if params[:q].present?
+    hit = Hit.create(public_id: @public.id)
   end
 
  #一意味に対するコメントの一覧
@@ -39,6 +40,7 @@ class PublicsController < ApplicationController
     @p_comments = Comment.where(meaning_id: @p_meaning.id)
     @word = Word.find(@p_meaning.word_id)
     @diction = Diction.find(@word.diction_id)
+    hit = Hit.create(meaning_id: @p_meaning.id)
   end
 
   def create
