@@ -6,6 +6,9 @@ class MeaningsController < ApplicationController
     @meaning = Meaning.find(params[:id])
     @comments = Comment.where(meaning_id: @meaning.id)
     @new_c_report = Report.new
+    hit = Hit.new(meaning_id: @meaning.id)
+    hit.user_id = current_user.id if user_signed_in?
+    hit.save
   end
 
   def create

@@ -94,13 +94,14 @@
 							<td><%= m.created_at.strftime('%Y年%m月%d日') %></td>
 							<td>意味： <%= link_to m.content, diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: m.id) %></td>
 							<td>
-								<i class="fas fa-eye"></i> 335
 							</td>
 							<td>
 								<% favo = FavoriteMeaning.where(meaning_id: m.id).count %>
 								<i class="fas fa-star"></i> <%= favo %>
 								<% come = Comment.where(meaning_id: m.id).count %>
 								　　<i class="fas fa-comment"></i> <%= come %>
+								<% m_hit = Hit.where(meaning_id: m.id) %>
+								　　<i class="fas fa-eye"></i> <%= m_hit.count %>
 							</td>
 						</tr>
 						<% end %>
