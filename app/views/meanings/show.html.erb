@@ -65,19 +65,18 @@
 				
 				<div class="panel-body" style="padding-bottom: 0;">
 					<table class="table table-default">
-						<!-- <thead>
+						<thead>
 							<tr>
 								<th>投稿日</th>
 								<th>コメント</th>
 								<th>ユーザ名</th>
-								<th></th>
 							</tr>
-						</thead> -->
+						</thead>
 						<tbody>
 							<% @comments.each do |c| %>
 							<tr class="comment-list">
 								<td><%= c.created_at.strftime('%Y年%m月%d日') %></td>
-								<td>コメント： <%= c.content %></td>
+								<td><%= c.content %></td>
 								<td>
 									<% user = User.find(c.user.id) %>
 									<i class="fas fa-user"></i> <%= user.name %>

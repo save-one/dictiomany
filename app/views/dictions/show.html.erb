@@ -109,24 +109,23 @@
 						<% end %>
 					</p>
 					<table class="table table-default">
-						<!-- <thead>
+						<thead>
 							<tr>
 								<th>単語名</th>
 								<th>意味</th>
 								<th>カテゴリー</th>
-								<th></th>
 							</tr>
-						</thead> -->
+						</thead>
 						<tbody>
 							<% @words.each do |w| %>
 							<tr>
-								<td>単語名: <%= link_to w.name, diction_word_path(diction_id: @diction.id, id: w.id) %><span style="color: grey;">（<%= w.kana %>）</span></td>
+								<td><%= link_to w.name, diction_word_path(diction_id: @diction.id, id: w.id) %><span style="color: grey;">（<%= w.kana %>）</span></td>
 								<td>
 									<% if meaning_first = Meaning.where(word_id: w.id).first %>
-									意味： <%= link_to meaning_first.content, diction_word_meaning_path(diction_id: @diction.id, word_id: w.id, id: meaning_first.id) %>
+									<%= link_to meaning_first.content, diction_word_meaning_path(diction_id: @diction.id, word_id: w.id, id: meaning_first.id) %>
 									<% end %>
 								</td>
-								<td>カテゴリー： <%= w.category_parent %> / <%= w.category %></td>
+								<td><%= w.category_parent %> / <%= w.category %></td>
 
 							</tr>
 							<% end %>

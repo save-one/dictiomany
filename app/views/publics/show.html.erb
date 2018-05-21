@@ -85,9 +85,6 @@
 							<td><%= m.created_at.strftime('%Y年%m月%d日') %></td>
 							<td>意味： <%= link_to m.content, mean_path(public_id: @public.id, id: m.id) %></td>
 							<td>
-								<% m_hit = Hit.where(meaning_id: m.id) %><i class="fas fa-eye"></i> <%= m_hit.count %>
-							</td>
-							<td>
 								<i class="fas fa-user"></i> <%= user_name.name %>
 							</td>
 							<td>
@@ -96,6 +93,8 @@
 								<i class="fas fa-star"></i> <%= favo %>　
 								<% come = Comment.where(meaning_id: m.id).count %>
 								　　<i class="fas fa-comment"></i> <%= come %>
+								<% m_hit = Hit.where(meaning_id: m.id) %>
+								　　<i class="fas fa-eye"></i> <%= m_hit.count %>
 							</td>
 						</tr>
 						<% end %>
