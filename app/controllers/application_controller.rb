@@ -39,6 +39,39 @@ private
     @new_public_word = Word.new
     @new_public_word.meanings.build
 
+    #ランキング用
+    hit_ranks = Hit.where.not(public_id: nil)
+    hit_ranks = hit_ranks.group(:public_id).count
+    hit_ranks = hit_ranks.sort_by{|_, v| -v}
+    @hit_ranks = hit_ranks.take(5)
+
+    favo_all = FavoriteMeaning.joins({:meaning => {:word => :diction}}).where(dictions: {public_flg: true}).pluck(:meaning_id)
+    fmeaning = Meaning.find(favo_all).pluck(:word_id)
+    fword = Word.find(fmeaning).uniq
+    count = []
+    fword.each do |fw|
+      fm = Meaning.where(word_id: fw.id)
+      fc = 0
+      fm.each do |ffm|
+        fcc = FavoriteMeaning.where(meaning_id: ffm).count
+        fc += fcc
+      end
+      count.push(fc)
+    end
+    ary = [fword, count].transpose
+    favo_ranks = Hash[*ary.flatten]
+    favo_ranks = favo_ranks.sort_by{|_, v| -v}
+    @favo_ranks = favo_ranks.take(5)
+    # favo_ranks = []
+    # favo_all.each do |f|
+    #   if f.meaning.word.diction.public_flg === true
+    #     favo_ranks.push(f)
+    #   end
+    # end
+    # favo_ranks = favo_ranks.group(:meaning_id).count
+    # favo_ranks = favo_ranks.sort_by{|_, v| -v}
+    # @favo_ranks = favo_ranks.take(5)
+
     #グループ辞書作成、共有用 検索
     # @q = User.search(params[:q])
     # @search_users = @q.result

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show, :update] do
     resources :contacts, only: [:index, :show, :create]
+    resources :hits, only: [:index]
   end
 
   resources :publics, only: [:index, :show, :create, :destroy]#destroy欲しいか
