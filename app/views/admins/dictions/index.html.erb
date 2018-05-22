@@ -1,0 +1,136 @@
+<div class="container-fluid">
+	<div class="row">
+		<p>Dictiomanyトップ > 辞書</p>
+		<div class="col-xs-9">
+
+			<div class="panel panel-default">
+				<div class="panel-body meaning-panel-body">
+					<div>
+						<span class="font-37"><b><i class="fas fa-book"></i> すべての辞書</b></span><span class="font-30"> </span>
+					</div>
+					<div class="signup">
+						<%= search_form_for(@search) do |f| %>
+							<div class="col-xs-3">
+								<!-- <select class="form-control" name="refine">
+									<option value="all">すべてのカテゴリー</option>
+								</select> -->
+								<div class="btn-group hierarchy-select" data-resize="auto" id="refine-category">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+										<span class="selected-label pull-left">&nbsp;</span>
+										<span class="caret"></span>
+										<span class="sr-only">Toggle Dropdown</span>
+									</button>
+
+									<!-- 絞り込み用のカテゴリ選択フォーム　検索してカテゴリ選択もできる -->
+									<div class="dropdown-menu open">
+										<div class="hs-searchbox">
+											<input type="text" class="form-control" autocomplete="off">
+										</div>
+										<p style="display: none;" id="d-refine-select-set"><%= @c_selected %></p>
+										<ul class="dropdown-menu inner" role="menu" id="search-category-select">
+											<li data-value="" data-level="1" data-default-selected="" class="category-select-refine">
+												<a href="#">すべてのカテゴリー</a>
+											</li>
+											<% @parents.zip(@category_all).each do |cp, ca| %>
+												<li data-value=<%= cp %> data-level="1" class="category-select-refine">
+													<a href="#"><%= cp %></a>
+												</li>
+												<% ca.each do |a| %>
+													<li data-value=<%= a %> data-level="2" class="category-select-refine">
+														<a href="#"><%= a %></a>
+													</li>
+												<% end %>
+											<% end %>
+										</ul>
+									</div>
+									<input class="hidden hidden-field" name="refine_category" readonly="readonly" aria-hidden="true" type="text"/>
+								</div>
+							</div>
+
+							<div class= "input-group col-xs-9">
+							<%= f.search_field :name_or_category_parent_or_category_cont, class: "form-control search-field" %>
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-default search-submit-button">
+									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+								</button>
+							</span>
+							</div>
+
+						<% end %>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<!-- <div class="panel-heading">
+					<p>辞書検索</p>
+				</div> -->
+				<div class="panel-body" style="padding-bottom: 0;">
+					<p>
+						<b>" <%= @search_content %> "</b> の検索結果
+						<%= @dictions.total_count %>件中 <%= @dictions.offset_value %>～<%= @dictions.offset_value + @dictions.length %>件を表示しています
+						<%= sort_link(@search, :category) do %>
+						<button type="button" class="btn btn-default pull-right sort-button">カテゴリー順</button>
+						<% end %>
+						<%= sort_link(@search, :name) do %>
+						<button type="button" class="btn btn-default pull-right sort-button">五十音順</button>
+						<% end %>
+						<%= sort_link(@search, :id) do %>
+						<button type="button" class="btn btn-default pull-right sort-button">投稿順</button>
+						<% end %>
+					</p>
+					<table class="table table-default">
+						<thead>
+							<tr>
+								<th>名前</th>
+								<th>カテゴリー</th>
+								<th>ユーザ名</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @dictions.each do |d| %>
+							<tr>
+								<td>
+									<i class="fas fa-book"></i> <%= link_to d.name, admins_diction_path(d) %>　
+									<% if d.public_flg === false %>
+										 <i class="fas fa-lock"></i>
+										<!-- <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> -->
+									<% end %>
+								</td>
+								<td><%= d.category_parent %> / <%= d.category %></td>
+								<td><i class="fas fa-user"></i> <% user_name = User.find(d.user_id) %>
+									<%= user_name.name %>
+								</td>
+								<td>
+									<% favo = FavoriteDiction.where(diction_id: d.id).count %>
+									<i class="fas fa-star"></i> <%= favo %>
+								</td>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+				<div class="panel-footer">
+					<%= paginate @dictions %>
+				</div>
+			</div>
+
+		</div>
+
+<%= render partial: "admins/layouts/sidebar" %>
+	</div>
+</div>
+
+
+<script>
+	// カテゴリの絞り込み用セレクトボックスの初期値の設定
+	var value = $('#d-refine-select-set').text();
+	// console.log(value);
+	var c = $(`.category-select-refine[data-value='${value}']`).html();
+	// console.log(c);
+	$('.category-select-refine[data-value=\'\']').removeAttr("data-default-selected");
+	$(`.category-select-refine[data-value='${value}']`).attr('data-default-selected', "");
+
+</script>

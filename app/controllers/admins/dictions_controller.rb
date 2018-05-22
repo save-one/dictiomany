@@ -1,4 +1,4 @@
-class DictionsController < ApplicationController
+class Admins::DictionsController < Admins::ApplicationController
   def index
     # category = params[:refine_category]
     # q_before = {"category_parent_or_category_eq" => category}
@@ -16,7 +16,7 @@ class DictionsController < ApplicationController
 
   def show
     @diction = Diction.find(params[:id])
-    redirect_back(fallback_location: root_path) unless @diction.public_flg === true || @diction.user_id === current_user.id
+    #redirect_back(fallback_location: root_path) unless @diction.public_flg === true || @diction.user_id === current_user.id
     @search = Word.search(params[:q])
     @words = @search.result
     @words = @words.where(diction_id: @diction.id)
@@ -36,17 +36,17 @@ class DictionsController < ApplicationController
   # 	@meaning = Meaning.new
   # end
 
-  def create
-  	diction = current_user.dictions.new(diction_params)
-    diction.category_parent = params[:category_parent]
-    diction.category = params[:category]
+  # def create
+  # 	diction = current_user.dictions.new(diction_params)
+  #   diction.category_parent = params[:category_parent]
+  #   diction.category = params[:category]
 
-    #public化
-    diction.public_flg = true if params[:public] === "on"
+  #   #public化
+  #   diction.public_flg = true if params[:public] === "on"
 
-  	diction.save
-  	redirect_to diction_path(diction)
-  end
+  # 	diction.save
+  # 	redirect_to diction_path(diction)
+  # end
 
   def update
     diction = Diction.find(params[:id])
@@ -76,13 +76,13 @@ class DictionsController < ApplicationController
     end
 
     diction.update(diction_params)
-    redirect_to diction_path(diction)
+    redirect_to admins_diction_path(diction)
   end
 
   def destroy
     diction = Diction.find(params[:id])
     diction.destroy
-    redirect_to dictions_path
+    redirect_to admins_dictions_path
   end
 
   private
