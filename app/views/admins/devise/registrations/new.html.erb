@@ -1,0 +1,62 @@
+<div class="container-fluid" style="margin: 50px 0;">
+  <div class="row">
+    <div class="panel panel-default center-block" style="width: 40%;">
+      <div class="panel-heading">
+        <h2>新規登録</h2>
+      </div>
+      <div class="panel-body">
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:class => "form-group"}) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :メールアドレス, {class: "form-label"}  %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", required:true, :class => "form-control" %>
+  </div>
+
+  <div class="field signup">
+    <%= f.label :ユーザー名, {class: "form-label"}  %><br />
+    <%= f.text_field :name, autocomplete: "name", required:true, :class => "form-control" %>
+  </div>
+
+  <div class="field signup">
+    <%= f.label "性別", {class: "form-label"} %><br />
+    <div class="btn-group" data-toggle="buttons">
+      <!--checked:trueが一発で反映されないからactive しかもちゃんと変化するすごい-->
+      <label class="btn btn-default active">
+      <%= f.radio_button :gender, "男性", checked: true %>男性<br>
+      </label>
+      <label class="btn btn-default">
+      <%= f.radio_button :gender, "女性" %>女性
+      </label>
+    </div>
+  </div>
+
+  <div class="field signup">
+    <%= f.label "生年月日", {class: "form-label"}  %><br />
+    <%= f.date_field :birthday, autocomplete: "birthday", required:true, :class => "form-control" %>
+  </div>
+
+  <div class="field signup">
+    <%= f.label "パスワード（#{@minimum_password_length} 文字以上）", {class: "form-label"}  %>
+    <% if @minimum_password_length %>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off", required:true, :class => "form-control" %>
+  </div>
+
+  <div class="field signup">
+    <%= f.label "パスワード（２回目）", {class: "form-label"}  %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off", required:true, :class => "form-control" %>
+  </div>
+
+  <div class="actions signup">
+    <%= f.submit "登録する", class:"btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+
+      </div>
+    </div>
+  </div>
+</div>

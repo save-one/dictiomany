@@ -1,0 +1,118 @@
+<div class="container-fluid">
+	<div class="row">
+		<p>Dictiomanyトップ > <%= link_to "辞書", admins_dictions_path %> > <%= link_to "単語", admins_diction_path(@diction.id) %> > <%= link_to "意味", admins_diction_word_path(diction_id: @diction.id, id: @word.id) %></p>
+		<div class="col-xs-9">
+
+			<div class="panel panel-default">
+				<div class="panel-body meaning-panel-body">
+					<div>
+						<span class="font-37"><b><%= @word.name %></b></span><span class="font-30"> の意味</span>
+
+								<!-- edit word -->
+								<button type="button" class="btn btn-default pull-right button-margin-left" data-toggle="modal" data-target="#edit-word" data-backdrop="static">
+									単語を編集する
+								</button>
+								<p id="w_p_category" style="display: none"><%= @word.category_parent %></p>
+								<p id="w_category" style="display: none"><%= @word.category %></p>
+					</div>
+
+					<div class="signup ">
+						<% user_name = User.find(@diction.user_id) %>
+						<p class="font-21">
+							<span class="label label-warning" style="padding: 6px 10px;"><b>主な意味</b></span>
+							<% if @meanings.present? %>
+							<b class="mean-b"> <%= link_to @meanings.first.content, admins_diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: @meanings.first.id) %></b>（ <i class="fas fa-user"></i> <%= user_name.name %> さんの投稿）
+							<% else %>
+								<b class="mean-b noone"> まだ投稿されていません</b>
+							<% end %>
+
+							
+							<!-- 検索フォーム表示切替 -->
+							<button type="button" class="btn btn-default pull-right" id="search-drop-button">検索する</button>
+						</p>
+					</div>
+
+					<div class="signup" id="search-drop-box">
+						<%= search_form_for(@search, url: admins_diction_word_path(diction_id: @diction.id, id: @word.id)) do |f| %>
+
+							<div class= "input-group col-xs-9">
+							<%= f.search_field :content_cont, class: "form-control search-field" %>
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-default search-submit-button button-margin-left">
+									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+								</button>
+							</span>
+							</div>
+
+						<% end %>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- 意味の一覧テーブル -->
+			<div class="panel panel-default">
+				
+				<div class="panel-body" style="padding-bottom: 0;">
+
+					<p>
+						<b>" <%= @search_content %> "</b> の検索結果
+						<%= @meanings.total_count %>件中 <%= @meanings.offset_value %>～<%= @meanings.offset_value + @meanings.length %>件を表示しています
+						<%= sort_link(@search, :content) do %>
+						<button type="button" class="btn btn-default pull-right sort-button">五十音順</button>
+						<% end %>
+						<%= sort_link(@search, :id) do %>
+						<button type="button" class="btn btn-default pull-right sort-button">投稿順</button>
+						<% end %>
+					</p>
+
+				<table class="table table-default">
+					<thead>
+						<tr>
+							<th>投稿日</th>
+							<th>意味</th>
+							<th>お気に入り/コメント/閲覧</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @meanings.each do |m| %>
+						<tr>
+							<td><%= m.created_at.strftime('%Y年%m月%d日') %></td>
+							<td><%= link_to m.content, admins_diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: m.id) %></td>
+							<td>
+								<% favo = FavoriteMeaning.where(meaning_id: m.id).count %>
+								<i class="fas fa-star"></i> <%= favo %>
+								<% come = Comment.where(meaning_id: m.id).count %>
+								　　<i class="fas fa-comment"></i> <%= come %>
+								<% m_hit = Hit.where(meaning_id: m.id) %>
+								　　<i class="fas fa-eye"></i> <%= m_hit.count %>
+							</td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				</div>
+				<div class="panel-footer">
+					<% if @meanings.count < 25 %>
+						<nav>
+						    <ul class="pagination">
+						    	<li class="page-item active">
+						    		<a href="#" >1</a>
+						    	</li>
+						    </ul>
+						</nav>
+					<% else %>
+						<%= paginate @meanings %>
+					<% end %>
+				</div>
+			</div>
+
+		</div>
+
+
+<%= render partial: "admins/layouts/sidebar" %>
+
+	</div>
+</div>
+
+<%= render partial: "admins/layouts/editword" %>

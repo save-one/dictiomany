@@ -1,0 +1,65 @@
+<div class="container-fluid">
+	<div class="row">
+		<p>Dictiomanyトップ > </p>
+		<div class="col-xs-9">
+
+			<div class="panel panel-default" id="favo-d-div">
+				<div class="panel-body meaning-panel-body">
+					<div>
+						<span class="font-37"><b>閲覧履歴</b></span><span class="font-30" style="color:grey;">（公開中のもの）</span>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="panel panel-default">
+				
+				<div class="panel-body" style="padding-bottom: 0;">
+					<p><%= @myhits.total_count %>件中 <%= @myhits.offset_value %>～<%= @myhits.offset_value + @myhits.length %>件を表示しています</p>
+					<table class="table table-default">
+						<thead>
+							<tr>
+								<th>閲覧日</th>
+								<th>名前</th>
+								<th>カテゴリー</th>
+								<th>意味</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @myhits.each do |h| %>
+							
+							<tr>
+								<td><%= h.created_at.strftime('%Y年%m月%d日') %></td>
+								<% pub = Public.find_by(name: h.meaning.word.name, kana: h.meaning.word.kana, category_parent: h.meaning.word.category_parent, category: h.meaning.word.category) %>
+								<td><%= link_to h.meaning.word_name, admins_public_path(id: pub.id) %></td>
+								<td><%= h.meaning.word.category_parent %> / <%= h.meaning.word.category %></td>
+								<td>
+									<%= link_to h.meaning.content, admins_mean_path(public_id: pub.id, id: h.meaning.id) %>
+								</td>
+								<td></td>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+				<div class="panel-footer">
+					<% if @myhits.count < 25 %>
+						<nav>
+						    <ul class="pagination">
+						    	<li class="page-item active">
+						    		<a href="#" >1</a>
+						    	</li>
+						    </ul>
+						</nav>
+					<% else %>
+						<%= paginate @myhits %>
+					<% end %>
+				</div>
+			</div>
+
+		</div>
+			
+<%= render partial: "admins/layouts/sidebar" %>
+	</div>
+</div>

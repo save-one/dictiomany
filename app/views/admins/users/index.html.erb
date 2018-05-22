@@ -1,0 +1,89 @@
+<div class="container-fluid">
+	<div class="row">
+		<p>Dictiomanyトップ > アカウント検索</p>
+		<div class="col-xs-9">
+
+			<div class="panel panel-default" id="favo-d-div">
+				<div class="panel-body meaning-panel-body">
+					<div>
+						<span class="font-37"><b><i class="fas fa-user"></i> アカウント</b></span><span class="font-30"> の一覧</span>
+					</div>
+
+					<div class="signup">
+						<%= search_form_for(@search, url: admins_users_path) do |f| %>
+
+							<div class= "input-group col-xs-9">
+							<%= f.search_field :name_or_email_or_user_word_cont, class: "form-control search-field" %>
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-default search-submit-button button-margin-left">
+									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+								</button>
+							</span>
+							</div>
+
+						<% end %>
+					</div>
+
+				</div>
+			</div>
+
+
+
+			<div class="panel panel-default">
+
+				<div class="panel-body" style="padding-bottom: 0;">
+
+					<p>
+						<b>" <%= @search_content %> "</b> の検索結果　
+
+						<%= @users.total_count %>件中 <%= @users.offset_value %>～<%= @users.offset_value + @users.length %>件を表示しています
+
+						<%= sort_link(@search, :name) do %>
+						<button type="button" class="btn btn-default pull-right sort-button">名前順</button>
+						<% end %>
+						<%= sort_link(@search, :name) do %>
+						<button type="button" class="btn btn-default pull-right sort-button">一言順</button>
+						<% end %>
+						<%= sort_link(@search, :id) do %>
+						<button type="button" class="btn btn-default pull-right sort-button">登録順</button>
+						<% end %>
+					</p>
+
+					<table class="table table-default">
+
+						<tbody>
+							<% @users.each do |u| %>
+							<tr class="index-user-tr">
+								<td>
+									<%= attachment_image_tag u, :image, format: "png", fallback: "img/acount_image1.png", :class => "index-user-icon center-block" %>
+								</td>
+								<td>
+									<i class="fas fa-user"></i> <%= link_to u.name, admins_user_path(u.id) %>
+								</td>
+								<td class="user_word"><%= u.user_word %></td>
+								<% p_dictions = Diction.where(user_id: u.id, public_flg: true) %>
+								<td>
+									公開辞書数： <%= p_dictions.count %>
+									<% quantity = 0 %>
+									<% p_dictions.each do |d| %>
+										<% m = d.words.count %>
+										<% quantity += m %>
+									<% end %>
+									　　公開単語数： <%= quantity %>
+								</td>
+
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+				<div class="panel-footer">
+					<%= paginate @users %>
+				</div>
+			</div>
+
+		</div>
+			
+<%= render partial: "admins/layouts/sidebar" %>
+	</div>
+</div>

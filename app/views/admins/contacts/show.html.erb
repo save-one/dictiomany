@@ -8,10 +8,6 @@
 					<div>
 						<span class="font-37"><b>お問い合わせの詳細</b></span><!-- <span class="font-30"></span> -->
 
-						<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#new-contact" data-backdrop="static">
-							お問い合わせをする
-						</button>
-
 					</div>
 				</div>
 			</div>
@@ -39,13 +35,21 @@
 						<% if @contact.reply.present? %>
 							<%= @contact.updated_at.strftime('%Y年%m月%d日') %>
 						<% else %>
-							<span>まだ未返信です。もうしばらくお待ちください。</span>
+							<span style="color: red;">まだ未返信です</span>
 						<% end %>
 						</b></p>
 					<hr>
 					<div>
+						<% unless @contact.reply.present? %>
+							<%= form_for(@contact, url: admins_user_contact_path(c_user)) do |f| %>
+								<%= f.text_area :reply, class: "form-control reply-textarea" %>
+							<div class="signup">
+								<%= f.submit class:"btn btn-primary", value: "返信する", data: {disable_with: "送信中..."} %>
+							</div>
+							<% end %>
+						<% else %>
 							<div class="font-21"><b>返信内容： <%= @contact.reply %></b></div>
-
+						<% end %>
 					</div>
 				</div>
 				
@@ -56,6 +60,3 @@
 <%= render partial: "admins/layouts/sidebar" %>
 	</div>
 </div>
-
-
-<%= render partial: "layouts/newcontact" %>

@@ -1,0 +1,42 @@
+<!-- モーダル・ダイアログ -->
+<!-- diction -->
+<div class="modal fade" id="edit-meaning" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>✖</span></button>
+				<h4 class="modal-title">Edit Meaning</h4>
+			</div>
+			<div class="modal-body newform-body">
+				<%= form_for(@meaning, url: admins_diction_word_meaning_path, html: {:class => "form-group"}) do |f| %>
+
+				<div>
+					<%= f.label "意味", {class: "form-label"} %>
+					<%= f.text_field :content, class: "form-control", required:true %>
+				</div>
+
+				<div class="signup clearfix">
+					<%= link_to admins_diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: @meaning.id), method: :delete do %>
+							<button type="button" class="btn btn-danger pull-right" id= "m-destroy-button">
+								意味を削除する
+							</button>
+					<% end %>
+				</div>
+
+			</div>
+			<div class="modal-footer row newform-footer">
+				<div class="col-xs-9">
+					<%= f.submit "変更する", class: "btn btn-primary form-control", data: {disable_with: "変更中..."} %>
+				</div>
+				<div class="col-xs-3" >
+					<button type="button" class="btn btn-default form-control" data-dismiss="modal">閉じる</button>
+				</div>
+
+				<% end %>
+				<!-- <button type="button" class="btn btn-primary">ボタン</button -->
+
+			</div>
+
+		</div>
+	</div>
+</div>

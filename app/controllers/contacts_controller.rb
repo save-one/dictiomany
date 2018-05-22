@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
   def index
+    contacts = Contact.where(user_id: current_user.id)
   	@contacts = Contact.page(params[:page])
   	@new_contact =Contact.new
   end
