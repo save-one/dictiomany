@@ -514,6 +514,20 @@ $(function() {
 	});
 });
 
+//検索時のcategoryの絞り込み用選択ボックスの設定 header用
+$(function() {
+	$('#refine-category-header').hierarchySelect({
+		width: 200
+	});
+});
+
+//検索時のcategoryの絞り込み用選択ボックスの設定 footer用
+$(function() {
+	$('#refine-category-footer').hierarchySelect({
+		width: 200
+	});
+});
+
 //word showでの検索フォームの出現の切り替え
 $(function() {
 	$('#search-drop-button').click(function() {
@@ -521,3 +535,10 @@ $(function() {
 	});
 });
 
+//footer カテゴリ選択により検索に自動的に入るようにする　索引機能
+$(function() {
+	$('#search-category-select-footer').on('click', function() {
+		//console.log('log');
+		$('#footer-search-submit').click();
+	});
+});

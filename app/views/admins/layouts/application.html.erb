@@ -32,30 +32,76 @@
 	    				<span class="icon-bar"></span>
 	    				<span class="icon-bar"></span>
 	    			</button>
-	    				<%= link_to "Dictiomany", admins_dictions_path, class: "navbar-brand", style: "font-size: 35px;" %>
+	    			<div class="text-center">
+	    				<%= link_to admins_tops_path, class: "navbar-brand" do %>
+	    				<span style= "font-size: 35px;">Dictiomany</span><br>
+	    				<span class="" style="color: #fff;"><b>辞書型知識共有サイト</b></span>
+	    				<% end %>
+	    			</div>
 	    		</div>
 
 	    		<div class="collapse navbar-collapse" id="navbar1">
-	    			<ul class="nav navbar-nav">
-	    				<li class="active">
-	    					<a href="">メニュー１</a>
-	    				</li>
+	    			
+	    			<ul class="nav navbar-nav pull-right">
+	    				<%= search_form_for(@search_header, url: admins_publics_path(@public_words), class: "navbar-form navbar-left search-header") do |f| %>
+	    					<span class="btn-group hierarchy-select" data-resize="auto" id="refine-category-header">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+										<span class="selected-label pull-left">&nbsp;</span>
+										<span class="caret"></span>
+										<span class="sr-only">Toggle Dropdown</span>
+									</button>
+
+									<!-- 絞り込み用のカテゴリ選択フォーム　検索してカテゴリ選択もできる -->
+									<span class="dropdown-menu open">
+										<span class="hs-searchbox">
+											<input type="text" class="form-control" autocomplete="off">
+										</span>
+										<p style="display: none;" id="p-refine-select-set-header"><%= @c_selected %></p>
+										<ul class="dropdown-menu inner" role="menu" id="search-category-select">
+											<li data-value="" data-level="1" data-default-selected="" class="category-select-refine-header">
+												<a href="#">すべてのカテゴリー</a>
+											</li>
+											<% @parents.zip(@category_all).each do |cp, ca| %>
+												<li data-value=<%= cp %> data-level="1" class="category-select-refine-header">
+													<a href="#"><%= cp %></a>
+												</li>
+												<% ca.each do |a| %>
+													<li data-value=<%= a %> data-level="2" class="category-select-refine-header">
+														<a href="#"><%= a %></a>
+													</li>
+												<% end %>
+											<% end %>
+										</ul>
+									</span>
+									<input class="hidden hidden-field" name="refine_category" readonly="readonly" aria-hidden="true" type="text"/>
+								</span>
+							</span>
+							<div class= "input-group" style="width: 580px;">
+							<%= f.search_field :name_or_kana_or_category_parent_or_category_cont, class: "form-control search-field" %>
+							<span class="input-group-btn" style="width: 42px;">
+								<button type="submit" class="btn btn-default search-submit-button">
+									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+								</button>
+							</span>
+							</div>
+	    				<% end %>
 	    				<li>
+	    					<%= link_to admins_dictions_path do %>
 	    					<button type="button" class="btn btn-default btn-lg" >
-	    						<span class="glyphicon glyphicon-user" %></span>
+	    						<i class="fas fa-book"></i>
+	    						辞書検索
 	    					</button>
+	    					<% end %>
 	    				</li>
 	    				<li>
+	    					<%= link_to admins_publics_path do %>
 	    					<button type="button" class="btn btn-default btn-lg" >
-	    						<span class="glyphicon glyphicon-book" %></span>
+	    						<i class="fas fa-globe"></i>
+	    						単語検索
 	    					</button>
+	    					<% end %>
 	    				</li>
-	    				<li>
-	    					<button type="button" class="btn btn-default btn-lg" >
-	    						<span class="glyphicon glyphicon-star" %></span>
-	    					</button>
-	    				</li>
-	    				<li>
+	    				<!-- <li>
 	    					<div class="dropdown">
 	    					<button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" >
 	    						<span class="glyphicon glyphicon-cog" %></span>
@@ -67,22 +113,26 @@
 	    						<li role="presentation"><a href="">お問い合わせ</a></li>
 	    					</ul>
 	    					</div>
-	    				</li>
+	    				</li> -->
 	    				<% if admin_signed_in? %>
-	    				<li><button type="button" class="btn btn-default btn-lg" >
-	    						<span class="glyphicon glyphicon-book" %></span>
-	    						<%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-	    					</button>
-	    				</li>
 	    				<li><%= link_to admins_admin_path(current_admin.id) do %>
 	    					<button type="button" class="btn btn-default btn-lg" >
-	    						<span class="glyphicon glyphicon-user" %></span>
+	    						<i class="fas fa-user"></i>
 	    						マイページ
+	    					</button>
+	    					<% end %>
+	    				</li>
+	    				<li>
+	    					<%= link_to destroy_admin_session_path, method: :delete do %>
+	    					<button type="button" class="btn btn-default btn-lg" >
+	    						<i class="fas fa-sign-out-alt"></i>
+	    						ログアウト
 	    					</button>
 	    					<% end %>
 	    				</li>
 	    				<% end %>
 	    			</ul>
+
 	    		</div>
 	    	</div>
     	</nav>
@@ -93,10 +143,125 @@
     <%= yield %>
 
 
-    <footer>
-    	<div class="container">
-    		<p class="text-muted text-center">diction@</p>
+    <footer class="">
+    	<div class="footer-inner row">
+    		<div class="col-xs-4 text-center">
+	    		<%= image_tag("img/diction_image1.png", class: "attachment admin image acount_image center-block fallback", style: "background-color: #fff;") %>
+	    		<h3><b>Dictiomany</h3></b></h3>
+	    		<p>他業種間の知識理解の相違を減らすお手伝いを目的として<br>
+	    			Save-Oneによって発案　2018年5月に実装
+	    		</p>
+    		</div>
+
+    		<div class="col-xs-5">
+    			<h2><i class="fas fa-folder-open"></i> 索引</h2>
+    			<h3>50音・アルファベット索引</h3>
+    			<div class="col-xs-3">
+	    			<% @search_index1.each do |i| %>
+	    				<% i.each do |u| %>
+	    					<a href="publics.%23<Public::ActiveRecord_Relation:0x0b7c80fc>?utf8=✓&refine_category=&q%5Bname_or_kana_start%5D=<%= u %>"><%= u %></a>
+	    				<% end %>
+	    				<br>
+	    			<% end %>
+    			</div>
+    			<div class="col-xs-3">
+	    			<% @search_index2.each do |i| %>
+	    				<% i.each do |u| %>
+	    					<a href="publics.%23<Public::ActiveRecord_Relation:0x0b7c80fc>?utf8=✓&refine_category=&q%5Bname_or_kana_start%5D=<%= u %>"><%= u %></a>
+	    				<% end %>
+	    				<br>
+	    			<% end %>
+    			</div>
+    			<div class="col-xs-3">
+	    			<% @search_index3.each do |i| %>
+	    				<% i.each do |u| %>
+	    					<a href="publics.%23<Public::ActiveRecord_Relation:0x0b7c80fc>?utf8=✓&refine_category=&q%5Bname_or_kana_start%5D=<%= u %>"><%= u %></a>
+	    				<% end %>
+	    				<br>
+	    			<% end %>
+    			</div>
+    			<div class="col-xs-3">
+	    			<% @search_index4.each do |i| %>
+	    				<% i.each do |u| %>
+	    					<a href="publics.%23<Public::ActiveRecord_Relation:0x0b7c80fc>?utf8=✓&refine_category=&q%5Bname_or_kana_start%5D=<%= u %>"><%= u %></a>
+	    				<% end %>
+	    				<br>
+	    			<% end %>
+    			</div>
+    		</div>
+
+    		<div class="col-xs-3">
+    			<h2>カテゴリ</h2>
+    			<%= search_form_for(@search_footer, url: admins_publics_path(@public_words)) do |f| %>
+				<div class="">
+					<!-- <select class="form-control" name="refine">
+						<option value="all">すべてのカテゴリー</option>
+					</select> -->
+					<div class="btn-group hierarchy-select" data-resize="auto" id="refine-category-footer">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="selected-label pull-left">&nbsp;</span>
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+
+						<!-- 絞り込み用のカテゴリ選択フォーム　検索してカテゴリ選択もできる -->
+						<div class="dropdown-menu open">
+							<div class="hs-searchbox">
+								<input type="text" class="form-control" autocomplete="off">
+							</div>
+							<p style="display: none;" id="p-refine-select-set-footer"><%= @c_selected %></p>
+							<ul class="dropdown-menu inner" role="menu" id="search-category-select-footer">
+								<li data-value="" data-level="1" data-default-selected="" class="category-select-refine-footer">
+									<a href="#">すべてのカテゴリー</a>
+								</li>
+								<% @parents.zip(@category_all).each do |cp, ca| %>
+									<li data-value=<%= cp %> data-level="1" class="category-select-refine-footer">
+										<a href="#"><%= cp %></a>
+									</li>
+									<% ca.each do |a| %>
+										<li data-value=<%= a %> data-level="2" class="category-select-refine-footer">
+											<a href="#"><%= a %></a>
+										</li>
+									<% end %>
+								<% end %>
+							</ul>
+						</div>
+						<input class="hidden hidden-field" name="refine_category" readonly="readonly" aria-hidden="true" type="text"/>
+					</div>
+				</div>
+
+				<div class= "input-group" style="display: none;">
+				<span class="input-group-btn">
+					<%= f.search_field :category_parent_or_category_eq, class: "form-control search-field" %>
+					<button type="submit" class="btn btn-default search-submit-button" id="footer-search-submit">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					</button>
+				</span>
+				</div>
+
+			<% end %>
     	</div>
     </footer>
+
+
+    <script>
+		// カテゴリの絞り込み用セレクトボックスの初期値の設定
+		var value = $('#d-refine-select-set-header').text();
+		// console.log(value);
+		var c = $(`.category-select-refine-header[data-value='${value}']`).html();
+		// console.log(c);
+		$('.category-select-refine-header[data-value=\'\']').removeAttr("data-default-selected");
+		$(`.category-select-refine-header[data-value='${value}']`).attr('data-default-selected', "");
+
+		// カテゴリの絞り込み用セレクトボックスの初期値の設定
+		var value = $('#p-refine-select-set-footer').text();
+		// console.log(value);
+		var c = $(`.category-select-refine-footer[data-value='${value}']`).html();
+		// console.log(c);
+		$('.category-select-refine-footer[data-value=\'\']').removeAttr("data-default-selected");
+		$(`.category-select-refine-footer[data-value='${value}']`).attr('data-default-selected', "");
+
+
+	</script>
   </body>
 </html>

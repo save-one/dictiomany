@@ -8,10 +8,10 @@
 			<div class="panel panel-default" id="favo-d-div">
 				<div class="panel-body meaning-panel-body">
 					<div>
-						<span class="font-37"><b>パブリック辞書</b></span><span class="font-30"> の単語一覧</span>
-						<button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#new-word" data-backdrop="static">
+						<span class="font-37"><b><i class="fas fa-globe"></i> 単語検索</b></span><span class="font-30" style="color: grey;">　現在公開中の単語から検索します</span>
+						<!-- <button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#new-word" data-backdrop="static">
 							<span class="glyphicon glyphicon-plus"></span>
-						</button>
+						</button> -->
 					</div>
 
 					<div class="signup">
@@ -32,7 +32,7 @@
 										<div class="hs-searchbox">
 											<input type="text" class="form-control" autocomplete="off">
 										</div>
-										<p style="display: none;" id="d-refine-select-set"><%= @c_selected %></p>
+										<p style="display: none;" id="p-refine-select-set"><%= @c_selected %></p>
 										<ul class="dropdown-menu inner" role="menu" id="search-category-select">
 											<li data-value="" data-level="1" data-default-selected="" class="category-select-refine">
 												<a href="#">すべてのカテゴリー</a>
@@ -75,7 +75,13 @@
 				<div class="panel-body" style="padding-bottom: 0;">
 
 					<p>
-						<b>" <%= @search_content %> "</b> の検索結果
+						<% if @search_sign === "search_index" %>
+							<b>" <%= @search_content %> "</b> から始まる単語の検索結果
+						<% elsif @search_sign === "search_category" %>
+							<b>" <%= @search_content %> "</b> カテゴリーの検索結果
+						<% else %>
+							<b>" <%= @search_content %> "</b> の検索結果
+						<% end %>
 						<%= @public_words.total_count %>件中 <%= @public_words.offset_value %>～<%= @public_words.offset_value + @public_words.length %>件を表示しています
 						<%= sort_link(@search, :category) do %>
 						<button type="button" class="btn btn-default pull-right sort-button">カテゴリー順</button>
@@ -96,7 +102,7 @@
 								<td>単語名: <%= link_to w.name, admins_public_path(w.id) %></td>
 								<td>
 									<% if meaning_first = Meaning.where(word_name: w.name, word_kana: w.kana, word_category_parent: w.category_parent, word_category: w.category).first %>
-									意味： <%= meaning_first.content %>
+									意味： <%= link_to meaning_first.content, admins_mean_path(public_id: w.id, id: meaning_first.id) %>
 									<% end %>
 								</td>
 								<td>カテゴリー： <%= w.category_parent %> / <%= w.category %></td>
@@ -130,7 +136,7 @@
 
 <script>
 	// カテゴリの絞り込み用セレクトボックスの初期値の設定
-	var value = $('#d-refine-select-set').text();
+	var value = $('#p-refine-select-set').text();
 	// console.log(value);
 	var c = $(`.category-select-refine[data-value='${value}']`).html();
 	// console.log(c);
