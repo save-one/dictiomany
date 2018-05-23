@@ -11,11 +11,8 @@ class Admins::ReportsController < Admins::ApplicationController
 
   def update
     report = Report.find(params[:id])
-    report.update
-    redirect_to admins_report_path
+    report.update(report_deal_params)
   end
-
-  
 
   # def diction
   # 	diction = Diction.find(params[:diction_id])
@@ -53,6 +50,10 @@ private
 
   def report_params
   	params.require(:report).permit(:reason)
+  end
+
+  def report_deal_params
+    params.require(:report).permit(:deal)
   end
 
 end

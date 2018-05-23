@@ -21,27 +21,32 @@
 					<table class="table table-default">
 						<thead>
 							<tr>
-								<th>お問い合わせ日</th>
+								<th>通報日</th>
 								<th>対象コメント</th>
 								<th>通報理由</th>
 								<th>対処</th>
 							</tr>
 						</thead>
 						<tbody>
+							<% num = 0 %>
 							<% @reports.each do |r| %>
+							<% form_id_report = "report-form" + num.to_s %>
 							<tr>
-								<%= form_for(r, url: admins_report_path(r)) do |f| %>
-								<% comment = Comment.find(r.comment_id) %>
-								<% m = Meaning.find(comment.meaning_id) %>
-								<% w = Word.find(m.word_id) %>
-								<% d = Diction.find(w.diction_id) %>
-								<td><%= link_to r.created_at.strftime('%Y年%m月%d日') ,admins_report_path(id: r.id) %></td>
+								<%= form_for(r, url: admins_report_path(r), :html => {id: form_id_report, class: "report_forms"}) do |f| %>
+									<% comment = Comment.find(r.comment_id) %>
+									<% m = Meaning.find(comment.meaning_id) %>
+									<% w = Word.find(m.word_id) %>
+									<% d = Diction.find(w.diction_id) %>
+								<td>
+									<%= link_to r.created_at.strftime('%Y年%m月%d日') ,admins_report_path(id: r.id) %>
+								</td>
 								<td><%= link_to comment.content, admins_diction_word_meaning_path(diction_id: d.id, word_id: w.id, id: m.id) %></td>
 								<td><%= r.reason %></td>
-								<td><%= f.select :deal, [["---", ""], ["保留中", "保留中"], ["削除済み", "削除済み"], ["問題なし", "問題なし"]], {}, :class => "report_select", :prompt => "選択してください" %></td>
+								<td><%= f.select :deal, [["未対処", ""], ["保留中", "保留中"], ["削除済み", "削除済み"], ["問題なし", "問題なし"]], {}, :class => "report_select form-control" %><%= f.submit style: "display: none;", value: num, form: form_id_report, class: "submit_class_report" %>
+								</td>
 								<% end %>
-
 							</tr>
+							<% num += 1 %>
 							<% end %>
 						</tbody>
 					</table>
@@ -67,15 +72,11 @@
 	</div>
 </div>
 
-<!-- <script>
+<script>
 $(function() {
-	var num = 0;
-	for (var i = 0; i < 5; i++) {
-		if (i = num) {
-			$('#report_deal > option').eq(i).text("---");
-			num += 4
-		}
-	}
+	$('.report_select').on('change', function() {
+		$(this).next('.submit_class_report').click();
+	});
 });
 
-</script> -->
+</script>

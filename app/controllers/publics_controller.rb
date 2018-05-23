@@ -1,7 +1,7 @@
 class PublicsController < ApplicationController
 	#単語一覧
   def index
-  	@public_words = Public.all
+  	#@public_words = Public.all
     @search = Public.search(params[:q])
     @public_words = @search.result
     @public_words = @public_words.where(category_parent: params[:refine_category]).or(@public_words.where(category: params[:refine_category])) if params[:refine_category].present?
