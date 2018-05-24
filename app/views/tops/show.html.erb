@@ -1,2 +1,44 @@
-<h1>Tops#show</h1>
-<p>Find me in app/views/tops/show.html.erb</p>
+<% breadcrumb :admin_dictions %>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-9">
+			<%= render partial: "layouts/breadcrumbs" %>
+			<div class="panel panel-default">
+				<div class="panel-body meaning-panel-body">
+					<div>
+						<span class="font-37"><b><i class="fas fa-book"></i> すべての辞書</b></span><span class="font-30"> </span>
+					</div>
+					<div class="signup">
+						
+					</div>
+
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				
+				<div class="panel-body" style="padding-bottom: 0;">
+					
+				</div>
+				<div class="panel-footer">
+					
+				</div>
+			</div>
+
+		</div>
+
+<%= render partial: "layouts/sidebar" %>
+	</div>
+</div>
+
+
+<script>
+	// カテゴリの絞り込み用セレクトボックスの初期値の設定
+	var value = $('#d-refine-select-set').text();
+	// console.log(value);
+	var c = $(`.category-select-refine[data-value='${value}']`).html();
+	// console.log(c);
+	$('.category-select-refine[data-value=\'\']').removeAttr("data-default-selected");
+	$(`.category-select-refine[data-value='${value}']`).attr('data-default-selected', "");
+
+</script>

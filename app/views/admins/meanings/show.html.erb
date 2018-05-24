@@ -1,8 +1,8 @@
+<% breadcrumb :admin_comments, @diction, @word, @meaning %>
 <div class="container-fluid">
 	<div class="row">
-		<p>Dictiomanyトップ > <%= link_to "辞書", admins_dictions_path %> > <%= link_to "単語", admins_diction_path(@diction.id) %> > <%= link_to "意味", admins_diction_word_path(diction_id: @diction.id, id: @word.id) %> > コメント</p>
 		<div class="col-xs-9">
-
+			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default">
 				<!-- <div class="panel-heading">
 					

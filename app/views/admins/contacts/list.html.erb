@@ -1,8 +1,8 @@
+<% breadcrumb :admin_contacts_list %>
 <div class="container-fluid">
 	<div class="row">
-		<p>Dictiomanyトップ > </p>
 		<div class="col-xs-9">
-
+			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default" id="favo-d-div">
 				<div class="panel-body meaning-panel-body">
 					<div>
@@ -32,8 +32,8 @@
 							<% @contacts.each do |c| %>
 							<tr>
 								<td><%= link_to c.created_at.strftime('%Y年%m月%d日') ,admins_user_contact_path(user_id: c.user_id, id: c.id) %></td>
-								<td><%= c.title %></td>
-								<td><%= c.content %></td>
+								<td><%= c.title.truncate(15) %></td>
+								<td><%= c.content.truncate(18) %></td>
 								<td><% c_user = User.find(c.user.id) %><i class="fas fa-user"></i> <%= c_user.name %></td>
 								<% if c.reply.present? %>
 									<td>済み</td>

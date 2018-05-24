@@ -1,12 +1,18 @@
+<% breadcrumb :mypage, @user %>
 <div class="container-fluid">
 	<div class="row">
-		<p>Dictiomanyトップ > ユーザー > マイページ</p>
 		<div class="col-xs-9">
-
+			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default" id="favo-d-div">
 				<div class="panel-body meaning-panel-body">
 					<div>
-						<span class="font-37"><b>マイページ</b></span><span class="font-30"></span>
+						<% if user_signed_in? %>
+							<% if @user === current_user %>
+							<span class="font-37"><b>マイページ</b></span><span class="font-30"></span>
+							<% else %>
+							<span class="font-37"><b><i class="fas fa-user"></i> <%= @user.name %></b></span><span class="font-30"></span>
+							<% end %>
+						<% end %>
 
 						<% if user_signed_in? %>
 							<% if @user.id === current_user.id %>

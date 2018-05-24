@@ -226,3 +226,16 @@
  	padding-top: 55px;
  	padding-bottom: 55px;
  }
+
+ .breadcrumb {
+ 	background-color: #fff;
+ 	border: 1px solid #ddd;
+ 	margin-top: 7px;
+ 	margin-bottom: 10px;
+ 	font-weight: bold;
+ 	/*boldはどうしよっか*/
+ }
+
+ .breadcrumb > li + li:before {
+ 	color: darkgrey;
+ }
