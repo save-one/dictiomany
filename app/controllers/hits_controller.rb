@@ -1,10 +1,10 @@
 class HitsController < ApplicationController
   def index
-  	user = User.find(params[:user_id])
+  	@user = User.find(params[:user_id])
   	#public_flgを確認
   	myhits = Hit.joins({:meaning => {:word => :diction}}).where(:dictions => {:public_flg => true})
   	#user_idを確認
-  	myhits = myhits.where(user_id: user.id)
+  	myhits = myhits.where(user_id: @user.id)
   	#先に並び替えて重複をなくす 先に並び替えないと古いものが残ってしまうため
   	myhits = myhits.sort.reverse.to_a.uniq{|item| item.meaning_id}
   	#ページネーション

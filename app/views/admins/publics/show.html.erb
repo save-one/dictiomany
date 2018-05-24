@@ -1,15 +1,15 @@
+<% breadcrumb :admin_public, @public %>
 <div class="container-fluid">
 	<div class="row">
-		<p>Dictiomanyトップ > <%= link_to "辞書", admins_dictions_path %> > </p>
 		<div class="col-xs-9">
-
+			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default">
 				<div class="panel-body meaning-panel-body">
 					<div>
 						<span class="font-37"><b><%= @public.name %></b></span><span class="font-30"> の意味</span>
-						<button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#p-meaning" data-backdrop="static">
+						<!-- <button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#p-meaning" data-backdrop="static">
 							<span class="glyphicon glyphicon-plus"></span>
-						</button>
+						</button> -->
 					</div>
 
 					<div class="signup ">
