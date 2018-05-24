@@ -7,12 +7,16 @@ class Admins::PublicsController < Admins::ApplicationController
     @public_words = @public_words.where(category_parent: params[:refine_category]).or(@public_words.where(category: params[:refine_category])) if params[:refine_category].present?
     @public_words = @public_words.page(params[:page])
     @c_selected = params[:refine_category]
-    q = params[:q]
-    @search_content = q["name_or_kana_or_category_parent_or_category_cont"] if q["name_or_kana_or_category_parent_or_category_cont"].present?
-    @search_content = q["name_or_kana_start"] if q["name_or_kana_start"].present?
-    @search_content = params[:refine_category] if q["category_parent_or_category_eq"] == ""
-    @search_sign = "search_index" if q["name_or_kana_start"].present?
-    @search_sign = "search_category" if q["category_parent_or_category_eq"] == ""
+
+    @search_content = ""
+    if params[:q].present?
+      q = params[:q]
+      @search_content = q["name_or_kana_or_category_parent_or_category_cont"] if q["name_or_kana_or_category_parent_or_category_cont"].present?
+      @search_content = q["name_or_kana_start"] if q["name_or_kana_start"].present?
+      @search_content = params[:refine_category] if q["category_parent_or_category_eq"] == ""
+      @search_sign = "search_index" if q["name_or_kana_start"].present?
+      @search_sign = "search_category" if q["category_parent_or_category_eq"] == ""
+    end
   end
 
   #一単語に対する意味の一覧

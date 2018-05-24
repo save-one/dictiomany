@@ -70,11 +70,11 @@
 				    					<ul class="dropdown-menu" role="menu">
 				    							<li role="presentation"><%= link_to "コメントを削除する", admins_diction_word_meaning_comment_path(diction_id: @diction.id, word_id: @word.id, meaning_id: @meaning.id, id:c.id), method: :delete, class: "comment-destroy" %>
 				    							</li>
-				    						<li role="presentation">
+				    						<!-- <li role="presentation">
 				    							<a data-toggle="modal" data-target="#report-comment" data-backdrop="static" class="cursor c-report">
 													通報する
 												</a>
-				    						</li>
+				    						</li> -->
 				    					</ul>
 				    				</div>
 				    				<p class="c-id-for-report" style="display: none;"><%= c.id %></p>

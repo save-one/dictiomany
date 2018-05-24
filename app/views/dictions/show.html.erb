@@ -7,24 +7,25 @@
 				<div class="panel-body meaning-panel-body">
 					<div>
 						<span class="font-37"><b><i class="fas fa-book"></i> <%= @diction.name %></b></span><span class="font-30"> の単語一覧</span>
-						<% if @diction.user_id === current_user.id %>
-							<button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#new-word" data-backdrop="static">
-								<span class="glyphicon glyphicon-plus"></span>
-							</button>
-							<% end %>
-
-						<% favorite = FavoriteDiction.find_by(user_id: current_user.id, diction_id: @diction.id) %>
-						<% if favorite.present? %>
-							<%= link_to diction_favorite_path(diction_id: @diction.id, id: favorite.id), method: :delete do %>
-								<button type="button" class="btn btn-danger pull-right button-margin-left" id="f-d-button-d" >お気に入りから削除</button>
-							<% end %>
-						<% else %>
-							<%= link_to diction_favorites_path(@diction), method: :post do %>
-								<button type="button" class="btn btn-warning pull-right button-margin-left" id="f-d-button-c">お気に入りに追加</button>
-							<% end %>
-						<% end %>
-
 						<% if user_signed_in? %>
+							<% if @diction.user_id === current_user.id %>
+								<button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#new-word" data-backdrop="static">
+									<span class="glyphicon glyphicon-plus"></span>
+								</button>
+							<% end %>
+
+							<% favorite = FavoriteDiction.find_by(user_id: current_user.id, diction_id: @diction.id) %>
+							<% if favorite.present? %>
+								<%= link_to diction_favorite_path(diction_id: @diction.id, id: favorite.id), method: :delete do %>
+									<button type="button" class="btn btn-danger pull-right button-margin-left" id="f-d-button-d" >お気に入りから削除</button>
+								<% end %>
+							<% else %>
+								<%= link_to diction_favorites_path(@diction), method: :post do %>
+									<button type="button" class="btn btn-warning pull-right button-margin-left" id="f-d-button-c">お気に入りに追加</button>
+								<% end %>
+							<% end %>
+
+
 							<% if @diction.default_public_flg === false && @diction.user_id === current_user.id %>
 								<!-- edit diction -->
 								<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#edit-diction" data-backdrop="static">

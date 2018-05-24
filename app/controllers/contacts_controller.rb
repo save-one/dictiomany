@@ -1,11 +1,12 @@
 class ContactsController < ApplicationController
   def index
     contacts = Contact.where(user_id: current_user.id)
-  	@contacts = Contact.page(params[:page])
+  	@contacts = contacts.page(params[:page])
   	@new_contact =Contact.new
   end
 
   def show
+    @contact = Contact.find(params[:id])
   	@new_contact =Contact.new
   end
 

@@ -9,7 +9,7 @@
 						<span class="font-37"><b><i class="fas fa-book"></i> すべての辞書</b></span><span class="font-30"> </span>
 					</div>
 					<div class="signup">
-						<%= search_form_for(@search) do |f| %>
+						<%= search_form_for(@search, url: admins_dictions_path) do |f| %>
 							<div class="col-xs-3">
 								<!-- <select class="form-control" name="refine">
 									<option value="all">すべてのカテゴリー</option>

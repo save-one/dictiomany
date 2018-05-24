@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :newdiction
+  before_action :user_new
   before_action :create_public_diction
 private
 
@@ -24,7 +24,18 @@ private
     end
   end
 
-  def newdiction
+  def user_new
+    #header検索用パブリック
+    @search_header = Public.search(params[:q])
+    @public_words = @search_header.result
+    #footerカテゴリ用パブリック
+    @search_footer = Public.search(params[:q])
+    @public_words = @search_header.result
+    #footer用索引
+    @search_index1 = ["あ", "い", "う", "え", "お"], ["か", "き", "く", "け", "こ"], ["さ", "し", "す", "せ", "そ"], ["た", "ち", "つ", "て", "と"], ["な", "に", "ぬ", "ね", "の"], ["は", "ひ", "ふ", "へ", "ほ"], ["ま", "み", "む", "め", "も"], ["や", "ゆ", "よ"], ["ら", "り", "る", "れ", "ろ"], ["わ", "を", "ん",]
+    @search_index2 = ["が","ぎ","ぐ","げ","ご"],["ざ","じ","ず","ぜ","ぞ"],["だ","ぢ","づ","で","ど"],["ば","び","ぶ","べ","ぼ"],["ぱ","ぴ","ぷ","ぺ","ぽ"]
+    @search_index3 = ["Ａ","Ｂ","Ｃ","Ｄ","Ｅ"],["Ｆ","Ｇ","Ｈ","Ｉ","Ｊ"],["Ｋ","Ｌ","Ｍ","Ｎ","Ｏ"],["Ｐ","Ｑ","Ｒ","Ｓ","Ｔ"],["Ｕ","Ｖ","Ｗ","Ｘ","Ｙ"],["Ｚ"]
+    @search_index4 = ["1","2","3","4","5"],["6","7","8","9","0"]
     #current_user
     @side_user = current_user #userのshowアクションでのみ、アクション内でparamsにあったものに切り替える
   	#dictionally
