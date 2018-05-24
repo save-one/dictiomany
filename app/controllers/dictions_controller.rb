@@ -88,6 +88,6 @@ class DictionsController < ApplicationController
   private
 
   def diction_params
-  	params.require(:diction).permit(:name, :category)
+  	params.require(:diction).permit(:name, :category, :category_parent)
   end
 end

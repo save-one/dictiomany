@@ -1,9 +1,4 @@
 class Admins::AdminsController < Admins::ApplicationController
-	def index
-		@search = User.search(params[:q])
-		@users = @search.result
-		@users = @users.page(params[:page])
-	end
 
 	#マイページ
 	def show

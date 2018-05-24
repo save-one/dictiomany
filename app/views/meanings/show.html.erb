@@ -1,6 +1,6 @@
 <div class="container-fluid">
 	<div class="row">
-		<p>Dictiomanyトップ > <%= link_to "辞書", admins_dictions_path %> > <%= link_to "単語", admins_diction_path(@diction.id) %> > <%= link_to "意味", admins_diction_word_path(diction_id: @diction.id, id: @word.id) %> > コメント</p>
+		<p>Dictiomanyトップ > <%= link_to "辞書", dictions_path %> > <%= link_to "単語", diction_path(@diction.id) %> > <%= link_to "意味", diction_word_path(diction_id: @diction.id, id: @word.id) %> > コメント</p>
 		<div class="col-xs-9">
 
 			<div class="panel panel-default">
@@ -13,13 +13,16 @@
 						<!-- <button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#new-comment" data-backdrop="static">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button> -->
-
+						<% if user_signed_in? %>
+							<% if @diction.user_id === current_user.id %>
 								<!-- edit word -->
 								<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#edit-word" data-backdrop="static">
 									単語を編集する
 								</button>
 								<p id="w_p_category" style="display: none"><%= @word.category_parent %></p>
 								<p id="w_category" style="display: none"><%= @word.category %></p>
+							<% end %>
+						<% end %>
 
 					</div>
 					<div class="signup ">
@@ -28,11 +31,14 @@
 							<span class="label label-warning" style="padding: 6px 10px;"><b>主な意味</b></span>
 							<b> <%= @meaning.content %></b>（ <i class="fas fa-user"></i> <%= user_name.name %> さんの投稿）
 
-
+							<% if user_signed_in? %>
+								<% if @diction.user_id === current_user.id %>
 								<!-- edit meaning -->
 								<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#edit-meaning" data-backdrop="static">
 									意味を編集する
 								</button>
+								<% end %>
+							<% end %>
 
 						</p>
 					</div>
