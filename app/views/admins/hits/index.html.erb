@@ -1,7 +1,7 @@
 <% breadcrumb :admin_hits, @side_user %>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-9">
+		<div class="col-lg-9 col-xs-12">
 			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default" id="favo-d-div">
 				<div class="panel-body meaning-panel-body">
@@ -20,7 +20,7 @@
 					<table class="table table-default">
 						<thead>
 							<tr>
-								<th>閲覧日</th>
+								<th class="hidden-xs">閲覧日</th>
 								<th>名前</th>
 								<th>カテゴリー</th>
 								<th>意味</th>
@@ -30,7 +30,7 @@
 							<% @myhits.each do |h| %>
 							
 							<tr>
-								<td><%= h.created_at.strftime('%Y年%m月%d日') %></td>
+								<td class="hidden-xs"><%= h.created_at.strftime('%Y年%m月%d日') %></td>
 								<% pub = Public.find_by(name: h.meaning.word.name, kana: h.meaning.word.kana, category_parent: h.meaning.word.category_parent, category: h.meaning.word.category) %>
 								<td><%= link_to h.meaning.word_name, admins_public_path(id: pub.id) %></td>
 								<td><%= h.meaning.word.category_parent %> / <%= h.meaning.word.category %></td>

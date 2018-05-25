@@ -1,7 +1,7 @@
 <% breadcrumb :admin_dictions %>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-9">
+		<div class="col-xs-12 col-lg-9">
 			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default">
 				<div class="panel-body meaning-panel-body">
@@ -10,7 +10,7 @@
 					</div>
 					<div class="signup">
 						<%= search_form_for(@search, url: admins_dictions_path) do |f| %>
-							<div class="col-xs-3">
+							<div class="col-lg-3 col-xs-12 pull-button-cate">
 								<!-- <select class="form-control" name="refine">
 									<option value="all">すべてのカテゴリー</option>
 								</select> -->
@@ -47,7 +47,7 @@
 								</div>
 							</div>
 
-							<div class= "input-group col-xs-9">
+							<div class= "input-group col-lg-9 col-xs-12">
 							<%= f.search_field :name_or_category_parent_or_category_cont, class: "form-control search-field" %>
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-default search-submit-button">
@@ -69,7 +69,7 @@
 				<div class="panel-body" style="padding-bottom: 0;">
 					<p>
 						<b>" <%= @search_content %> "</b> の検索結果
-						<%= @dictions.total_count %>件中 <%= @dictions.offset_value %>～<%= @dictions.offset_value + @dictions.length %>件を表示しています
+						<%= @dictions.total_count %>件中 <%= @dictions.offset_value %>～<%= @dictions.offset_value + @dictions.length %>件を表示しています<br class="visible-xs-block">
 						<%= sort_link(@search, :category) do %>
 						<button type="button" class="btn btn-default pull-right sort-button">カテゴリー順</button>
 						<% end %>
@@ -85,8 +85,8 @@
 							<tr>
 								<th>名前</th>
 								<th>カテゴリー</th>
-								<th>ユーザ名</th>
-								<th></th>
+								<th class="visible-lg-block">ユーザ名</th>
+								<th class="visible-lg-block"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -100,10 +100,10 @@
 									<% end %>
 								</td>
 								<td><%= d.category_parent %> / <%= d.category %></td>
-								<td><i class="fas fa-user"></i> <% user_name = User.find(d.user_id) %>
+								<td class="visible-lg-block"><i class="fas fa-user"></i> <% user_name = User.find(d.user_id) %>
 									<%= user_name.name %>
 								</td>
-								<td>
+								<td class="visible-lg-block">
 									<% favo = FavoriteDiction.where(diction_id: d.id).count %>
 									<i class="fas fa-star"></i> <%= favo %>
 								</td>
@@ -113,7 +113,17 @@
 					</table>
 				</div>
 				<div class="panel-footer">
-					<%= paginate @dictions %>
+					<% if @dictions.count < 25 %>
+						<nav>
+						    <ul class="pagination">
+						    	<li class="page-item active">
+						    		<a href="#" >1</a>
+						    	</li>
+						    </ul>
+						</nav>
+					<% else %>
+						<%= paginate @dictions %>
+					<% end %>
 				</div>
 			</div>
 

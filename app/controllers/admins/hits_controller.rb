@@ -1,7 +1,7 @@
 class Admins::HitsController < Admins::ApplicationController
   def index
-  	user = User.find(params[:user_id])
-    @side_user = user
+  	@user = User.find(params[:user_id])
+    @side_user = @user
   	#public_flgを確認
   	myhits = Hit.joins({:meaning => {:word => :diction}}).where(:dictions => {:public_flg => true})
   	#user_idを確認

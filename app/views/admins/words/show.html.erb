@@ -1,15 +1,17 @@
 <% breadcrumb :admin_meanings, @diction, @word %>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-9">
+		<div class="col-lg-9 col-xs-12">
 			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default">
 				<div class="panel-body meaning-panel-body">
 					<div>
 						<span class="font-37"><b><%= @word.name %></b></span><span class="font-30"> の意味</span>
 
+						<br class="visible-xs-block">
+
 								<!-- edit word -->
-								<button type="button" class="btn btn-default pull-right button-margin-left" data-toggle="modal" data-target="#edit-word" data-backdrop="static">
+								<button type="button" class="btn btn-default pull-right button-margin-left pull-button" data-toggle="modal" data-target="#edit-word" data-backdrop="static">
 									単語を編集する
 								</button>
 								<p id="w_p_category" style="display: none"><%= @word.category_parent %></p>
@@ -18,24 +20,28 @@
 
 					<div class="signup ">
 						<% user_name = User.find(@diction.user_id) %>
-						<p class="font-21">
+						<p class="font-21 p-line">
 							<span class="label label-warning" style="padding: 6px 10px;"><b>主な意味</b></span>
 							<% if @meanings.present? %>
-							<b class="mean-b"> <%= link_to @meanings.first.content, admins_diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: @meanings.first.id) %></b>（ <i class="fas fa-user"></i> <%= user_name.name %> さんの投稿）
+							<b class="mean-b"> <%= link_to @meanings.first.content, admins_diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: @meanings.first.id) %></b>
+
+							<br class="visible-xs-block">
+							（ <i class="fas fa-user"></i> <%= user_name.name %> さんの投稿）
 							<% else %>
 								<b class="mean-b noone"> まだ投稿されていません</b>
 							<% end %>
 
-							
+							<br class="visible-xs-block">
+
 							<!-- 検索フォーム表示切替 -->
-							<button type="button" class="btn btn-default pull-right" id="search-drop-button">検索する</button>
+							<button type="button" class="btn btn-default pull-right " id="search-drop-button">検索する</button>
 						</p>
 					</div>
 
 					<div class="signup" id="search-drop-box">
 						<%= search_form_for(@search, url: admins_diction_word_path(diction_id: @diction.id, id: @word.id)) do |f| %>
 
-							<div class= "input-group col-xs-9">
+							<div class= "input-group col-lg-9 col-xs-12 pull-button-cate">
 							<%= f.search_field :content_cont, class: "form-control search-field" %>
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-default search-submit-button button-margin-left">
@@ -71,7 +77,7 @@
 						<tr>
 							<th>投稿日</th>
 							<th>意味</th>
-							<th>お気に入り/コメント/閲覧</th>
+							<th class="hidden-xs">お気に入り/コメント/閲覧</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -79,7 +85,7 @@
 						<tr>
 							<td><%= m.created_at.strftime('%Y年%m月%d日') %></td>
 							<td><%= link_to m.content, admins_diction_word_meaning_path(diction_id: @diction.id, word_id: @word.id, id: m.id) %></td>
-							<td>
+							<td class="hidden-xs">
 								<% favo = FavoriteMeaning.where(meaning_id: m.id).count %>
 								<i class="fas fa-star"></i> <%= favo %>
 								<% come = Comment.where(meaning_id: m.id).count %>

@@ -1,12 +1,14 @@
 <% breadcrumb :admin_mypage, @user %>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-9">
+		<div class="col-lg-9 col-xs-12">
 			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default" id="favo-d-div">
 				<div class="panel-body meaning-panel-body">
 					<div>
 						<span class="font-37"><b>マイページ</b></span><span class="font-30"></span>
+
+						<br class="visible-xs-block" >
 
 								<!-- edit diction -->
 								<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#edit_user" data-backdrop="static">
@@ -44,8 +46,8 @@
 												<tr>
 													<th>名前</th>
 													<th>カテゴリー</th>
-													<th>ユーザ名</th>
-													<th></th>
+													<th class="hidden-xs">ユーザ名</th>
+													<th class="hidden-xs"></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -53,11 +55,11 @@
 												<tr>
 													<td><i class="fas fa-book"></i> <%= link_to d.name, admins_diction_path(d) %></td>
 													<td><%= d.category_parent %> / <%= d.category %></td>
-													<td>
+													<td class="hidden-xs">
 														<% user_name = User.find(d.user_id) %>
 														<i class="fas fa-user"></i> <%= user_name.name %>
 													</td>
-													<td>
+													<td class="hidden-xs">
 														<% favo = FavoriteDiction.where(diction_id: d.id) %>
 														<i class="fas fa-star"></i> <%= favo.count %>
 													</td>
@@ -93,8 +95,8 @@
 												<tr>
 													<th>名前</th>
 													<th>カテゴリー</th>
-													<th>ユーザ名</th>
-													<th></th>
+													<th class="hidden-xs">ユーザ名</th>
+													<th class="hidden-xs"></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -102,11 +104,11 @@
 												<tr>
 													<td><i class="fas fa-book"></i> <%= link_to d.name, admins_diction_path(d) %></td>
 													<td><%= d.category_parent %> / <%= d.category %></td>
-													<td>
+													<td class="hidden-xs">
 														<% user_name = User.find(d.user_id) %>
 														<i class="fas fa-user"></i> <%= user_name.name %>
 													</td>
-													<td>
+													<td class="hidden-xs">
 														<% favo = FavoriteDiction.where(diction_id: d.id) %>
 														<i class="fas fa-star"></i> <%= favo.count %>
 													</td>
@@ -128,8 +130,8 @@
 													<th>名前</th>
 													<th>カテゴリー</th>
 													<th>意味</th>
-													<th>アカウント名</th>
-													<th></th>
+													<th class="hidden-xs">アカウント名</th>
+													<th class="hidden-xs"></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -153,11 +155,11 @@
 																<%= link_to m.content, admins_diction_word_meaning_path(diction_id: d.id, word_id: w.id, id: m.id) %>
 															<% end %>
 														</td>
-														<td>
+														<td class="hidden-xs">
 															<% user_name = User.find(d.user_id) %>
 															<i class="fas fa-user"></i> <%= user_name.name %>
 														</td>
-														<td>
+														<td class="hidden-xs">
 															<% favo = FavoriteMeaning.where(meaning_id: m.id) %>
 															<i class="fas fa-star"></i> <%= favo.count %>
 															<% come = Comment.where(meaning_id: m.id).count %>
@@ -182,8 +184,8 @@
 													<th>名前</th>
 													<th>カテゴリー</th>
 													<th>意味</th>
-													<th>アカウント名</th>
-													<th></th>
+													<th class="hidden-xs">アカウント名</th>
+													<th class="hidden-xs"></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -196,11 +198,11 @@
 														</td>
 														<td><%= w.category_parent %> / <%= w.category %></td>
 														<td><%= link_to m.content, admins_diction_word_meaning_path(diction_id: d.id, word_id: w.id, id: m.id) %></td>
-														<td>
+														<td class="hidden-xs">
 															<% user_name = User.find(d.user_id) %>
 															<i class="fas fa-user"></i> <%= user_name.name %>
 														</td>
-														<td>
+														<td class="hidden-xs">
 															<% favo = FavoriteMeaning.where(meaning_id: m.id) %>
 															<i class="fas fa-star"></i> <%= favo.count %>
 															<% come = Comment.where(meaning_id: m.id).count %>

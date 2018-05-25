@@ -239,3 +239,65 @@
  .breadcrumb > li + li:before {
  	color: darkgrey;
  }
+
+ .p-line {
+ 	line-height: 1.7;
+ }
+
+ .header-search2 {
+ 		padding-bottom: 10px;
+ 		display: none;
+ 		border-top: solid 1px white;
+ }
+
+ #h-button-js {
+ 	display: none;
+ }
+
+ @media(max-width: 767px) {
+ 	body {
+ 		margin: 0 20px;
+ 	}
+ 	.sort-button {
+ 		float: none !important;
+ 		margin-top: 15px;
+ 	}
+ 	.pull-button-cate {
+ 		padding-left: 0;
+ 		padding-bottom: 15px;
+ 	}
+
+ 	.pull-button {
+ 		float: none !important;
+ 		margin-left: 0;
+ 	}
+
+ 	#search-drop-button {
+ 		margin-top: 15px;
+ 	}
+
+ 	.post-button-m {
+ 		margin-top: 15px;
+ 	}
+
+ 	/*.header-input {
+ 		width: 70%;
+ 	}
+
+ 	.header-input-button {
+ 		width: 30%;
+ 	}*/
+
+ 	.header-ul {
+ 		float: none !important;
+ 		text-align: center;
+ 	}
+
+ 	#h-button-js {
+ 		display: block;
+ 		margin-top: 7px;
+ 		margin-right: 10px;
+	}
+
+
+ }

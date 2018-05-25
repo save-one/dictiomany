@@ -1,45 +1,46 @@
 <% breadcrumb :words, @diction %>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-9">
+		<div class="col-lg-9 col-xs-12">
 			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default" id="favo-d-div">
 				<div class="panel-body meaning-panel-body">
 					<div>
-						<span class="font-37"><b><i class="fas fa-book"></i> <%= @diction.name %></b></span><span class="font-30"> の単語一覧</span>
+						<span class="font-37"><b><i class="fas fa-book"></i> <%= @diction.name %></b></span><br class="visible-xs-block"><span class="font-30"> の単語一覧</span>
 						<% if user_signed_in? %>
 							<% if @diction.user_id === current_user.id %>
 								<button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#new-word" data-backdrop="static">
 									<span class="glyphicon glyphicon-plus"></span>
 								</button>
 							<% end %>
+							<br class="visible-xs-block">
 
 							<% favorite = FavoriteDiction.find_by(user_id: current_user.id, diction_id: @diction.id) %>
 							<% if favorite.present? %>
 								<%= link_to diction_favorite_path(diction_id: @diction.id, id: favorite.id), method: :delete do %>
-									<button type="button" class="btn btn-danger pull-right button-margin-left" id="f-d-button-d" >お気に入りから削除</button>
+									<button type="button" class="btn btn-danger pull-right button-margin-left pull-button" id="f-d-button-d" >お気に入りから削除</button>
 								<% end %>
 							<% else %>
 								<%= link_to diction_favorites_path(@diction), method: :post do %>
-									<button type="button" class="btn btn-warning pull-right button-margin-left" id="f-d-button-c">お気に入りに追加</button>
+									<button type="button" class="btn btn-warning pull-right button-margin-left pull-button" id="f-d-button-c">お気に入りに追加</button>
 								<% end %>
 							<% end %>
 
-
 							<% if @diction.default_public_flg === false && @diction.user_id === current_user.id %>
 								<!-- edit diction -->
-								<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#edit-diction" data-backdrop="static">
+								<button type="button" class="btn btn-default pull-right pull-button" data-toggle="modal" data-target="#edit-diction" data-backdrop="static">
 									辞書を編集する
 								</button>
 								<p id="d_p_category" style="display: none"><%= @diction.category_parent %></p>
 								<p id="d_category" style="display: none"><%= @diction.category %></p>
 							<% end %>
+							<br class="visible-xs-block">
 						<% end %>
 					</div>
 
 					<div class="signup">
 						<%= search_form_for(@search, url: diction_path(@diction)) do |f| %>
-							<div class="col-xs-3">
+							<div class="col-lg-3 col-xs-12 pull-button-cate">
 								<!-- <select class="form-control" name="refine">
 									<option value="all">すべてのカテゴリー</option>
 								</select> -->
@@ -76,7 +77,7 @@
 								</div>
 							</div>
 
-							<div class= "input-group col-xs-9">
+							<div class= "input-group col-lg-9 col-xs-12">
 							<%= f.search_field :name_or_kana_or_category_parent_or_category_cont, class: "form-control search-field" %>
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-default search-submit-button">
@@ -99,6 +100,8 @@
 					<p>
 						<b>" <%= @search_content %> "</b> の検索結果
 						<%= @words.total_count %>件中 <%= @words.offset_value %>～<%= @words.offset_value + @words.length %>件を表示しています
+						<br class="visible-xs-block">
+
 						<%= sort_link(@search, :category) do %>
 						<button type="button" class="btn btn-default pull-right sort-button">カテゴリー順</button>
 						<% end %>
@@ -113,7 +116,7 @@
 						<thead>
 							<tr>
 								<th>単語名</th>
-								<th>意味</th>
+								<th class="hidden-xs">意味</th>
 								<th>カテゴリー</th>
 							</tr>
 						</thead>
@@ -121,7 +124,7 @@
 							<% @words.each do |w| %>
 							<tr>
 								<td><%= link_to w.name, diction_word_path(diction_id: @diction.id, id: w.id) %><span style="color: grey;">（<%= w.kana %>）</span></td>
-								<td>
+								<td class="hidden-xs">
 									<% if meaning_first = Meaning.where(word_id: w.id).first %>
 									<%= link_to meaning_first.content, diction_word_meaning_path(diction_id: @diction.id, word_id: w.id, id: meaning_first.id) %>
 									<% end %>
