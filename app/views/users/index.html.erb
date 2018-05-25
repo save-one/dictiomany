@@ -1,7 +1,7 @@
 <% breadcrumb :users %>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-9">
+		<div class="col-lg-9 col-xs-12">
 			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default" id="favo-d-div">
 				<div class="panel-body meaning-panel-body">
@@ -12,7 +12,7 @@
 					<div class="signup">
 						<%= search_form_for(@search, url: users_path) do |f| %>
 
-							<div class= "input-group col-xs-9">
+							<div class= "input-group col-lg-9 col-xs-12">
 							<%= f.search_field :name_or_email_or_user_word_cont, class: "form-control search-field" %>
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-default search-submit-button button-margin-left">
@@ -38,6 +38,8 @@
 
 						<%= @users.total_count %>件中 <%= @users.offset_value %>～<%= @users.offset_value + @users.length %>件を表示しています
 
+						<br class="visible-xs-block" >
+
 						<%= sort_link(@search, :name) do %>
 						<button type="button" class="btn btn-default pull-right sort-button">名前順</button>
 						<% end %>
@@ -62,7 +64,7 @@
 								</td>
 								<td class="user_word"><%= u.user_word %></td>
 								<% p_dictions = Diction.where(user_id: u.id, public_flg: true) %>
-								<td>
+								<td class="hidden-xs">
 									公開辞書数： <%= p_dictions.count %>
 									<% quantity = 0 %>
 									<% p_dictions.each do |d| %>

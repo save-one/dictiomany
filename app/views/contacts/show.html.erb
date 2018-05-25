@@ -1,12 +1,14 @@
 <% breadcrumb :contact, @user, @contact %>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-9">
+		<div class="col-lg-9 col-xs-12">
 			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default" id="favo-d-div">
 				<div class="panel-body meaning-panel-body">
 					<div>
 						<span class="font-37"><b>お問い合わせの詳細</b></span><!-- <span class="font-30"></span> -->
+
+						<br class="visible-xs-block">
 
 						<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#new-contact" data-backdrop="static">
 							お問い合わせをする
@@ -23,7 +25,9 @@
 				<div class="panel-body" style="padding-bottom: 20px;">
 					<p class="font-30"><b>題名： <%= @contact.title %></b></p>
 					<% c_user = User.find(@contact.user_id) %>
-					<p class="font-21" style="color: grey;"><b>アカウント名： <i class="fas fa-user"></i> <%= c_user.name %>　お問い合わせ日： <%= @contact.created_at.strftime('%Y年%m月%d日') %></b></p>
+					<p class="font-21" style="color: grey;"><b>アカウント名： <i class="fas fa-user"></i> <%= c_user.name %>　
+						<br class="visible-xs-block">
+						お問い合わせ日： <%= @contact.created_at.strftime('%Y年%m月%d日') %></b></p>
 					<hr>
 					<div class="font-21"><b>内容： <%= @contact.content %></b></div>
 				</div>

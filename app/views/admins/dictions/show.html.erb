@@ -1,12 +1,14 @@
 <% breadcrumb :admin_words, @diction %>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-9">
+		<div class="col-lg-9 col-xs-12">
 			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default" id="favo-d-div">
 				<div class="panel-body meaning-panel-body">
 					<div>
-						<span class="font-37"><b><i class="fas fa-book"></i> <%= @diction.name %></b></span><span class="font-30"> の単語一覧</span>
+						<span class="font-37"><b><i class="fas fa-book"></i> <%= @diction.name %></b></span><br class="visible-xs-block" ><span class="font-30"> の単語一覧</span>
+
+						<br class="visible-xs-block">
 
 								<!-- edit diction -->
 								<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#edit-diction" data-backdrop="static">
@@ -14,12 +16,12 @@
 								</button>
 								<p id="d_p_category" style="display: none"><%= @diction.category_parent %></p>
 								<p id="d_category" style="display: none"><%= @diction.category %></p>
-
+						<br class="visible-xs-block">
 					</div>
 
 					<div class="signup">
 						<%= search_form_for(@search, url: admins_diction_path(@diction)) do |f| %>
-							<div class="col-xs-3">
+							<div class="col-lg-3 col-xs-12 pull-button-cate">
 								<!-- <select class="form-control" name="refine">
 									<option value="all">すべてのカテゴリー</option>
 								</select> -->
@@ -56,7 +58,7 @@
 								</div>
 							</div>
 
-							<div class= "input-group col-xs-9">
+							<div class= "input-group col-lg-9 col-xs-12">
 							<%= f.search_field :name_or_kana_or_category_parent_or_category_cont, class: "form-control search-field" %>
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-default search-submit-button">
@@ -79,6 +81,8 @@
 					<p>
 						<b>" <%= @search_content %> "</b> の検索結果
 						<%= @words.total_count %>件中 <%= @words.offset_value %>～<%= @words.offset_value + @words.length %>件を表示しています
+						<br class="visible-xs-block">
+
 						<%= sort_link(@search, :category) do %>
 						<button type="button" class="btn btn-default pull-right sort-button">カテゴリー順</button>
 						<% end %>
@@ -93,7 +97,7 @@
 						<thead>
 							<tr>
 								<th>単語名</th>
-								<th>意味</th>
+								<th class="hidden-xs">意味</th>
 								<th>カテゴリー</th>
 							</tr>
 						</thead>
@@ -101,7 +105,7 @@
 							<% @words.each do |w| %>
 							<tr>
 								<td><%= link_to w.name, admins_diction_word_path(diction_id: @diction.id, id: w.id) %><span style="color: grey;">（<%= w.kana %>）</span></td>
-								<td>
+								<td class="hidden-xs">
 									<% if meaning_first = Meaning.where(word_id: w.id).first %>
 									<%= link_to meaning_first.content, admins_diction_word_meaning_path(diction_id: @diction.id, word_id: w.id, id: meaning_first.id) %>
 									<% end %>

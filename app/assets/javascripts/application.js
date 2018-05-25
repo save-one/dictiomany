@@ -521,6 +521,27 @@ $(function() {
 	});
 });
 
+//レスポンシブ時の出現用
+$(function() {
+	$('#refine-category-header2').hierarchySelect({
+		width: 200
+	});
+});
+
+$(function() {
+	$('#h-button-js').on('click', function() {
+		$('.header-search2').toggle('slow');
+		var body = $('body').css('padding-top');
+		if (body === '164px') {
+			$('body').css('padding-top', '74px');
+		}else {
+			$('body').css('padding-top', '164px');
+		}
+	});
+});
+
+
+
 //検索時のcategoryの絞り込み用選択ボックスの設定 footer用
 $(function() {
 	$('#refine-category-footer').hierarchySelect({

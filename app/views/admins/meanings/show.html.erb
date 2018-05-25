@@ -1,7 +1,7 @@
 <% breadcrumb :admin_comments, @diction, @word, @meaning %>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-9">
+		<div class="col-lg-9 col-xs-12">
 			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default">
 				<!-- <div class="panel-heading">
@@ -14,6 +14,8 @@
 							<span class="glyphicon glyphicon-plus"></span>
 						</button> -->
 
+						<br class="visible-xs-block">
+
 								<!-- edit word -->
 								<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#edit-word" data-backdrop="static">
 									単語を編集する
@@ -24,9 +26,12 @@
 					</div>
 					<div class="signup ">
 						<% user_name = User.find(@diction.user_id) %>
-						<p class="font-21">
-							<span class="label label-warning" style="padding: 6px 10px;"><b>主な意味</b></span>
-							<b> <%= @meaning.content %></b>（ <i class="fas fa-user"></i> <%= user_name.name %> さんの投稿）
+						<p class="font-21 p-line">
+							<span class="label label-warning label-mean" style="padding: 6px 10px;"><b>主な意味</b></span>
+							<b> <%= @meaning.content %></b><span class="hidden-xs">（ <i class="fas fa-user"></i> <%= user_name.name %> さんの投稿）</span>
+							<p class="hidden-lg">（ <i class="fas fa-user"></i> <%= user_name.name %> さんの投稿）</p>
+
+							<br class="visible-xs-block">
 
 								<!-- edit meaning -->
 								<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#edit-meaning" data-backdrop="static">
@@ -50,16 +55,16 @@
 							<tr>
 								<th>投稿日</th>
 								<th>コメント</th>
-								<th>ユーザ名</th>
+								<th class="hidden-xs">ユーザ名</th>
 							</tr>
 						</thead>
 						<tbody>
 							<% @comments.each do |c| %>
 							<tr class="comment-list">
+								<% user = User.find(c.user.id) %>
 								<td><%= c.created_at.strftime('%Y年%m月%d日') %></td>
-								<td><%= c.content %></td>
-								<td>
-									<% user = User.find(c.user.id) %>
+								<td><%= c.content %><span class="hidden-lg"> by <i class="fas fa-user"></i> <%= user.name %></span></td>
+								<td class="hidden-xs">
 									<i class="fas fa-user"></i> <%= user.name %>
 								</td>
 								<td>

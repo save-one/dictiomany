@@ -1,13 +1,13 @@
 <% breadcrumb :admin_contacts, @side_user %>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-9">
+		<div class="col-lg-9 col-xs-12">
 			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default" id="favo-d-div">
 				<div class="panel-body meaning-panel-body">
 					<div>
 						<span class="font-37"><b>過去のお問い合わせ</b></span><!-- <span class="font-30"></span> -->
-
+					<br class="visible-xs-block">
 					</div>
 				</div>
 			</div>
@@ -23,8 +23,8 @@
 							<tr>
 								<th>お問い合わせ日</th>
 								<th>題名</th>
-								<th>内容</th>
-								<th>返信</th>
+								<th class="hidden-xs">内容</th>
+								<th class="hidden-xs">返信</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -32,11 +32,11 @@
 							<tr>
 								<td><%= link_to c.created_at.strftime('%Y年%m月%d日') ,admins_user_contact_path(user_id: c.user_id, id: c.id) %></td>
 								<td><%= c.title.truncate(15) %></td>
-								<td><%= c.content.truncate(18) %></td>
+								<td class="hidden-xs"><%= c.content.truncate(18) %></td>
 								<% if c.reply.present? %>
-									<td style="color: red;">あり（詳細ページをご覧ください）</td>
+									<td class="hidden-xs" style="color: red;">あり（詳細ページをご覧ください）</td>
 								<% else %>
-									<td>なし</td>
+									<td class="hidden-xs">なし</td>
 								<% end %>
 							</tr>
 							<% end %>

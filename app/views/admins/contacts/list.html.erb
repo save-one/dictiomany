@@ -1,7 +1,7 @@
 <% breadcrumb :admin_contacts_list %>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-9">
+		<div class="col-lg-9 col-xs-12">
 			<%= render partial: "layouts/breadcrumbs" %>
 			<div class="panel panel-default" id="favo-d-div">
 				<div class="panel-body meaning-panel-body">
@@ -18,14 +18,15 @@
 				
 				<div class="panel-body" style="padding-bottom: 0;">
 					<p><%= @contacts.total_count %>件中 <%= @contacts.offset_value %>～<%= @contacts.offset_value + @contacts.length %>件を表示しています</p>
+
 					<table class="table table-default">
 						<thead>
 							<tr>
 								<th>お問い合わせ日</th>
 								<th>題名</th>
-								<th>内容</th>
-								<th>アカウント名</th>
-								<th>返信</th>
+								<th class="hidden-xs">内容</th>
+								<th class="hidden-xs">アカウント名</th>
+								<th class="hidden-xs">返信</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -33,12 +34,12 @@
 							<tr>
 								<td><%= link_to c.created_at.strftime('%Y年%m月%d日') ,admins_user_contact_path(user_id: c.user_id, id: c.id) %></td>
 								<td><%= c.title.truncate(15) %></td>
-								<td><%= c.content.truncate(18) %></td>
-								<td><% c_user = User.find(c.user.id) %><i class="fas fa-user"></i> <%= c_user.name %></td>
+								<td class="hidden-xs"><%= c.content.truncate(18) %></td>
+								<td class="hidden-xs"><% c_user = User.find(c.user.id) %><i class="fas fa-user"></i> <%= c_user.name %></td>
 								<% if c.reply.present? %>
-									<td>済み</td>
+									<td class="hidden-xs">済み</td>
 								<% else %>
-									<td style="color: red;">未回答</td>
+									<td class="hidden-xs" style="color: red;">未回答</td>
 								<% end %>
 							</tr>
 							<% end %>
