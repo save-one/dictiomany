@@ -521,7 +521,7 @@ $(function() {
 	});
 });
 
-//レスポンシブ時の出現用
+//レスポンシブ時の出現・隠れる用
 $(function() {
 	$('#refine-category-header2').hierarchySelect({
 		width: 200
@@ -536,6 +536,16 @@ $(function() {
 			$('body').css('padding-top', '74px');
 		}else {
 			$('body').css('padding-top', '164px');
+		}
+	});
+});
+
+$(function() {
+	$(window).resize(function() {
+		var now = window.innerWidth;
+		if (now > 767) {
+			$('.header-search2').hide();
+			$('body').css('padding-top', '74px');
 		}
 	});
 });
@@ -563,3 +573,23 @@ $(function() {
 		$('#footer-search-submit').click();
 	});
 });
+
+//サイドのナビゲーション
+$(function() {
+	$('#side-nav').hover(function() {
+		$(this).find('span').stop().animate({
+			'marginRight':'175px'
+		}, 500);
+	},
+	function() {
+		$(this).find('span').stop().animate({
+			'marginRight':'0px'
+		}, 300);
+	});
+});
+
+
+//テスト
+// $(function() {
+// 	$('.panel').slideToggle('slow');
+// });
