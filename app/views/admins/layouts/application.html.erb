@@ -34,7 +34,7 @@
 	    			</button>
 
 	    			<button type="button" class="btn btn-default pull-right" id="h-button-js">
-	    				検索
+	    				検索する
 	    			</button>
 
 	    			<div class="text-center">
@@ -92,7 +92,7 @@
 	    				<% end %>
 	    				<li>
 	    					<%= link_to admins_dictions_path do %>
-	    					<button type="button" class="btn btn-default btn-lg" >
+	    					<button type="button" class="btn btn-default btn-lg header-list-button" >
 	    						<i class="fas fa-book"></i>
 	    						辞書検索
 	    					</button>
@@ -100,7 +100,7 @@
 	    				</li>
 	    				<li>
 	    					<%= link_to admins_publics_path do %>
-	    					<button type="button" class="btn btn-default btn-lg" >
+	    					<button type="button" class="btn btn-default btn-lg header-list-button" >
 	    						<i class="fas fa-globe"></i>
 	    						単語検索
 	    					</button>
@@ -121,7 +121,7 @@
 	    				</li> -->
 	    				<% if admin_signed_in? %>
 	    				<li><%= link_to admins_admin_path(current_admin.id) do %>
-	    					<button type="button" class="btn btn-default btn-lg" >
+	    					<button type="button" class="btn btn-default btn-lg header-list-button" >
 	    						<i class="fas fa-user"></i>
 	    						マイページ
 	    					</button>
@@ -129,7 +129,7 @@
 	    				</li>
 	    				<li>
 	    					<%= link_to destroy_admin_session_path, method: :delete do %>
-	    					<button type="button" class="btn btn-default btn-lg" >
+	    					<button type="button" class="btn btn-default btn-lg header-list-button" >
 	    						<i class="fas fa-sign-out-alt"></i>
 	    						ログアウト
 	    					</button>
@@ -182,7 +182,7 @@
 							<div class= "input-group col-lg-9 col-xs-12">
 							<%= f.search_field :name_or_kana_or_category_parent_or_category_cont, class: "form-control search-field" %>
 							<span class="input-group-btn">
-								<button type="submit" class="btn btn-default search-submit-button">
+								<button type="submit" class="btn btn-default search-submit-button" style="background-color: #f5f5f5; color: black">
 									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								</button>
 							</span>

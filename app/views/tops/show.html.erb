@@ -1,44 +1,48 @@
-<% breadcrumb :admin_dictions %>
+
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-9">
-			<%= render partial: "layouts/breadcrumbs" %>
-			<div class="panel panel-default">
-				<div class="panel-body meaning-panel-body">
-					<div>
-						<span class="font-37"><b><i class="fas fa-book"></i> すべての辞書</b></span><span class="font-30"> </span>
-					</div>
-					<div class="signup">
-						
-					</div>
+		<div class="col-lg-12 col-xs-12" style=" width: 100%; height: 700px; position: relative;">
 
-				</div>
-			</div>
-
-			<div class="panel panel-default">
+			<div class="top-position">
 				
-				<div class="panel-body" style="padding-bottom: 0;">
-					
+				<h1 class="text-center top-shadow"><b><span style="color:#fa9632">Dictiomany</span>へようこそ。</b></h1>
+
+				<h2 class="text-center top-shadow"><b>Dictiomanyでは、あなただけの辞書を作ったり、</b></h2>
+				<h2 class="text-center top-shadow"><b>みんなでひとつの辞書をつくりあげることができます。</b></h2>
+				<h2 class="text-center top-shadow"><b>会社やチームで共有したい言葉を管理することも、</b></h2>
+				<h2 class="text-center top-shadow"><b>家族や恋人だけの特別な辞書をつくることもできます。</b></h2>
+				<h2 class="text-center top-shadow"><b>さあはじめてみましょう。</b></h2>
+
+				<% if user_signed_in? %>
+				<div class="signup">
+					<%= link_to user_path(current_user) do %>
+						<button type="button" class="btn btn-default btn-lg top-btn" style="width: 100%" >
+							<i class="fas fa-mouse-pointer"></i>
+							使ってみる
+						</button>
+					<% end %>
 				</div>
-				<div class="panel-footer">
-					
+
+				<% else %>
+
+				<div class="signup">
+					<%= link_to new_user_session_path do %>
+						<button type="button" class="btn btn-default btn-lg top-btn" style="width: 70%" >
+							<i class="fas fa-user-plus"></i>
+							新規会員登録
+						</button>
+					<% end %>
+					<%= link_to new_user_session_path do %>
+						<button type="button" class="btn btn-default btn-lg pull-right top-btn" style="width: 25%">
+							<i class="fas fa-sign-in-alt"></i>
+							ログイン
+						</button>
+					<% end %>
 				</div>
+				<% end %>
 			</div>
 
 		</div>
-
-<%= render partial: "layouts/sidebar" %>
 	</div>
 </div>
 
-
-<script>
-	// カテゴリの絞り込み用セレクトボックスの初期値の設定
-	var value = $('#d-refine-select-set').text();
-	// console.log(value);
-	var c = $(`.category-select-refine[data-value='${value}']`).html();
-	// console.log(c);
-	$('.category-select-refine[data-value=\'\']').removeAttr("data-default-selected");
-	$(`.category-select-refine[data-value='${value}']`).attr('data-default-selected', "");
-
-</script>
