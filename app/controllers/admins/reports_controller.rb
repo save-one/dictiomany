@@ -1,4 +1,5 @@
 class Admins::ReportsController < Admins::ApplicationController
+  before_action :authenticate_admin!
 
   def index
     @reports = Report.page(params[:page])

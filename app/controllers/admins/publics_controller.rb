@@ -1,4 +1,6 @@
 class Admins::PublicsController < Admins::ApplicationController
+  before_action :authenticate_admin!
+
 	#単語一覧
   def index
   	#@public_words = Public.all

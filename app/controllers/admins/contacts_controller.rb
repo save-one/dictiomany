@@ -1,4 +1,6 @@
 class Admins::ContactsController < Admins::ApplicationController
+  before_action :authenticate_admin!
+
   def index
     @side_user = User.find(params[:user_id])
     contacts = Contact.where(user_id: @side_user.id)

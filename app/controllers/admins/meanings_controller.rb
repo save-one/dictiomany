@@ -1,4 +1,6 @@
 class Admins::MeaningsController < Admins::ApplicationController
+  before_action :authenticate_admin!
+
   def show
     @diction = Diction.find(params[:diction_id])
     # redirect_back(fallback_location: root_path) unless @diction.public_flg === true || @diction.user_id === current_user.id
