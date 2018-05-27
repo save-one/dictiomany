@@ -1,4 +1,6 @@
 class Admins::UsersController < Admins::ApplicationController
+	before_action :authenticate_admin!
+
 	def index
 		@search = User.search(params[:q])
 		@users = @search.result

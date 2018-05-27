@@ -38,7 +38,7 @@
 	    			</button>
 
 	    			<div class="text-center">
-	    				<%= link_to admins_tops_path, class: "navbar-brand" do %>
+	    				<%= link_to admins_root_path, class: "navbar-brand" do %>
 	    				<span style= "font-size: 35px;">Dictiomany</span><br>
 	    				<span class="visible-lg-block" style="color: #fff;"><b>辞書型知識共有サイト</b></span>
 	    				<% end %>
@@ -120,13 +120,13 @@
 	    					</div>
 	    				</li> -->
 	    				<% if admin_signed_in? %>
-	    				<li><%= link_to admins_admin_path(current_admin.id) do %>
+	    				<!-- <li><%= link_to admins_admin_path(current_admin.id) do %>
 	    					<button type="button" class="btn btn-default btn-lg header-list-button" >
 	    						<i class="fas fa-user"></i>
 	    						マイページ
 	    					</button>
 	    					<% end %>
-	    				</li>
+	    				</li> -->
 	    				<li>
 	    					<%= link_to destroy_admin_session_path, method: :delete do %>
 	    					<button type="button" class="btn btn-default btn-lg header-list-button" >
@@ -297,6 +297,18 @@
 				</div>
 
 			<% end %>
+
+			<h2>アカウント検索</h2>
+			<%= link_to users_path do %>
+				<button class="btn btn-default">
+					検索ページへ
+				</button>
+			<% end %>
+
+			<h2>サイト・作成者について</h2>
+				<button class="btn btn-default">
+					詳細ページへ
+				</button>
     	</div>
     </footer>
 

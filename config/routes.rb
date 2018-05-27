@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root 'tops#show'
 
   resource :tops, only: [:show]
+  get 'profile' => 'tops#profile', as: "profile"
 
   resources :users, only: [:index, :show, :update] do
     resources :contacts, only: [:index, :show, :create]

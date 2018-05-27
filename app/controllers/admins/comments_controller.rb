@@ -1,4 +1,6 @@
 class Admins::CommentsController < Admins::ApplicationController
+	before_action :authenticate_admin!
+
 	# def create
 	# 	diction = Diction.find(params[:diction_id])
 	# 	word = Word.find(params[:word_id])

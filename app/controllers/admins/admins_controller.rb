@@ -1,5 +1,5 @@
 class Admins::AdminsController < Admins::ApplicationController
-
+before_action :authenticate_admin!
 	#マイページ
 	def show
 		@user = User.find(params[:id])

@@ -1,4 +1,6 @@
 class Admins::DictionsController < Admins::ApplicationController
+  before_action :authenticate_admin!
+
   def index
     # category = params[:refine_category]
     # q_before = {"category_parent_or_category_eq" => category}

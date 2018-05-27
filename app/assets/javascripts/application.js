@@ -534,8 +534,10 @@ $(function() {
 		var body = $('body').css('padding-top');
 		if (body === '164px') {
 			$('body').css('padding-top', '74px');
+			$('#side-nav').css('margin-top', '70px');
 		}else {
 			$('body').css('padding-top', '164px');
+			$('#side-nav').css('margin-top', '160px');
 		}
 	});
 });
@@ -546,6 +548,7 @@ $(function() {
 		if (now > 767) {
 			$('.header-search2').hide();
 			$('body').css('padding-top', '74px');
+			$('#side-nav').css('margin-top', '70px');
 		}
 	});
 });

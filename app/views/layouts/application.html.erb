@@ -38,7 +38,7 @@
 	    			</button>
 
 	    			<div class="text-center">
-	    				<%= link_to tops_path, class: "navbar-brand" do %>
+	    				<%= link_to root_path, class: "navbar-brand" do %>
 	    				<span style= "font-size: 35px;">Dictiomany</span><br>
 	    				<span class="visible-lg-block" style="color: #fff;"><b>辞書型知識共有サイト</b></span>
 	    				<% end %>
@@ -227,12 +227,24 @@
     	</li>
     </ul> -->
 
-<ul id="side-nav">
-	<li><a class="side-p-pluss"><span>TWITTER</span></a></li>
-	<li><%= image_tag("img/dictiomany1.png", style: "width: 100px; height: 100px;") %><span>FACEBOOK</span></li>
-	<li><a class="youtube" href="#"><span>YOUTUBE</span></a></li>
-	<li><a class="rss" href="#"><span>RSS</span></a></li>
-</ul>
+<!-- サイドナビゲーション -->
+<% if user_signed_in? %>
+	<ul id="side-nav">
+		<!-- <li><a class=""><span></span></a></li>-->
+		<li>
+			<a href="#" class="side-d-pluss" data-toggle="modal" data-target="#new-diction" data-backdrop="static">
+			<%= image_tag("img/icon1.png", style: "width: 100px; height: 100px;") %>
+				<span> 辞書を作成</span>
+			</a>
+		</li>
+		<li><a href="#" class="side-p-pluss" data-toggle="modal" data-target="#new-public" data-backdrop="static">
+			<%= image_tag("img/icon2.png", style: "width: 95px; padding-left: 10px; margin-right: 4px;") %>
+				<span>意味を投稿</span>
+			</a>
+		</li>
+		<!-- <li><a class="rss" href="#"><span>RSS</span></a></li> -->
+	</ul>
+<% end %>
 
 
     <footer class="">
@@ -322,6 +334,7 @@
 					</div>
 				</div>
 
+				<!-- 残す必要あり -->
 				<div class= "input-group" style="display: none;">
 				<span class="input-group-btn">
 					<%= f.search_field :category_parent_or_category_eq, class: "form-control search-field" %>
@@ -332,10 +345,25 @@
 				</div>
 
 			<% end %>
+
+			<h2>アカウント検索</h2>
+			<%= link_to users_path do %>
+				<button class="btn btn-default">
+					検索ページへ
+				</button>
+			<% end %>
+
+			<h2>サイト・作成者について</h2>
+				<button class="btn btn-default">
+					詳細ページへ
+				</button>
     		</div>
 
     	</div>
     </footer>
+
+    <%= render partial: "layouts/newdiction" %>
+    <%= render partial: "layouts/newpublic" %>
 
 
     <script>
