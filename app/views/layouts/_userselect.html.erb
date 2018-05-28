@@ -1,0 +1,48 @@
+<!-- モーダル・ダイアログ -->
+<!-- diction -->
+<div class="modal fade" id="user_select" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>✖</span></button>
+				<h4 class="modal-title">共有したいアカウントを選択してください</h4>
+			</div>
+			<div class="modal-body newform-body">
+				<div>
+					<%= search_form_for(@search_user_select) do |f| %>
+
+						<div class= "input-group col-lg-9 col-xs-12">
+						<%= f.search_field :name_or_email_or_user_word_cont, class: "form-control search-field" %>
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default search-submit-button button-margin-left">
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							</button>
+						</span>
+						</div>
+
+					<% end %>
+				</div>
+				
+				<div id="user_search_modal">
+					
+				</div>
+
+			</div>
+			<div class="modal-footer row newform-footer">
+				<div class="col-xs-9">
+					
+				</div>
+				<div class="col-xs-3" >
+					<button type="button" class="btn btn-default form-control" data-dismiss="modal">閉じる</button>
+				</div>
+
+				<!-- <button type="button" class="btn btn-primary">ボタン</button -->
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
