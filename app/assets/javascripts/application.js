@@ -596,3 +596,147 @@ $(function() {
 // $(function() {
 // 	$('.panel').slideToggle('slow');
 // });
+
+//共有用ユーザ選択
+//new
+$(function() {
+	//キーボードが押されたときにサブミットする
+	$('#user_select_form').keyup(function() {
+		$('#user_select_form').find("input[type='submit']").click();
+	});
+
+	$('#user_select_form').on('ajax:success', function(event, results) {
+		var select = $('#user_select_table'),
+			trs = select.find("tr");
+		// console.log(trs);
+		// console.log(event);
+		$.each(trs, function() {
+			var value = parseInt($(this).find("td").first().text());//数値に変換する
+			// console.log(value);//今あるidをひとつづつ取得できてる
+			// console.log(event.detail[0]);//結果を取得
+			// console.log(results);//中身が何もないのと今のところまだ理解できてないので放置
+			// console.log('end');
+			//console.log(event.detail[0].indexOf(value) >= 0);
+
+			//indexOfは、あれば添え字を、なければ-1を返すので、下の条件式になる
+			if (event.detail[0].indexOf(value) >= 0) {
+				$(this).show();
+			} else {
+				$(this).hide();
+			}
+		});
+	});
+});
+
+$(function() {
+	$('.select_user_tr').on('click', function() {
+		var check = $(this).find("input"),
+			checked = check.prop('checked');
+		// console.log(check);
+		// console.log(checked);
+		if (checked === false) {
+			$(this).css('background-color', 'lightgrey');
+			check.prop('checked', true);
+		} else if(checked === true) {
+			$(this).css('background-color', '#ffffff');
+			check.prop('checked', false);
+		}
+	});
+});
+
+$(function() {
+	$('#user_select_button').on('click', function() {
+		$('#user_select_close').click();
+		$('#user_select_div').html('');
+		var users = $('#user_select_table').find("input:checked");
+			// names = $("input:checked").parents("tr").find("td[name='user_select_name']").text();
+		// console.log(users);
+		// console.log(names);
+		$.each(users, function() {
+			var name = $(this).parents("tr").find('p').html(),
+				p = $('<p>').html(name),
+				id = $(this).val(),
+				input = $('<input>').attr({value: id, form: 'new_diction_form', name: 'select_user[]', type: 'checkbox'}).prop('checked', true).css('display', 'none');
+			//console.log(input);
+
+			//console.log(name);
+			$('#user_select_div').append(p).append(input);
+
+		});
+		
+	});
+});
+
+//edit
+$(function() {
+	//キーボードが押されたときにサブミットする
+	$('#edit_user_select_form').keyup(function() {
+		$('#edit_user_select_form').find("input[type='submit']").click();
+	});
+
+	$('#edit_user_select_form').on('ajax:success', function(event, results) {
+		var select = $('#edit_user_select_table'),
+			trs = select.find("tr");
+		// console.log(trs);
+		// console.log(event);
+		$.each(trs, function() {
+			var value = parseInt($(this).find("td").first().text());//数値に変換する
+			// console.log(value);//今あるidをひとつづつ取得できてる
+			// console.log(event.detail[0]);//結果を取得
+			// console.log(results);//中身が何もないのと今のところまだ理解できてないので放置
+			// console.log('end');
+			//console.log(event.detail[0].indexOf(value) >= 0);
+
+			//indexOfは、あれば添え字を、なければ-1を返すので、下の条件式になる
+			if (event.detail[0].indexOf(value) >= 0) {
+				$(this).show();
+			} else {
+				$(this).hide();
+			}
+		});
+	});
+});
+
+$(function() {
+	$('.edit_select_user_tr').on('click', function() {
+		var check = $(this).find("input"),
+			checked = check.prop('checked');
+		// console.log(check);
+		// console.log(checked);
+		if (checked === false) {
+			$(this).css('background-color', 'lightgrey');
+			check.prop('checked', true);
+		} else if(checked === true) {
+			$(this).css('background-color', '#ffffff');
+			check.prop('checked', false);
+		}
+	});
+});
+
+$(function() {
+	$('#edit_user_select_button').on('click', function() {
+		$('#edit_user_select_close').click();
+		$('#edit_user_select_div').html('');
+		var users = $('#edit_user_select_table').find("input:checked");
+			// names = $("input:checked").parents("tr").find("td[name='user_select_name']").text();
+		// console.log(users);
+		// console.log(names);
+		$.each(users, function() {
+			var name = $(this).parents("tr").find('p').html(),
+				p = $('<p>').html(name),
+				id = $(this).val(),
+				input = $('<input>').attr({value: id, form: 'edit_diction_form', name: 'select_user[]', type: 'checkbox'}).prop('checked', true).css('display', 'none');
+			//console.log(input);
+
+			//console.log(name);
+			$('#edit_user_select_div').append(p).append(input);
+
+		});
+		
+	});
+});
+
+$(function() {
+	$('#edit_user_select_button').click();
+});
+

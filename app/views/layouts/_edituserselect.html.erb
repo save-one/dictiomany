@@ -1,6 +1,6 @@
 <!-- モーダル・ダイアログ -->
 <!-- 共有 -->
-<div class="modal fade" id="user_select" tabindex="-1">
+<div class="modal fade" id="edit_user_select" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -9,7 +9,7 @@
 			</div>
 			<div class="modal-body newform-body">
 				<div>
-					<%= search_form_for(@search_user_select, remote:true, :id => "user_select_form") do |f| %>
+					<%= search_form_for(@search_user_select, remote:true, :id => "edit_user_select_form") do |f| %>
 
 						<div class= "input-group col-lg-12 col-xs-12">
 						<%= f.search_field :name_or_user_word_cont, class: "form-control search-field" %>
@@ -24,11 +24,11 @@
 				</div>
 				
 				<div class="signup">
-					<table class="table table-default" id="user_select_table">
+					<table class="table table-default" id="edit_user_select_table">
 						<tbody>
 							<% @search_users.each do |u| %>
 							
-							<tr class="select_user_tr">
+							<tr class="edit_select_user_tr">
 								<p style="display:none"><i class="fas fa-user"></i> <%= u.name %></p>
 								<td style="display:none;"><%= u.id %><input type="checkbox" value=<%= u.id %> name="select_user" >
 									<p style="display:none"><i class="fas fa-user"></i> <%= u.name %></p>
@@ -54,11 +54,11 @@
 			<div class="modal-footer row newform-footer">
 				<div class="col-xs-9">
 
-					<button class="btn btn-primary form-control" id="user_select_button">共有する</button>
+					<button class="btn btn-primary form-control" id="edit_user_select_button">共有する</button>
 
 				</div>
 				<div class="col-xs-3" >
-					<button type="button" class="btn btn-default form-control" data-dismiss="modal" id="user_select_close">閉じる</button>
+					<button type="button" class="btn btn-default form-control" data-dismiss="modal" id="edit_user_select_close">閉じる</button>
 				</div>
 
 				<!-- <button type="button" class="btn btn-primary">ボタン</button -->

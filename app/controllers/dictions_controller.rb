@@ -17,6 +17,7 @@ class DictionsController < ApplicationController
   def show
     @diction = Diction.find(params[:id])
     redirect_back(fallback_location: root_path) unless @diction.public_flg === true || @diction.user_id === current_user.id
+    gon.groupuser_user_id = GroupUser.where(diction_id: @diction.id).pluck(:user_id)
     @search = Word.search(params[:q])
     @words = @search.result
     @words = @words.where(diction_id: @diction.id)
@@ -44,7 +45,20 @@ class DictionsController < ApplicationController
     #public化
     diction.public_flg = true if params[:public] === "on"
 
+    if select_users = params[:select_user]
+      group = Group.create(name: "")
+      select_users.each do |s|
+        g_user = User.find(s)
+        groupuser = diction.group_users.build(group_id: group.id, user_id: g_user.id)
+        groupuser.save
+      end
+      groupuser = diction.group_users.build(group_id: group.id, user_id: current_user.id)
+      groupuser.save
+      diction.group_id = group.id
+    end
+
   	diction.save
+
   	redirect_to diction_path(diction)
   end
 

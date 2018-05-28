@@ -170,4 +170,52 @@
 	$('.category-select-refine[data-value=\'\']').removeAttr("data-default-selected");
 	$(`.category-select-refine[data-value='${value}']`).attr('data-default-selected', "");
 
+	// 共有用
+	var user_ids = gon.groupuser_user_id;
+	// console.log(user_ids);
+	var default_check = $('#edit_user_select_table').find('input');
+	// console.log(default_check);
+	$.each(default_check, function(index, element) {
+		//console.log(element);
+		var check_id = element.value;//使えないjqueryメソッドが出てくることもあるので、eachの時は注意
+		// console.log($.type(check_id));
+		// console.log($.type(user_ids[0]));
+		// console.log($.inArray(check_id, user_ids));
+		check_id = parseInt(check_id);//数値に変換してあげる
+		// console.log($.type(check_id));
+		// console.log(user_ids.indexOf(check_id) >= 0);
+		if (user_ids.indexOf(check_id) >= 0) {
+			var input = $(`input[value="${check_id}"]`),
+				tr = input.parents("tr");
+			input.prop('checked', true);
+			tr.css('background-color', 'lightgrey');
+
+			console.log(input);
+			console.log(tr);
+		}
+	});
+
+	// $(this).css('background-color', 'lightgrey');
+	// check.prop('checked', true);
+
+
+
+
+
+
+	// $('.edit_select_user_tr').on('click', function() {
+	// 	var check = $(this).find("input"),
+	// 		checked = check.prop('checked');
+	// 	// console.log(check);
+	// 	// console.log(checked);
+	// 	if (checked === false) {
+	// 		$(this).css('background-color', 'lightgrey');
+	// 		check.prop('checked', true);
+	// 	} else if(checked === true) {
+	// 		$(this).css('background-color', '#ffffff');
+	// 		check.prop('checked', false);
+	// 	}
+	// });
+
+
 </script>

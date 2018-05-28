@@ -48,6 +48,13 @@ private
   end
 
   def user_new
+    user_select_all = User.where.not(id: current_user.id) if user_signed_in?
+    @search_user_select = user_select_all.search(params[:q])
+    @search_users = @search_user_select.result
+    unless params[:q].blank?
+      render json: @search_users.select("id").map{ |e| e.id }.to_json
+    end
+
     #header検索用パブリック
     @search_header = Public.search(params[:q])
     @public_words = @search_header.result

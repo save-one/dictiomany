@@ -8,7 +8,7 @@
 				<h4 class="modal-title">New Dictionally</h4>
 			</div>
 			<div class="modal-body newform-body">
-				<%= form_for(@new_diction, url:dictions_path, html: {:class => "form-group"}) do |f| %>
+				<%= form_for(@new_diction, url:dictions_path, html: {:class => "form-group", :id => "new_diction_form"}) do |f| %>
 
 				<!-- 名前 -->
 				<div>
@@ -16,38 +16,53 @@
 					<%= f.text_field :name, class: "form-control", required:true %>
 				</div>
 
-				<!-- カテゴリ -->
-				<div class="signup">
-					<%= f.label "カテゴリー（大）", {class: "form-label"} %>
-					<div style="width: 30%;">
-						<select name="category_parent" id="parent" class="form-control" required><!--selectにrequiredでoptionのvalue=""は拒否される-->
-								<option value="">----------</option>
-								<% @parents.each do |p| %>
-								<option value=<%= p %>><%= p %></option>
-								<% end %>
-						</select>
-					</div>
-				</div>
-				<div class="signup">
-					<%= f.label "カテゴリー（小）", {class: "form-label"} %>
-					<div style="width: 30%;">
-						<select name="category" id="child" class="form-control" required>
-							<option value="">----------</option>
-						</select>
-					</div>
-				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<!-- カテゴリ -->
+						<div class="signup">
+							<%= f.label "カテゴリー（大）", {class: "form-label"} %>
+							<div style="width: 60%;">
+								<select name="category_parent" id="parent" class="form-control" required><!--selectにrequiredでoptionのvalue=""は拒否される-->
+										<option value="">----------</option>
+										<% @parents.each do |p| %>
+										<option value=<%= p %>><%= p %></option>
+										<% end %>
+								</select>
+							</div>
+						</div>
+						<div class="signup">
+							<%= f.label "カテゴリー（小）", {class: "form-label"} %>
+							<div style="width: 60%;">
+								<select name="category" id="child" class="form-control" required>
+									<option value="">----------</option>
+								</select>
+							</div>
+						</div>
 
-				<!-- 共有 -->
-				<div class="signup">
-					<!-- <input type="checkbox" class="" name="share"><%= f.label "他のアカウントと共有する", {class: "form-label"} %> -->
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#user_select" data-backdrop="static">
-						他のアカウントと共有
-					</button>
-				</div>
+						<!-- 共有 -->
+						<div class="signup">
+							<!-- <input type="checkbox" class="" name="share"><%= f.label "他のアカウントと共有する", {class: "form-label"} %> -->
+							<button type="button" class="btn btn-default" data-toggle="modal" data-target="#user_select" data-backdrop="static">
+								他のアカウントと共有
+							</button>
+						</div>
 
-				<div class="signup">
-					<input type="checkbox" name="public" ><label class="form-label">この辞書を公開しますか？</label><br>
-					（公開すると世界中がこの辞書を閲覧可能になります。）
+						<div class="signup">
+							<input type="checkbox" name="public" ><label class="form-label">この辞書を公開しますか？</label><br>
+							（公開すると世界中がこの辞書を閲覧可能になります。）
+						</div>
+					</div>
+
+					<div class="col-xs-6">
+						<div class="signup">
+							<label id="user_select_label" style="margin-bottom: 15px;">共有されるアカウント</label>
+							<div id="user_select_div">
+								
+							</div>
+
+
+						</div>
+					</div>
 				</div>
 
 			</div>

@@ -8,7 +8,7 @@
 				<h4 class="modal-title">Edit Dictionally</h4>
 			</div>
 			<div class="modal-body newform-body">
-				<%= form_for(@diction, url:diction_path, html: {:class => "form-group"}) do |f| %>
+				<%= form_for(@diction, url:diction_path, html: {:class => "form-group", :id => "edit_diction_form"}) do |f| %>
 
 				<!-- 名前 -->
 				<div>
@@ -16,49 +16,64 @@
 					<%= f.text_field :name, class: "form-control", required:true %>
 				</div>
 
-				<!-- カテゴリ -->
-				<div class="signup">
-					<%= f.label "カテゴリー（大）", {class: "form-label"} %>
-					<div style="width: 30%;">
-						<select name="category_parent" id="parent_edit" class="form-control" required><!--selectにrequiredでoptionのvalue=""は拒否される-->
-								<option value="">----------</option>
-								<% @parents.each do |p| %>
-								<option value=<%= p %>><%= p %></option>
-								<% end %>
-						</select>
+				<div class="row">
+					<div class="col-xs-6">
+						<!-- カテゴリ -->
+						<div class="signup">
+							<%= f.label "カテゴリー（大）", {class: "form-label"} %>
+							<div style="width: 60%;">
+								<select name="category_parent" id="parent_edit" class="form-control" required><!--selectにrequiredでoptionのvalue=""は拒否される-->
+										<option value="">----------</option>
+										<% @parents.each do |p| %>
+										<option value=<%= p %>><%= p %></option>
+										<% end %>
+								</select>
+							</div>
+						</div>
+						<div class="signup">
+							<%= f.label "カテゴリー（小）", {class: "form-label"} %>
+							<div style="width: 60%;">
+								<select name="category" id="child_edit" class="form-control" required>
+									<option value="">----------</option>
+								</select>
+							</div>
+						</div>
+
+						<!-- 共有 -->
+						<div class="signup">
+							<!-- <input type="checkbox" class="" name="share"><%= f.label "他のアカウントと共有する", {class: "form-label"} %> -->
+							<button type="button" class="btn btn-default" data-toggle="modal" data-target="#edit_user_select" data-backdrop="static">
+								他のアカウントと共有
+							</button>
+
+						</div>
+
+						<div class="signup">
+							<% if @diction.public_flg === false %>
+							<input type="checkbox" name="public" ><label class="form-label">この辞書を公開しますか？</label><br>
+							（公開すると世界中がこの辞書を閲覧可能になります。）
+							<% elsif @diction.public_flg === true %>
+							<input type="checkbox" name="public" checked><label class="form-label">この辞書を公開しますか？</label><br>
+							（公開すると世界中がこの辞書を閲覧可能になります。）
+							<% end %>
+						</div>
+
+						<div class="signup">
+							<%= link_to diction_path(@diction), method: :delete do %>
+								<button type="button" class="btn btn-danger" id= "d-destroy-button">
+									辞書を削除する
+								</button>
+							<% end %>
+						</div>
+
 					</div>
-				</div>
-				<div class="signup">
-					<%= f.label "カテゴリー（小）", {class: "form-label"} %>
-					<div style="width: 30%;">
-						<select name="category" id="child_edit" class="form-control" required>
-							<option value="">----------</option>
-						</select>
+					<div class="col-xs-6">
+						<div class="signup">
+							<label id="edit_user_select_label" style="margin-bottom: 15px;">共有されるアカウント</label>
+							<div id="edit_user_select_div">
+							</div>
+						</div>
 					</div>
-				</div>
-
-				<!-- 共有 -->
-				<div class="signup">
-					<!-- <input type="checkbox" class="" name="share"><%= f.label "他のアカウントと共有する", {class: "form-label"} %> -->
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#share_user_search" data-backdrop="static">
-						他のアカウントと共有
-					</button>
-					<%= link_to diction_path(@diction), method: :delete do %>
-						<button type="button" class="btn btn-danger pull-right" id= "d-destroy-button">
-							辞書を削除する
-						</button>
-					<% end %>
-
-				</div>
-
-				<div class="signup">
-					<% if @diction.public_flg === false %>
-					<input type="checkbox" name="public" ><label class="form-label">この辞書を公開しますか？</label><br>
-					（公開すると世界中がこの辞書を閲覧可能になります。）
-					<% elsif @diction.public_flg === true %>
-					<input type="checkbox" name="public" checked><label class="form-label">この辞書を公開しますか？</label><br>
-					（公開すると世界中がこの辞書を閲覧可能になります。）
-					<% end %>
 				</div>
 
 			</div>
@@ -78,6 +93,8 @@
 		</div>
 	</div>
 </div>
+
+<%= render partial: "layouts/edituserselect" %>
 
 <script>
 	var categories = {};
