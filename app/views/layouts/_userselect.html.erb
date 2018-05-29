@@ -9,7 +9,7 @@
 			</div>
 			<div class="modal-body newform-body">
 				<div>
-					<%= search_form_for(@search_user_select, remote:true, :id => "user_select_form") do |f| %>
+					<%= search_form_for(@search_user_select, url: user_select_path, remote:true, :id => "user_select_form") do |f| %>
 
 						<div class= "input-group col-lg-12 col-xs-12">
 						<%= f.search_field :name_or_user_word_cont, class: "form-control search-field" %>

@@ -16,7 +16,7 @@
 
 							<br class="visible-xs-block">
 
-							<% if @diction.default_public_flg === false && @diction.user_id === current_user.id %>
+							<% if @diction.user_id === current_user.id || GroupUser.find_by(diction_id: @diction.id, user_id: current_user.id) %>
 								<!-- edit word -->
 								<button type="button" class="btn btn-default pull-right button-margin-left pull-button" data-toggle="modal" data-target="#edit-word" data-backdrop="static">
 									単語を編集する
@@ -41,7 +41,7 @@
 							<br class="visible-xs-block">
 
 							<% if user_signed_in? %>
-								<% if @diction.user_id === current_user.id %>
+								<% if @diction.user_id === current_user.id || GroupUser.find_by(diction_id: @diction.id, user_id: current_user.id) %>
 								<button type="button" class="btn btn-default pull-right button-margin-left post-button-m" data-toggle="modal" data-target="#new-meaning" data-backdrop="static">
 									意味を投稿する
 								</button>

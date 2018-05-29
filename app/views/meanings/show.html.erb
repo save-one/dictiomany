@@ -16,7 +16,7 @@
 							<span class="glyphicon glyphicon-plus"></span>
 						</button> -->
 						<% if user_signed_in? %>
-							<% if @diction.user_id === current_user.id %>
+							<% if @diction.user_id === current_user.id || GroupUser.find_by(diction_id: @diction.id, user_id: current_user.id) %>
 								<!-- edit word -->
 								<button type="button" class="btn btn-default pull-right pull-button" data-toggle="modal" data-target="#edit-word" data-backdrop="static">
 									単語を編集する
@@ -37,11 +37,16 @@
 							<br class="visible-xs-block">
 
 							<% if user_signed_in? %>
-								<% if @diction.user_id === current_user.id %>
+								<% if @diction.user_id === current_user.id || GroupUser.find_by(diction_id: @diction.id, user_id: current_user.id) %>
+								<button type="button" class="btn btn-default pull-right button-margin-left post-button-m" data-toggle="modal" data-target="#new-comment" data-backdrop="static">
+									コメントを投稿する
+								</button>
+
 								<!-- edit meaning -->
 								<button type="button" class="btn btn-default pull-right post-button-m" data-toggle="modal" data-target="#edit-meaning" data-backdrop="static">
 									意味を編集する
 								</button>
+
 								<% end %>
 							<% end %>
 
@@ -118,3 +123,4 @@
 <%= render partial: "layouts/editword" %>
 <%= render partial: "layouts/editmeaning" %>
 <%= render partial: "layouts/reportcomment" %>
+<%= render partial: "layouts/newcomment" %>

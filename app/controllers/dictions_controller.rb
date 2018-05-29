@@ -16,7 +16,7 @@ class DictionsController < ApplicationController
 
   def show
     @diction = Diction.find(params[:id])
-    redirect_back(fallback_location: root_path) unless @diction.public_flg === true || @diction.user_id === current_user.id
+    redirect_back(fallback_location: root_path) unless @diction.public_flg === true || @diction.user_id === current_user.id || GroupUser.find_by(diction_id: @diction.id, user_id: current_user.id)
     gon.groupuser_user_id = GroupUser.where(diction_id: @diction.id).pluck(:user_id)
     @search = Word.search(params[:q])
     @words = @search.result
@@ -45,6 +45,7 @@ class DictionsController < ApplicationController
     #public化
     diction.public_flg = true if params[:public] === "on"
 
+    # 共有化
     if select_users = params[:select_user]
       group = Group.create(name: "")
       select_users.each do |s|
@@ -89,6 +90,32 @@ class DictionsController < ApplicationController
 
     end
 
+    if select_users = params[:select_user]
+      unless group = Group.joins(:group_users).where(group_users: {diction_id: diction.id}).last
+        group = Group.create(name: "")
+      end
+      select_users.each do |s|
+        g_user = User.find(s)
+        unless GroupUser.find_by(diction_id: diction.id, user_id: g_user.id)
+          groupuser = diction.group_users.build(group_id: group.id, user_id: g_user.id)
+          groupuser.save
+        end
+      end
+
+      new_groupusers = GroupUser.where(diction_id: diction.id, group_id: group.id).pluck(:user_id)
+      new_groupusers.each do |n|
+        unless select_users.include?(n.to_s)
+          groupuser = GroupUser.find_by(user_id: n, diction_id: diction.id, group_id: group.id)
+          groupuser.destroy#(user_id: n, diction_id: diction.id, group_id: group.id)
+        end
+      end
+      unless GroupUser.find_by(diction_id: diction.id, user_id: current_user.id)
+        groupuser = diction.group_users.build(group_id: group.id, user_id: current_user.id)
+        groupuser.save
+      end
+      diction.group_id = group.id unless diction.group_id === group.id
+    end
+
     diction.update(diction_params)
     redirect_to diction_path(diction)
   end
@@ -97,6 +124,9 @@ class DictionsController < ApplicationController
     diction = Diction.find(params[:id])
     diction.destroy
     redirect_to dictions_path
+  end
+
+  def user_select#あるだけ 共有用アカウント検索用
   end
 
   private

@@ -48,12 +48,19 @@ private
   end
 
   def user_new
-    user_select_all = User.where.not(id: current_user.id) if user_signed_in?
-    @search_user_select = user_select_all.search(params[:q])
-    @search_users = @search_user_select.result
-    unless params[:q].blank?
-      render json: @search_users.select("id").map{ |e| e.id }.to_json
+    # 共有用、アカウント検索
+    if user_signed_in?
+      user_select_all = User.where.not(id: current_user.id)
+      @search_user_select = user_select_all.search(params[:q])
+      @search_users = @search_user_select.result
+      if params[:q].present?
+        user_q = params[:q]
+        unless user_q["name_or_user_word_cont"].blank?
+          render json: @search_users.select("id").map{ |e| e.id }.to_json
+        end
+      end
     end
+
 
     #header検索用パブリック
     @search_header = Public.search(params[:q])

@@ -77,6 +77,31 @@ class Admins::DictionsController < Admins::ApplicationController
 
     end
 
+    if select_users = params[:select_user]
+      unless group = Group.joins(:group_users).where(group_users: {diction_id: diction.id}).last
+        group = Group.create(name: "")
+      end
+      select_users.each do |s|
+        g_user = User.find(s)
+        unless GroupUser.find_by(diction_id: diction.id, user_id: g_user.id)
+          groupuser = diction.group_users.build(group_id: group.id, user_id: g_user.id)
+          groupuser.save
+        end
+      end
+      unless GroupUser.find_by(diction_id: diction.id, user_id: current_user.id)
+        groupuser = diction.group_users.build(group_id: group.id, user_id: current_user.id)
+        groupuser.save
+      end
+      new_groupusers = GroupUser.where(diction_id: diction.id, group_id: group.id).pluck(:user_id)
+      new_groupusers.each do |n|
+        unless select_users.include?(n.to_s)
+          groupuser = GroupUser.find_by(user_id: n, diction_id: diction.id, group_id: group.id)
+          groupuser.destroy#(user_id: n, diction_id: diction.id, group_id: group.id)
+        end
+      end
+      diction.group_id = group.id unless diction.group_id === group.id
+    end
+
     diction.update(diction_params)
     redirect_to admins_diction_path(diction)
   end

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   devise_for :users
   root 'tops#show'
 
+  get 'dictions/user_select' => 'dictions#user_select', as: "user_select"
+
   resource :tops, only: [:show]
   get 'profile' => 'tops#profile', as: "profile"
 

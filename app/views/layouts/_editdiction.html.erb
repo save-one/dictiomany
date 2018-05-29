@@ -94,7 +94,9 @@
 	</div>
 </div>
 
-<%= render partial: "layouts/edituserselect" %>
+<% if user_signed_in? %>
+	<%= render partial: "layouts/edituserselect" %>
+<% end %>
 
 <script>
 	var categories = {};

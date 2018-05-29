@@ -82,7 +82,7 @@
 		</div>
 	</div>
 </div>
-
-<%= render partial: "layouts/userselect" %>
-
+<% if user_signed_in? %>
+	<%= render partial: "layouts/userselect" %>
+<% end %>
 

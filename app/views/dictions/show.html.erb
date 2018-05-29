@@ -8,7 +8,7 @@
 					<div>
 						<span class="font-37"><b><i class="fas fa-book"></i> <%= @diction.name %></b></span><br class="visible-xs-block"><span class="font-30"> の単語一覧</span>
 						<% if user_signed_in? %>
-							<% if @diction.user_id === current_user.id %>
+							<% if @diction.user_id === current_user.id || GroupUser.find_by(diction_id: @diction.id, user_id: current_user.id) %>
 								<button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#new-word" data-backdrop="static">
 									<span class="glyphicon glyphicon-plus"></span>
 								</button>
@@ -26,13 +26,15 @@
 								<% end %>
 							<% end %>
 
-							<% if @diction.default_public_flg === false && @diction.user_id === current_user.id %>
+							<% if @diction.default_public_flg === false %>
+							<% if @diction.user_id === current_user.id || GroupUser.find_by(diction_id: @diction.id, user_id: current_user.id) %>
 								<!-- edit diction -->
 								<button type="button" class="btn btn-default pull-right pull-button" data-toggle="modal" data-target="#edit-diction" data-backdrop="static">
 									辞書を編集する
 								</button>
 								<p id="d_p_category" style="display: none"><%= @diction.category_parent %></p>
 								<p id="d_category" style="display: none"><%= @diction.category %></p>
+							<% end %>
 							<% end %>
 							<br class="visible-xs-block">
 						<% end %>
