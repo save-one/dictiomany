@@ -30,9 +30,10 @@
 					<!--タブ-->
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#user_content1" data-toggle="tab">マイ辞書</a></li>
-							<li><a href="#user_content2" data-toggle="tab">お気に入りの辞書</a></li>
-							<li><a href="#user_content3" data-toggle="tab">お気に入りの単語・意味</a></li>
-							<li><a href="#user_content4" data-toggle="tab">公開中の単語・意味</a></li>
+							<li><a href="#user_content2" data-toggle="tab">グループ辞書</a></li>
+							<li><a href="#user_content3" data-toggle="tab">お気に入りの辞書</a></li>
+							<li><a href="#user_content4" data-toggle="tab">お気に入りの単語・意味</a></li>
+							<li><a href="#user_content5" data-toggle="tab">公開中の単語・意味</a></li>
 						</ul>
 
 						<!--タブの内容-->
@@ -85,6 +86,42 @@
 
 							<div class="tab-pane" id="user_content2">
 								<div class="panel panel-default">
+									<div class="panel-body" style="padding-bottom: 0;">
+										<!-- <p></p> -->
+										<table class="table table-default">
+											<thead>
+												<tr>
+													<th>名前</th>
+													<th>カテゴリー</th>
+													<th class="hidden-xs">ユーザ名</th>
+													<th class="hidden-xs"></th>
+												</tr>
+											</thead>
+											<tbody>
+												<% @group_dictions.each do |d| %>
+												<tr>
+													<td><i class="fas fa-book"></i> <%= link_to d.name, admins_diction_path(d) %></td>
+													<td><%= d.category_parent %> / <%= d.category %></td>
+													<td class="hidden-xs">
+														<% groupusers = GroupUser.where(diction_id: d.id).pluck(:user_id) %>
+														<% user_name = User.find(groupusers) %>
+														<i class="fas fa-user"></i> <%= user_name.first.name %> 他<%= user_name.count - 1 %>名
+													</td>
+													<td class="hidden-xs">
+														<% favo = FavoriteDiction.where(diction_id: d.id) %>
+														<i class="fas fa-star"></i> <%= favo.count %>
+													</td>
+												</tr>
+												<% end %>
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="tab-pane" id="user_content3">
+								<div class="panel panel-default">
 									<!-- <div class="panel-heading">
 										<p>辞書検索</p>
 									</div> -->
@@ -120,7 +157,7 @@
 								</div>
 							</div>
 
-							<div class="tab-pane" id="user_content3">
+							<div class="tab-pane" id="user_content4">
 								<div class="panel panel-default">
 									<div class="panel-body" style="padding-bottom: 0;">
 										<!-- <p></p> -->
@@ -174,7 +211,7 @@
 								</div>
 							</div>
 
-							<div class="tab-pane" id="user_content4">
+							<div class="tab-pane" id="user_content5">
 								<div class="panel panel-default">
 									<div class="panel-body" style="padding-bottom: 0;">
 										<!-- <p></p> -->

@@ -48,6 +48,14 @@ private
   end
 
   def user_new
+    # 共有用、アカウント検索
+    if user_signed_in?
+      user_select_all = User.where.not(id: current_user.id)
+      @search_user_select = user_select_all.search(params[:q])
+      @search_users = user_select_all# 出ていることが大事だからresultはなし 検索についてはuser_selectアクションで行う
+    end
+
+
     #header検索用パブリック
     @search_header = Public.search(params[:q])
     @public_words = @search_header.result

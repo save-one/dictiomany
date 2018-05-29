@@ -14,6 +14,11 @@ private
   end
 
   def admin_new
+    # 共有用、アカウント検索
+    user_select_all = User.all
+    @search_user_select = user_select_all.search(params[:q])
+    @search_users = user_select_all# 出ていることが大事だからresultはなし 検索についてはuser_selectアクションで行う
+
     #header検索用パブリック
     @search_header = Public.search(params[:q])
     @public_words = @search_header.result

@@ -252,9 +252,7 @@
     		<div class="col-lg-4 col-xs-12 text-center">
 	    		<%= image_tag("img/diction_image1.png", class: "attachment admin image acount_image center-block fallback", style: "background-color: #fff;") %>
 	    		<h3><b>Dictiomany</h3></b></h3>
-	    		<p>他業種間の知識理解の相違を減らすお手伝いを目的として<br>
-	    			Save-Oneによって発案　2018年5月に実装
-	    		</p>
+	    		<p class="">業界間、チーム間、会社間での<br>コミュニケーションの円滑化のお手伝いを目的として、<br>大場 貴裕によって発案・開発<br>2018年5月に実装</p>
     		</div>
 
     		<div class="col-lg-5 col-xs-12">
@@ -354,9 +352,11 @@
 			<% end %>
 
 			<h2>サイト・作成者について</h2>
+			<%= link_to profile_path do %>
 				<button class="btn btn-default">
 					詳細ページへ
 				</button>
+			<% end %>
     		</div>
 
     	</div>

@@ -19,6 +19,7 @@ class Admins::DictionsController < Admins::ApplicationController
   def show
     @diction = Diction.find(params[:id])
     #redirect_back(fallback_location: root_path) unless @diction.public_flg === true || @diction.user_id === current_user.id
+    gon.groupuser_user_id = GroupUser.where(diction_id: @diction.id).pluck(:user_id)
     @search = Word.search(params[:q])
     @words = @search.result
     @words = @words.where(diction_id: @diction.id)
@@ -77,6 +78,27 @@ class Admins::DictionsController < Admins::ApplicationController
 
     end
 
+    if select_users = params[:select_user]
+      unless group = Group.joins(:group_users).where(group_users: {diction_id: diction.id}).last
+        group = Group.create(name: "")
+      end
+      select_users.each do |s|
+        g_user = User.find(s)
+        unless GroupUser.find_by(diction_id: diction.id, user_id: g_user.id)
+          groupuser = diction.group_users.build(group_id: group.id, user_id: g_user.id)
+          groupuser.save
+        end
+      end
+      new_groupusers = GroupUser.where(diction_id: diction.id, group_id: group.id).pluck(:user_id)
+      new_groupusers.each do |n|
+        unless select_users.include?(n.to_s)
+          groupuser = GroupUser.find_by(user_id: n, diction_id: diction.id, group_id: group.id)
+          groupuser.destroy#(user_id: n, diction_id: diction.id, group_id: group.id)
+        end
+      end
+      diction.group_id = group.id unless diction.group_id === group.id
+    end
+
     diction.update(diction_params)
     redirect_to admins_diction_path(diction)
   end
@@ -85,6 +107,15 @@ class Admins::DictionsController < Admins::ApplicationController
     diction = Diction.find(params[:id])
     diction.destroy
     redirect_to admins_dictions_path
+  end
+
+  def user_select# 共有用アカウント検索用
+      user_select_all = User.all
+      @search_user_select = user_select_all.search(params[:q])
+      @search_users = @search_user_select.result
+      if params[:q].present?
+        render json: @search_users.select("id").map{ |e| e.id }.to_json
+      end
   end
 
   private

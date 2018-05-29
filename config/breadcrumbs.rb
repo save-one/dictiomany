@@ -68,6 +68,10 @@ crumb :contact do |user, contact|
 	parent :contacts, user
 end
 
+crumb :profile do
+	link "サイト・作成者について", profile_path
+end
+
 # admin側
 # crumb :admin_root do
 #   link "Dictiomanyトップ", admins_tops_path
@@ -137,6 +141,10 @@ end
 
 crumb :admin_contacts_list do
 	link "すべてのお問い合わせ", admins_contacts_list_path
+end
+
+crumb :admin_profile do
+	link "サイト・作成者について", admins_profile_path
 end
 
 # crumb :projects do

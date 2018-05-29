@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 		@search = User.search(params[:q])
 		@users = @search.result
 		@users = @users.page(params[:page])
+
 	end
 
 	#マイページ
@@ -11,6 +12,10 @@ class UsersController < ApplicationController
 		@side_user = User.find(params[:id])
 		#アカウントの辞書
 		@my_dictions = Diction.where(user_id: @user.id)
+
+		#グループの辞書
+		groupuser = GroupUser.where(user_id: @user.id).pluck(:diction_id)
+		@group_dictions = Diction.find(groupuser)
 
 		#お気に入りの辞書
 		my_favorite_dictions = FavoriteDiction.where(user_id: @user.id)

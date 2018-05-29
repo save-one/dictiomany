@@ -1,0 +1,73 @@
+<!-- モーダル・ダイアログ -->
+<!-- 共有 -->
+<div class="modal fade" id="edit_user_select" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>✖</span></button>
+				<h4 class="modal-title">共有したいアカウントを選択してください</h4>
+			</div>
+			<div class="modal-body newform-body">
+				<div>
+					<%= search_form_for(@search_user_select, url: user_select_path, remote:true, :id => "edit_user_select_form") do |f| %>
+
+						<div class= "input-group col-lg-12 col-xs-12">
+						<%= f.search_field :name_or_user_word_cont, class: "form-control search-field" %>
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default search-submit-button button-margin-left" data-disable_with= "検索中..."}>
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							</button>
+						</span>
+						</div>
+
+					<% end %>
+				</div>
+				
+				<div class="signup">
+					<table class="table table-default" id="edit_user_select_table">
+						<tbody>
+							<% @search_users.each do |u| %>
+							
+							<tr class="edit_select_user_tr">
+								<p style="display:none"><i class="fas fa-user"></i> <%= u.name %></p>
+								<td style="display:none;"><%= u.id %><input type="checkbox" value=<%= u.id %> name="select_user" >
+									<p style="display:none"><i class="fas fa-user"></i> <%= u.name %></p>
+								</td>
+								<td>
+									<%= attachment_image_tag u, :image, format: "png", fallback: "img/acount_image1.png", :class => "index-user-icon center-block" %>
+								</td>
+								<td name="user_select_name">
+									<i class="fas fa-user"></i> <%= u.name %>
+								</td>
+								<td class="user_word">
+									<%= u.user_word %>
+								</td>
+
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+					
+				</div>
+
+			</div>
+			<div class="modal-footer row newform-footer">
+				<div class="col-xs-9">
+
+					<button class="btn btn-primary form-control" id="edit_user_select_button">共有する</button>
+
+				</div>
+				<div class="col-xs-3" >
+					<button type="button" class="btn btn-default form-control" data-dismiss="modal" id="edit_user_select_close">閉じる</button>
+				</div>
+
+				<!-- <button type="button" class="btn btn-primary">ボタン</button -->
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+

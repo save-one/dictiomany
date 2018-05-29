@@ -8,7 +8,7 @@
 					<div>
 						<span class="font-37"><b><i class="fas fa-book"></i> <%= @diction.name %></b></span><br class="visible-xs-block"><span class="font-30"> の単語一覧</span>
 						<% if user_signed_in? %>
-							<% if @diction.user_id === current_user.id %>
+							<% if @diction.user_id === current_user.id || GroupUser.find_by(diction_id: @diction.id, user_id: current_user.id) %>
 								<button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#new-word" data-backdrop="static">
 									<span class="glyphicon glyphicon-plus"></span>
 								</button>
@@ -26,13 +26,15 @@
 								<% end %>
 							<% end %>
 
-							<% if @diction.default_public_flg === false && @diction.user_id === current_user.id %>
+							<% if @diction.default_public_flg === false %>
+							<% if @diction.user_id === current_user.id || GroupUser.find_by(diction_id: @diction.id, user_id: current_user.id) %>
 								<!-- edit diction -->
 								<button type="button" class="btn btn-default pull-right pull-button" data-toggle="modal" data-target="#edit-diction" data-backdrop="static">
 									辞書を編集する
 								</button>
 								<p id="d_p_category" style="display: none"><%= @diction.category_parent %></p>
 								<p id="d_category" style="display: none"><%= @diction.category %></p>
+							<% end %>
 							<% end %>
 							<br class="visible-xs-block">
 						<% end %>
@@ -169,5 +171,53 @@
 	// console.log(c);
 	$('.category-select-refine[data-value=\'\']').removeAttr("data-default-selected");
 	$(`.category-select-refine[data-value='${value}']`).attr('data-default-selected', "");
+
+	// 共有用
+	var user_ids = gon.groupuser_user_id;
+	// console.log(user_ids);
+	var default_check = $('#edit_user_select_table').find('input');
+	// console.log(default_check);
+	$.each(default_check, function(index, element) {
+		//console.log(element);
+		var check_id = element.value;//使えないjqueryメソッドが出てくることもあるので、eachの時は注意
+		// console.log($.type(check_id));
+		// console.log($.type(user_ids[0]));
+		// console.log($.inArray(check_id, user_ids));
+		check_id = parseInt(check_id);//数値に変換してあげる
+		// console.log($.type(check_id));
+		// console.log(user_ids.indexOf(check_id) >= 0);
+		if (user_ids.indexOf(check_id) >= 0) {
+			var input = $(`input[value="${check_id}"]`),
+				tr = input.parents("tr");
+			input.prop('checked', true);
+			tr.css('background-color', 'lightgrey');
+
+			console.log(input);
+			console.log(tr);
+		}
+	});
+
+	// $(this).css('background-color', 'lightgrey');
+	// check.prop('checked', true);
+
+
+
+
+
+
+	// $('.edit_select_user_tr').on('click', function() {
+	// 	var check = $(this).find("input"),
+	// 		checked = check.prop('checked');
+	// 	// console.log(check);
+	// 	// console.log(checked);
+	// 	if (checked === false) {
+	// 		$(this).css('background-color', 'lightgrey');
+	// 		check.prop('checked', true);
+	// 	} else if(checked === true) {
+	// 		$(this).css('background-color', '#ffffff');
+	// 		check.prop('checked', false);
+	// 	}
+	// });
+
 
 </script>
