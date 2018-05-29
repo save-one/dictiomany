@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 		@search = User.search(params[:q])
 		@users = @search.result
 		@users = @users.page(params[:page])
+
 	end
 
 	#マイページ

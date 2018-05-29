@@ -4,8 +4,6 @@ Rails.application.routes.draw do
   devise_for :users
   root 'tops#show'
 
-  get 'dictions/user_select' => 'dictions#user_select', as: "user_select"
-
   resource :tops, only: [:show]
   get 'profile' => 'tops#profile', as: "profile"
 
@@ -39,10 +37,13 @@ Rails.application.routes.draw do
   post 'meanings/:meaning_id/reports' => 'reports#meaning', as: "meaning_reports"
   post 'comments/:comment_id/reports' => 'reports#comment', as: "comment_reports"
 
+  get 'user_select' => 'dictions#user_select', as: "user_select"#共有用検索アクション
+
   namespace :admins do
     root 'tops#show'
 
     resource :tops, only: [:show]
+    get 'profile' => 'tops#profile', as: "profile"
 
     resources :admins, only: [:show, :update] do
     end
@@ -74,6 +75,8 @@ Rails.application.routes.draw do
 
     resources :reports, only: [:index, :show, :update]#resourcesを追加
     get 'contacts' => 'contacts#list', as: "contacts_list"
+
+    get 'user_select' => 'dictions#user_select', as: "user_select"#共有用検索アクション
 
     # post 'dictions/:diction_id/reports' => 'reports#diction', as: "diction_reports"
     # post 'words/:word_id/reports' => 'reports#word', as: "word_reports"

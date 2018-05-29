@@ -126,7 +126,15 @@ class DictionsController < ApplicationController
     redirect_to dictions_path
   end
 
-  def user_select#あるだけ 共有用アカウント検索用
+  def user_select# 共有用アカウント検索用
+    if user_signed_in?
+      user_select_all = User.where.not(id: current_user.id)
+      @search_user_select = user_select_all.search(params[:q])
+      @search_users = @search_user_select.result
+      if params[:q].present?
+        render json: @search_users.select("id").map{ |e| e.id }.to_json
+      end
+    end
   end
 
   private

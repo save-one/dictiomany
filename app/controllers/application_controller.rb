@@ -52,13 +52,7 @@ private
     if user_signed_in?
       user_select_all = User.where.not(id: current_user.id)
       @search_user_select = user_select_all.search(params[:q])
-      @search_users = @search_user_select.result
-      if params[:q].present?
-        user_q = params[:q]
-        unless user_q["name_or_user_word_cont"].blank?
-          render json: @search_users.select("id").map{ |e| e.id }.to_json
-        end
-      end
+      @search_users = user_select_all# 出ていることが大事だからresultはなし 検索についてはuser_selectアクションで行う
     end
 
 
