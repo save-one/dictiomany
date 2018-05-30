@@ -7,6 +7,5 @@ class Meaning < ApplicationRecord
 
   validates :content, presence: true
   validates :word_id, presence: true
-  validates :user_id, presence: true
 
 end

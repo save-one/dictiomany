@@ -10,12 +10,12 @@
 				<%= form_for(@new_public_word, url: publics_path, mothod: "post", html: {:class => "form-group"}) do |f| %>
 				<div>
 					<%= f.label "名前", {class: "form-label"} %>
-					<%= f.text_field :name, class: "form-control", required:true %>
+					<%= f.text_field :name, class: "form-control", id: "public_word_name", required:true %>
 				</div>
 
 				<div class="signup">
 					<%= f.label "フリガナ", {class: "form-label"} %>
-					<%= f.text_field :kana, class: "form-control", required:true %>
+					<%= f.text_field :kana, class: "form-control", id: "public_word_kana", required:true %>
 				</div>
 
 				<%= f.fields_for :meanings do |m| %>

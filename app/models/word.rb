@@ -10,6 +10,5 @@ class Word < ApplicationRecord
   validates :category, presence: true
   validates :category_parent, presence: true
   validates :diction_id, presence: true
-  validates :user_id, presence: true
 
 end

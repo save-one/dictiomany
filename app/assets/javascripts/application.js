@@ -740,3 +740,24 @@ $(function() {
 	$('#edit_user_select_button').click();
 });
 
+
+//カタカナ自動入力 autoKana.js
+//new_word
+$(function() {
+	$.fn.autoKana('#new_word_name', '#new_word_kana', {
+		katakana : true //true => カタカナ, false => ひらがな(デフォルト) ひらがなの自動入力もできる
+	});
+});
+//edit_word
+$(function() {
+	$.fn.autoKana('#edit_word_name', '#edit_word_kana', {
+		katakana : true //true => カタカナ, false => ひらがな(デフォルト) ひらがなの自動入力もできる
+	});
+});
+//public_word
+$(function() {
+	$.fn.autoKana('#public_word_name', '#public_word_kana', {
+		katakana : true //true => カタカナ, false => ひらがな(デフォルト) ひらがなの自動入力もできる
+	});
+});
+
