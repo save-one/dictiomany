@@ -487,25 +487,25 @@ $(function() {
 
 //通報後の表示切替
 //comment
-$(function() {
-	$('#report-c-submit').click(function() {
-		Push.create('Dictiomany', {
-		　　body: '通報が完了しました',
-		// 　　icon: 'icon.png',
-		　　timeout: 8000, // 通知が消えるタイミング
-		　　vibrate: [100, 100, 100], // モバイル端末でのバイブレーション秒数
-		　　onClick: function() {
-		　　　　// 通知がクリックされた場合の設定
-		　　　　console.log('click');
-		　　}
-		});
-	});
-});
+// $(function() {
+// 	$('#report-c-submit').click(function() {
+// 		Push.create('Dictiomany', {
+// 		　　body: '通報が完了しました',
+// 		// 　　icon: 'icon.png',
+// 		　　timeout: 8000, // 通知が消えるタイミング
+// 		　　vibrate: [100, 100, 100], // モバイル端末でのバイブレーション秒数
+// 		　　onClick: function() {
+// 		　　　　// 通知がクリックされた場合の設定
+// 		　　　　console.log('click');
+// 		　　}
+// 		});
+// 	});
+// });
 
 //通知を許可するか出すもの ユーザに出ることを伝えて拒否されないようにする必要あり
-$(function() {
-	Push.Permission.request();
-})
+// $(function() {
+// 	Push.Permission.request();
+// })
 
 //検索時のcategoryの絞り込み用選択ボックスの設定
 $(function() {
@@ -738,5 +738,26 @@ $(function() {
 
 $(function() {
 	$('#edit_user_select_button').click();
+});
+
+
+//カタカナ自動入力 autoKana.js
+//new_word
+$(function() {
+	$.fn.autoKana('#new_word_name', '#new_word_kana', {
+		katakana : true //true => カタカナ, false => ひらがな(デフォルト) ひらがなの自動入力もできる
+	});
+});
+//edit_word
+$(function() {
+	$.fn.autoKana('#edit_word_name', '#edit_word_kana', {
+		katakana : true //true => カタカナ, false => ひらがな(デフォルト) ひらがなの自動入力もできる
+	});
+});
+//public_word
+$(function() {
+	$.fn.autoKana('#public_word_name', '#public_word_kana', {
+		katakana : true //true => カタカナ, false => ひらがな(デフォルト) ひらがなの自動入力もできる
+	});
 });
 

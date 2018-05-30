@@ -7,11 +7,13 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script><!--javascriptより前に置く-->
     <%= javascript_include_tag 'application' %>
-    <script src="/assets/jquery.upload_thumbs.js"></script>
+    <script src="/assets/jquery.uploadThumbs.js"></script>
     <!-- push通知 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js"></script>
     <!-- 検索用のセレクトボックスでカテゴリを階層表示とボックス内で検索選択 -->
     <script src="/assets/hierarchy-select.min.js"></script>
+    <!-- カタカナ自動入力 -->
+    <script src="/assets/jquery.autoKana.js"></script>
     <link rel="stylesheet" href="/assets/pygments.css">
     <link rel="stylesheet" href="/assets/hierarchy-select.min.css">
     <!-- fontawasome -->
@@ -145,7 +147,7 @@
 	    					<% end %>
 	    				</li>
 	    				<li>
-	    					<%= link_to new_user_session_path do %>
+	    					<%= link_to new_user_registration_path do %>
 	    					<button type="button" class="btn btn-default btn-lg header-list-button" >
 	    						<i class="fas fa-user-plus"></i>
 	    						新規登録

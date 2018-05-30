@@ -13,4 +13,14 @@ class User < ApplicationRecord
   has_many :contacts
   has_many :reports
   has_many :hits
+
+  # for email
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
+
+  validates :name, presence: true
+  validates :gender, presence: true
+  validates :birthday, presence: true
+  validates :user_flg, presence: true
+
 end

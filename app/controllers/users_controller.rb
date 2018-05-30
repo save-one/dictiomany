@@ -3,7 +3,8 @@ class UsersController < ApplicationController
 		@search = User.search(params[:q])
 		@users = @search.result
 		@users = @users.page(params[:page])
-
+		q = params[:q]
+		@search_content = q["name_or_user_word_cont"] if params[:q].present?
 	end
 
 	#マイページ

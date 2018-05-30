@@ -68,7 +68,9 @@ private
     @search_index3 = ["Ａ","Ｂ","Ｃ","Ｄ","Ｅ"],["Ｆ","Ｇ","Ｈ","Ｉ","Ｊ"],["Ｋ","Ｌ","Ｍ","Ｎ","Ｏ"],["Ｐ","Ｑ","Ｒ","Ｓ","Ｔ"],["Ｕ","Ｖ","Ｗ","Ｘ","Ｙ"],["Ｚ"]
     @search_index4 = ["1","2","3","4","5"],["6","7","8","9","0"]
     #current_user
-    @side_user = current_user #userのshowアクションでのみ、アクション内でparamsにあったものに切り替える
+    if user_signed_in?
+      @side_user = current_user #userのshowアクションでのみ、アクション内でparamsにあったものに切り替える
+    end
   	#dictionally
   	@new_diction = Diction.new
   	#word

@@ -32,9 +32,9 @@ Rails.application.routes.draw do
 
   
 
-  post 'dictions/:diction_id/reports' => 'reports#diction', as: "diction_reports"
-  post 'words/:word_id/reports' => 'reports#word', as: "word_reports"
-  post 'meanings/:meaning_id/reports' => 'reports#meaning', as: "meaning_reports"
+  # post 'dictions/:diction_id/reports' => 'reports#diction', as: "diction_reports"
+  # post 'words/:word_id/reports' => 'reports#word', as: "word_reports"
+  # post 'meanings/:meaning_id/reports' => 'reports#meaning', as: "meaning_reports"
   post 'comments/:comment_id/reports' => 'reports#comment', as: "comment_reports"
 
   get 'user_select' => 'dictions#user_select', as: "user_select"#共有用検索アクション

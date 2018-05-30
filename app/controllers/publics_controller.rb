@@ -53,6 +53,7 @@ class PublicsController < ApplicationController
     hit = Hit.new(meaning_id: @p_meaning.id)
     hit.user_id = current_user.id if user_signed_in?
     hit.save
+    @new_c_report = Report.new
   end
 
   def create

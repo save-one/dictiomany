@@ -115,17 +115,7 @@
 				</table>
 				</div>
 				<div class="panel-footer">
-					<% if @meanings.count < 25 %>
-						<nav>
-						    <ul class="pagination">
-						    	<li class="page-item active">
-						    		<a href="#" >1</a>
-						    	</li>
-						    </ul>
-						</nav>
-					<% else %>
-						<%= paginate @meanings %>
-					<% end %>
+					<%= paginate @meanings %>
 				</div>
 			</div>
 

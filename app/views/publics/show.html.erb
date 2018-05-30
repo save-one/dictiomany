@@ -7,9 +7,11 @@
 				<div class="panel-body meaning-panel-body">
 					<div>
 						<span class="font-37"><b><%= @public.name %></b></span><span class="font-30"> の意味</span>
-						<button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#p-meaning" data-backdrop="static">
-							<span class="glyphicon glyphicon-plus"></span>
-						</button>
+						<% if user_signed_in? %>
+							<button type="button" class="btn btn-default pluss" data-toggle="modal" data-target="#p-meaning" data-backdrop="static">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+						<% end %>
 					</div>
 
 					<div class="signup ">
@@ -25,9 +27,15 @@
 							<% end %>
 							<br class="visible-xs-block" >
 
-							<button type="button" class="btn btn-default pull-right	button-margin-left post-button-m" data-toggle="modal" data-target="#p-meaning" data-backdrop="static">
-								意味を投稿する
-							</button>
+							<% if user_signed_in? %>
+								<button type="button" class="btn btn-default pull-right	button-margin-left post-button-m" data-toggle="modal" data-target="#p-meaning" data-backdrop="static">
+									意味を投稿する
+								</button>
+							<% else %>
+								<button type="button" class="btn btn-default pull-right	button-margin-left post-button-m">
+									意味を投稿するにはログインが必要です
+								</button>
+							<% end %>
 							<!-- 検索フォーム表示切替 -->
 							<button type="button" class="btn btn-default pull-right" id="search-drop-button">検索する</button>
 							<!-- jquery用　publicデータ -->
