@@ -16,7 +16,19 @@ class DictionsController < ApplicationController
 
   def show
     @diction = Diction.find(params[:id])
-    redirect_back(fallback_location: root_path) unless @diction.public_flg === true || @diction.user_id === current_user.id || GroupUser.find_by(diction_id: @diction.id, user_id: current_user.id)
+    # 公開されているか、自分の辞書か、自分が共有されている辞書かで判断
+    if user_signed_in?
+      unless @diction.user_id === current_user.id || GroupUser.find_by(diction_id: @diction.id, user_id: current_user.id).present? || @diction.public_flg === true
+        redirect_back(fallback_location: root_path)
+      end
+    else
+      if @diction.public_flg === false
+        redirect_back(fallback_location: root_path)
+      end
+    end
+    # unless @diction.public_flg === true || @diction.user_id === current_user.id || GroupUser.find_by(diction_id: @diction.id, user_id: current_user.id)
+    #   redirect_back(fallback_location: root_path)
+    # end
     gon.groupuser_user_id = GroupUser.where(diction_id: @diction.id).pluck(:user_id)
     @search = Word.search(params[:q])
     @words = @search.result

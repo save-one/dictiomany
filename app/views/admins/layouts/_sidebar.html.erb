@@ -35,16 +35,23 @@
 					<a href="" class="list-group-item" data-toggle="modal" data-target="#edit_user" data-backdrop="static">
 						<i class="fas fa-user-edit"></i>　アカウント情報の編集
 					</a>
-					<%= link_to admins_user_hits_path(user_id: @side_user.id), class: "list-group-item" do %>
-						<i class="fas fa-eye"></i>　閲覧履歴
-					<% end %>
-					<%= link_to admins_user_contacts_path(user_id: @side_user.id), class: "list-group-item" do %>
-						<i class="fas fa-envelope"></i>　お問い合わせ
-					<% end %>
 					<% if @side_user === current_admin %>
-					<%= link_to destroy_admin_session_path, method: :delete, :class => "list-group-item" do %>
-						<i class="fas fa-sign-out-alt"></i>　ログアウト
-					<% end %>
+						<%= link_to admins_contacts_list_path, class: "list-group-item" do %>
+							<i class="fas fa-envelope"></i>　お問い合わせ
+						<% end %>
+						<%= link_to admins_reports_path, class: "list-group-item" do %>
+							<i class="fas fa-phone"></i>　通報一覧
+						<% end %>
+						<%= link_to destroy_admin_session_path, method: :delete, :class => "list-group-item" do %>
+							<i class="fas fa-sign-out-alt"></i>　ログアウト
+						<% end %>
+					<% else %>
+						<%= link_to admins_user_hits_path(user_id: @side_user.id), class: "list-group-item" do %>
+							<i class="fas fa-eye"></i>　閲覧履歴
+						<% end %>
+						<%= link_to admins_user_contacts_path(user_id: @side_user.id), class: "list-group-item" do %>
+							<i class="fas fa-envelope"></i>　お問い合わせ
+						<% end %>
 					<% end %>
 				</div>
 			</div>

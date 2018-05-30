@@ -487,25 +487,25 @@ $(function() {
 
 //通報後の表示切替
 //comment
-$(function() {
-	$('#report-c-submit').click(function() {
-		Push.create('Dictiomany', {
-		　　body: '通報が完了しました',
-		// 　　icon: 'icon.png',
-		　　timeout: 8000, // 通知が消えるタイミング
-		　　vibrate: [100, 100, 100], // モバイル端末でのバイブレーション秒数
-		　　onClick: function() {
-		　　　　// 通知がクリックされた場合の設定
-		　　　　console.log('click');
-		　　}
-		});
-	});
-});
+// $(function() {
+// 	$('#report-c-submit').click(function() {
+// 		Push.create('Dictiomany', {
+// 		　　body: '通報が完了しました',
+// 		// 　　icon: 'icon.png',
+// 		　　timeout: 8000, // 通知が消えるタイミング
+// 		　　vibrate: [100, 100, 100], // モバイル端末でのバイブレーション秒数
+// 		　　onClick: function() {
+// 		　　　　// 通知がクリックされた場合の設定
+// 		　　　　console.log('click');
+// 		　　}
+// 		});
+// 	});
+// });
 
 //通知を許可するか出すもの ユーザに出ることを伝えて拒否されないようにする必要あり
-$(function() {
-	Push.Permission.request();
-})
+// $(function() {
+// 	Push.Permission.request();
+// })
 
 //検索時のcategoryの絞り込み用選択ボックスの設定
 $(function() {

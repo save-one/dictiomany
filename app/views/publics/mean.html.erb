@@ -17,14 +17,16 @@
 							<span class="glyphicon glyphicon-plus"></span>
 						</button> -->
 
-						<% favorite = FavoriteMeaning.find_by(user_id: current_user.id, meaning_id: @p_meaning.id) %>
-						<% if favorite.present? %>
-							<%= link_to destroy_meanfavo_path(meaning_id: @p_meaning.id, id: favorite.id), method: :delete do %>
-								<button type="button" class="btn btn-danger pull-right pull-button" id="f-m-button-d" >お気に入りから削除</button>
-							<% end %>
-						<% else %>
-							<%= link_to create_meanfavo_path(@p_meaning), method: :post do %>
-								<button type="button" class="btn btn-warning pull-right pull-button" id="f-m-button-c">お気に入りに追加</button>
+						<% if user_signed_in? %>
+							<% favorite = FavoriteMeaning.find_by(user_id: current_user.id, meaning_id: @p_meaning.id) %>
+							<% if favorite.present? %>
+								<%= link_to destroy_meanfavo_path(meaning_id: @p_meaning.id, id: favorite.id), method: :delete do %>
+									<button type="button" class="btn btn-danger pull-right pull-button" id="f-m-button-d" >お気に入りから削除</button>
+								<% end %>
+							<% else %>
+								<%= link_to create_meanfavo_path(@p_meaning), method: :post do %>
+									<button type="button" class="btn btn-warning pull-right pull-button" id="f-m-button-c">お気に入りに追加</button>
+								<% end %>
 							<% end %>
 						<% end %>
 
@@ -34,11 +36,19 @@
 						<p class="font-21 p-line">
 							<span class="label label-warning" style="padding: 6px 10px;"><b>主な意味</b></span>
 							<b> <%= @p_meaning.content %></b>
-							<br class="visible-xs-block" >
-							（ <i class="fas fa-user"></i> <%= user_name.name %> さんの投稿）
-							<button type="button" class="btn btn-default pull-right post-button-m" data-toggle="modal" data-target="#p-comment" data-backdrop="static">
-								コメントを投稿する
-							</button>
+							<% if user_signed_in? %>
+								<br class="visible-xs-block" >
+								（ <i class="fas fa-user"></i> <%= user_name.name %> さんの投稿）
+								<button type="button" class="btn btn-default pull-right post-button-m" data-toggle="modal" data-target="#p-comment" data-backdrop="static">
+									コメントを投稿する
+								</button>
+							<% else %>
+								<br class="visible-xs-block" >
+								（ <i class="fas fa-user"></i> <%= user_name.name %> さんの投稿）
+								<button type="button" class="btn btn-default pull-right post-button-m" >
+									コメントにはログインが必要です
+								</button>
+							<% end %>
 
 						</p>
 					</div>
@@ -70,19 +80,21 @@
 									<% user = User.find(c.user.id) %>
 									<i class="fas fa-user"></i> <%= user.name %>
 								</td>
+								<% if user === current_user %>
 								<td>
 									<div class="dropdown">
 				    					<button type="button" class="btn btn-default btn-xs dropdown-toggle" id="down-icon" data-toggle="dropdown" >
 				    						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
 				    					</button>
 				    					<ul class="dropdown-menu" role="menu">
-				    						<% if user === current_user %>
-				    							<li role="presentation"><%= link_to "コメントを削除する", diction_word_meaning_comment_path(diction_id: @diction.id, word_id: @word.id, meaning_id: @p_meaning.id, id:c.id), method: :delete, class: "comment-destroy" %></li>
-				    						<% end %>
-				    						<li role="presentation"><a href="">通報する</a></li>
+				    						<li role="presentation"><%= link_to "コメントを削除する", diction_word_meaning_comment_path(diction_id: @diction.id, word_id: @word.id, meaning_id: @p_meaning.id, id:c.id), method: :delete, class: "comment-destroy" %></li>
+				    						<li role="presentation">
+												<a data-toggle="modal" data-target="#report-comment" data-backdrop="static">通報する</a>
+											</li>
 				    					</ul>
 				    				</div>
 								</td>
+								<% end %>
 							</tr>
 							<% end %>
 						</tbody>
@@ -104,3 +116,4 @@
 </div>
 
 <%= render partial: "layouts/pcomment" %>
+<%= render partial: "layouts/reportcomment" %>

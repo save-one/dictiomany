@@ -54,7 +54,13 @@
 											<tbody>
 												<% @my_dictions.each do |d| %>
 												<tr>
-													<td><i class="fas fa-book"></i> <%= link_to d.name, admins_diction_path(d) %></td>
+													<td>
+														<% if d.default_public_flg === true %>
+															<i class="fas fa-globe"></i> <%= link_to d.name, admins_diction_path(d) %>
+														<% else %>
+															<i class="fas fa-book"></i> <%= link_to d.name, admins_diction_path(d) %>
+														<% end %>
+													</td>
 													<td><%= d.category_parent %> / <%= d.category %></td>
 													<td class="hidden-xs">
 														<% user_name = User.find(d.user_id) %>

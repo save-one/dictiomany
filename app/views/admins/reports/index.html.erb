@@ -32,18 +32,29 @@
 							<% @reports.each do |r| %>
 							<% form_id_report = "report-form" + num.to_s %>
 							<tr>
-								<%= form_for(r, url: admins_report_path(r), :html => {id: form_id_report, class: "report_forms"}) do |f| %>
-									<% comment = Comment.find(r.comment_id) %>
-									<% m = Meaning.find(comment.meaning_id) %>
-									<% w = Word.find(m.word_id) %>
-									<% d = Diction.find(w.diction_id) %>
-								<td>
-									<%= link_to r.created_at.strftime('%Y年%m月%d日') ,admins_report_path(id: r.id) %>
-								</td>
-								<td><%= link_to comment.content, admins_diction_word_meaning_path(diction_id: d.id, word_id: w.id, id: m.id) %></td>
-								<td><%= r.reason %></td>
-								<td><%= f.select :deal, [["未対処", ""], ["保留中", "保留中"], ["削除済み", "削除済み"], ["問題なし", "問題なし"]], {}, :class => "report_select form-control" %><%= f.submit style: "display: none;", value: num, form: form_id_report, class: "submit_class_report" %>
-								</td>
+								<!-- find_byだと、idでなかった時にnoufoundじゃなくてnilになる -->
+								<% if Comment.find_by(id: r.comment_id) %>
+									<%= form_for(r, url: admins_report_path(r), :html => {id: form_id_report, class: "report_forms"}) do |f| %>
+										<% comment = Comment.find_by(id: r.comment_id) %>
+										<% m = Meaning.find(comment.meaning_id) %>
+										<% w = Word.find(m.word_id) %>
+										<% d = Diction.find(w.diction_id) %>
+									<td>
+										<%= r.created_at.strftime('%Y年%m月%d日') %>
+									</td>
+									<td><%= link_to comment.content, admins_diction_word_meaning_path(diction_id: d.id, word_id: w.id, id: m.id) %></td>
+									<td><%= r.reason %></td>
+									<td><%= f.select :deal, [["未対処", ""], ["保留中", "保留中"], ["削除済み", "削除済み"], ["問題なし", "問題なし"]], {}, :class => "report_select form-control" %><%= f.submit style: "display: none;", value: num, form: form_id_report, class: "submit_class_report" %>
+									</td>
+									<% end %>
+								<% else %>
+									<td>
+										<%= r.created_at.strftime('%Y年%m月%d日')  %>
+									</td>
+									<td style="color: red;">削除されました</td>
+									<td><%= r.reason %></td>
+									<td style = "color: red">削除されました</td>
+									</td>
 								<% end %>
 							</tr>
 							<% num += 1 %>
@@ -52,17 +63,7 @@
 					</table>
 				</div>
 				<div class="panel-footer">
-					<% if @reports.count < 25 %>
-						<nav>
-						    <ul class="pagination">
-						    	<li class="page-item active">
-						    		<a href="#" >1</a>
-						    	</li>
-						    </ul>
-						</nav>
-					<% else %>
-						<%= paginate @reports %>
-					<% end %>
+					<%= paginate @reports %>
 				</div>
 			</div>
 

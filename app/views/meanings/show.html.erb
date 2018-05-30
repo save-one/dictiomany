@@ -80,25 +80,27 @@
 									<% user = User.find(c.user.id) %>
 									<i class="fas fa-user"></i> <%= user.name %>
 								</td>
-								<td>
-									<div class="dropdown">
-				    					<button type="button" class="btn btn-default btn-xs dropdown-toggle" id="down-icon" data-toggle="dropdown" >
-				    						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-				    					</button>
-				    					<ul class="dropdown-menu" role="menu">
-				    						<% if user === current_user %>
-				    							<li role="presentation"><%= link_to "コメントを削除する", admins_diction_word_meaning_comment_path(diction_id: @diction.id, word_id: @word.id, meaning_id: @meaning.id, id:c.id), method: :delete, class: "comment-destroy" %></li>
-				    						<% end %>
-				    						<li role="presentation">
-				    							<a data-toggle="modal" data-target="#report-comment" data-backdrop="static" class="cursor c-report">
-													通報する
-												</a>
-				    						</li>
-				    					</ul>
-				    				</div>
-				    				<p class="c-id-for-report" style="display: none;"><%= c.id %></p>
-				    				<p class="c-content-for-report" style="display: none;"><%= c.content %></p>
-								</td>
+								<% if user_signed_in? %>
+									<td>
+										<div class="dropdown">
+					    					<button type="button" class="btn btn-default btn-xs dropdown-toggle" id="down-icon" data-toggle="dropdown" >
+					    						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+					    					</button>
+					    					<ul class="dropdown-menu" role="menu">
+					    						<% if user === current_user %>
+					    							<li role="presentation"><%= link_to "コメントを削除する", admins_diction_word_meaning_comment_path(diction_id: @diction.id, word_id: @word.id, meaning_id: @meaning.id, id:c.id), method: :delete, class: "comment-destroy" %></li>
+					    						<% end %>
+					    						<li role="presentation">
+					    							<a data-toggle="modal" data-target="#report-comment" data-backdrop="static" class="cursor c-report">
+														通報する
+													</a>
+					    						</li>
+					    					</ul>
+					    				</div>
+					    				<p class="c-id-for-report" style="display: none;"><%= c.id %></p>
+					    				<p class="c-content-for-report" style="display: none;"><%= c.content %></p>
+									</td>
+								<% end %>
 							</tr>
 							<% end %>
 						</tbody>

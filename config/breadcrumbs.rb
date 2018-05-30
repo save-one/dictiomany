@@ -1,8 +1,8 @@
 crumb :root do
 	if admin_signed_in?
-		link "Dictiomanyトップ", admins_tops_path
+		link "Dictiomanyトップ", admins_root_path
 	else
- 		link "Dictiomanyトップ", tops_path
+ 		link "Dictiomanyトップ", root_path
  	end
 end
 
