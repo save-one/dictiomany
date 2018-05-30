@@ -30,6 +30,21 @@
 			</div>
 	</div>
 <%= render partial: "layouts/edituser" %>
+
+<% else %>
+
+	<div class="panel panel-default col-xs-12">
+			<div class="panel-body col-xs-12">
+				<div class="">
+					<%= link_to user_path(@side_user) do %>
+					<%= attachment_image_tag @side_user, :image, format: "png", fallback: "img/acount_image1.png", :class => "acount_image center-block" %>
+					<% end %>
+					<h3 class="text-center font-45"><%= @side_user.name %></h3>
+					<h4 class="user_word text-center"><%= @side_user.user_word %></h4>
+				</div>
+			</div>
+	</div>
+
 <% end %>
 	<div class="panel panel-default col-xs-12">
 			<div class="panel-body col-xs-12">

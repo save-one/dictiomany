@@ -5,4 +5,8 @@ class Diction < ApplicationRecord
   has_many :favorite_dictions, dependent: :destroy
   has_many :group_users
   has_many :reports
+
+  validates :name, presence: true
+  validates :user_id, presence: true
+
 end
