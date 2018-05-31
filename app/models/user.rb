@@ -21,6 +21,5 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :gender, presence: true
   validates :birthday, presence: true
-  validates :user_flg, presence: true
 
 end
