@@ -124,11 +124,11 @@
 	$('#parent_edit').val(parent);
 
 
-	var item = categories[`${parent}`];//リストから配列を取得
+	var item = categories[parent];//リストから配列を取得
 
 	var option;
 	for(var i = 0; i < item.length; i++){
-		option = `<option value="${ item[i] }">${ item[i] }</option>`;
+		option = '<option value=' + item[i] + '>' + item[i] + '</option>';
 		$('#child_edit').append(option);
 	}
 

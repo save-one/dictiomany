@@ -44,12 +44,12 @@ $(document).ready(function(){//後で読み込ませたいときは絶対に必�
 var noValue = $('#child').html(); //最初の状態を保存
 		var cat = $(this).val();//選択されたvalueを取得
 		if(cat){
-			var item = categories[`${cat}`];//リストから配列を取得
+			var item = categories[cat];//リストから配列を取得
 
 			$('#child').html('');//childを空にする
 				var option;
 				for(var i = 0; i < item.length; i++){
-					option = `<option value="${ item[i] }">${ item[i] }</option>`;
+					option = '<option value=' + item[i] + '>' + item[i] + '</option>';
 					$('#child').append(option);
 				}
 		}else{ //catが空の時
@@ -83,12 +83,12 @@ $(document).ready(function(){//後で読み込ませたいときは絶対に必�
 var noValue = $('#child_word').html(); //最初の状態を保存
 		var cat = $(this).val();//選択されたvalueを取得
 		if(cat){
-			var item = categories[`${cat}`];//リストから配列を取得
+			var item = categories[cat];//リストから配列を取得
 
 			$('#child_word').html('');//childを空にする
 				var option;
 				for(var i = 0; i < item.length; i++){
-					option = `<option value="${ item[i] }">${ item[i] }</option>`;
+					option = '<option value=' + item[i] + '>' + item[i] + '</option>';
 					$('#child_word').append(option);
 				}
 		}else{ //catが空の時
@@ -122,12 +122,12 @@ $(document).ready(function(){//後で読み込ませたいときは絶対に必�
 var noValue = $('#child_public').html(); //最初の状態を保存
 		var cat = $(this).val();//選択されたvalueを取得
 		if(cat){
-			var item = categories[`${cat}`];//リストから配列を取得
+			var item = categories[cat];//リストから配列を取得
 
 			$('#child_public').html('');//childを空にする
 				var option;
 				for(var i = 0; i < item.length; i++){
-					option = `<option value="${ item[i] }">${ item[i] }</option>`;
+					option = '<option value=' + item[i] + '>' + item[i] + '</option>';
 					$('#child_public').append(option);
 				}
 		}else{ //catが空の時
@@ -161,12 +161,12 @@ $(document).ready(function(){//後で読み込ませたいときは絶対に必�
 var noValue = $('#child_public_s').html(); //最初の状態を保存
 		var cat = $(this).val();//選択されたvalueを取得
 		if(cat){
-			var item = categories[`${cat}`];//リストから配列を取得
+			var item = categories[cat];//リストから配列を取得
 
 			$('#child_public_s').html('');//childを空にする
 				var option;
 				for(var i = 0; i < item.length; i++){
-					option = `<option value="${ item[i] }">${ item[i] }</option>`;
+					option = '<option value=' + item[i] + '>' + item[i] + '</option>';
 					$('#child_public_s').append(option);
 				}
 		}else{ //catが空の時
@@ -199,12 +199,12 @@ $(document).ready(function(){
 //var noValue = $('#child').html(); //最初の状態を保存
 		var cat = $(this).val();//選択されたvalueを取得
 		if(cat){
-			var item = categories[`${cat}`];//リストから配列を取得
+			var item = categories[cat];//リストから配列を取得
 
 			$('#child_edit').html('');//childを空にする
 				var option;
 				for(var i = 0; i < item.length; i++){
-					option = `<option value="${ item[i] }">${ item[i] }</option>`;
+					option = '<option value=' + item[i] + '>' + item[i] + '</option>';
 					$('#child_edit').append(option);
 				}
 		}else{ //catが空の時
@@ -237,12 +237,12 @@ $(document).ready(function(){
 //var noValue = $('#child').html(); //最初の状態を保存
 		var cat = $(this).val();//選択されたvalueを取得
 		if(cat){
-			var item = categories[`${cat}`];//リストから配列を取得
+			var item = categories[cat];//リストから配列を取得
 
 			$('#word_child_edit').html('');//childを空にする
 				var option;
 				for(var i = 0; i < item.length; i++){
-					option = `<option value="${ item[i] }">${ item[i] }</option>`;
+					option = '<option value=' + item[i] + '>' + item[i] + '</option>';
 					$('#word_child_edit').append(option);
 				}
 		}else{ //catが空の時
