@@ -1,6 +1,6 @@
 class CreateDictions < ActiveRecord::Migration[5.1]
   def change
-    create_table :dictions do |t|
+    create_table :dictions, :options => 'ENGINE=InnoDB ROW_FORMAT=DYNAMIC' do |t|
       t.string :name
       t.string :category
       t.boolean :public_flg, default: false

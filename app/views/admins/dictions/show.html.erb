@@ -140,12 +140,14 @@
 
 <script>
 	// カテゴリの絞り込み用セレクトボックスの初期値の設定
-	var value = $('#d-refine-select-set').text();
+	var value = $('#d-refine-select-set').text(),
+		refine = '.category-select-refine[data-value=' + value + ']';
+	//console.log(refine);
 	// console.log(value);
-	var c = $(`.category-select-refine[data-value='${value}']`).html();
-	// console.log(c);
+	var c = $(refine).html();
+	//console.log(c);
 	$('.category-select-refine[data-value=\'\']').removeAttr("data-default-selected");
-	$(`.category-select-refine[data-value='${value}']`).attr('data-default-selected', "");
+	$(refine).attr('data-default-selected', "");
 
 	// 共有用
 	var user_ids = gon.groupuser_user_id;
@@ -161,14 +163,18 @@
 		check_id = parseInt(check_id);//数値に変換してあげる
 		// console.log($.type(check_id));
 		// console.log(user_ids.indexOf(check_id) >= 0);
+		console.log(check_id);
 		if (user_ids.indexOf(check_id) >= 0) {
-			var input = $(`input[value="${check_id}"]`),
+			var for_input = 'input[value=\"' + check_id + '\"]',
+				input = $(for_input),
 				tr = input.parents("tr");
 			input.prop('checked', true);
 			tr.css('background-color', 'lightgrey');
 
-			console.log(input);
-			console.log(tr);
+			// console.log(check_id);
+			// console.log(for_input);
+			// console.log(input);
+			// console.log(tr);
 		}
 	});
 

@@ -370,20 +370,22 @@
 
     <script>
 		// カテゴリの絞り込み用セレクトボックスの初期値の設定
-		var value = $('#d-refine-select-set-header').text();
+		var value = $('#d-refine-select-set-header').text(),
+			refine = '.category-select-refine[data-value=' + value + ']';
 		// console.log(value);
-		var c = $(`.category-select-refine-header[data-value='${value}']`).html();
+		var c = $(refine).html();
 		// console.log(c);
 		$('.category-select-refine-header[data-value=\'\']').removeAttr("data-default-selected");
-		$(`.category-select-refine-header[data-value='${value}']`).attr('data-default-selected', "");
+		$(refine).attr('data-default-selected', "");
 
 		// カテゴリの絞り込み用セレクトボックスの初期値の設定
-		var value = $('#p-refine-select-set-footer').text();
+		var value = $('#p-refine-select-set-footer').text(),
+			refine = '.category-select-refine[data-value=' + value + ']';
 		// console.log(value);
-		var c = $(`.category-select-refine-footer[data-value='${value}']`).html();
+		var c = $(refine).html();
 		// console.log(c);
 		$('.category-select-refine-footer[data-value=\'\']').removeAttr("data-default-selected");
-		$(`.category-select-refine-footer[data-value='${value}']`).attr('data-default-selected', "");
+		$(refine).attr('data-default-selected', "");
 
 
 	</script>

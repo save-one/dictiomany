@@ -126,11 +126,12 @@
 
 <script>
 	// カテゴリの絞り込み用セレクトボックスの初期値の設定
-	var value = $('#p-refine-select-set').text();
+	var value = $('#p-refine-select-set').text(),
+		refine = '.category-select-refine[data-value=' + value + ']';
 	// console.log(value);
-	var c = $(`.category-select-refine[data-value='${value}']`).html();
+	var c = $(refine).html();
 	// console.log(c);
 	$('.category-select-refine[data-value=\'\']').removeAttr("data-default-selected");
-	$(`.category-select-refine[data-value='${value}']`).attr('data-default-selected', "");
+	$(refine).attr('data-default-selected', "");
 
 </script>
