@@ -25,10 +25,14 @@ Rails.application.configure do
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
-  # config.assets.css_compressor = :sass
+  config.assets.css_compressor = :sass #コメントから有効にした
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
+  config.assets.digest = true #追加した
+  #追加した
+  Rails.application.config.assets.precompile += %w( *.eot *.woff *.ttf *.svg *.otf *.png *.jpg *.jpeg *.gif vendor.css vendor.js hierarchy-select.min.js hieranchy-select.min.css jquery.autoKana.js jquery.uploadThumbs.js  )
+
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
