@@ -30,7 +30,8 @@
  	font-size: 16px;
  	font-family: "Midashi Go MB31";
  	/*background-color: #faf0e6;*/
- 	background-image: url("img/librally.jpg");
+ 	/*background-image: url("img/librally.jpg");*/
+ 	background-image: image-url('img/librally.jpg'); /*assets内にimgディレクトリから作成されるので、imgは必須*/
  	background-position: center top;
  	opacity: 0.95;
 
