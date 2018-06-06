@@ -77,7 +77,7 @@
 
 					<p>
 						<b>" <%= @search_content %> "</b> の検索結果
-						<%= @meanings.total_count %>件中 <%= @meanings.offset_value %>～<%= @meanings.offset_value + @meanings.length %>件を表示しています
+						<%= render partial: "layouts/pagevalue", locals: {content: @meanings} %>
 						<br class="visible-xs-block">
 
 						<%= sort_link(@search, :content) do %>

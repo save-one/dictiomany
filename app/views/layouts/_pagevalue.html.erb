@@ -1,0 +1,6 @@
+<!-- kaminariでの件数取得用部分テンプレート -->
+<% if content.total_count === 0 %>
+	<%= content.total_count %>件中 <%= content.offset_value %>～<%= content.offset_value + content.length %>件を表示しています
+<% else %>
+	<%= content.total_count %>件中 <%= content.offset_value + 1 %>～<%= content.offset_value + content.length %>件を表示しています
+<% end %>
