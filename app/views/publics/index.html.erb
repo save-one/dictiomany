@@ -80,7 +80,8 @@
 						<% else %>
 							<b>" <%= @search_content %> "</b> の検索結果
 						<% end %>
-						<%= @public_words.total_count %>件中 <%= @public_words.offset_value %>～<%= @public_words.offset_value + @public_words.length %>件を表示しています
+
+						<%= render partial: "layouts/pagevalue", locals: {content: @public_words} %>
 						<br class="visible-xs-block" >
 
 						<%= sort_link(@search, :category) do %>
@@ -96,16 +97,21 @@
 
 					<table class="table table-default">
 
+						<thead>
+							<th>単語名</th>
+							<th class="hidden-xs">意味</th>
+							<th>カテゴリー</th>
+						</thead>
 						<tbody>
 							<% @public_words.each do |w| %>
 							<tr>
-								<td>単語名: <%= link_to w.name, public_path(w.id) %></td>
+								<td><%= link_to w.name, public_path(w.id) %></td>
 								<td class="hidden-xs">
 									<% if meaning_first = Meaning.where(word_name: w.name, word_kana: w.kana, word_category_parent: w.category_parent, word_category: w.category).first %>
-									意味： <%= link_to meaning_first.content, mean_path(public_id: w.id, id: meaning_first.id) %>
+									<%= link_to meaning_first.content, mean_path(public_id: w.id, id: meaning_first.id) %>
 									<% end %>
 								</td>
-								<td>カテゴリー： <%= w.category_parent %> / <%= w.category %></td>
+								<td><%= w.category_parent %> / <%= w.category %></td>
 								<td  class="hidden-xs"><% w_hit = Hit.where(public_id: w.id) %><i class="fas fa-eye"></i> <%= w_hit.count %></td>
 
 							</tr>

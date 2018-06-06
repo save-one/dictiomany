@@ -69,7 +69,8 @@
 				<div class="panel-body" style="padding-bottom: 0;">
 					<p>
 						<b>" <%= @search_content %> "</b> の検索結果
-						<%= @dictions.total_count %>件中 <%= @dictions.offset_value %>～<%= @dictions.offset_value + @dictions.length %>件を表示しています<br class="visible-xs-block">
+						<%= render partial: "layouts/pagevalue", locals: {content: @dictions} %>
+						<br class="visible-xs-block">
 						<%= sort_link(@search, :category) do %>
 						<button type="button" class="btn btn-default pull-right sort-button">カテゴリー順</button>
 						<% end %>

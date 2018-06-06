@@ -1,6 +1,6 @@
 class CreateWords < ActiveRecord::Migration[5.1]
   def change
-    create_table :words, :options => 'ENGINE=InnoDB ROW_FORMAT=DYNAMIC' do |t|
+    create_table :words do |t|#, :options => 'ENGINE=InnoDB ROW_FORMAT=DYNAMIC' do |t|
       t.string :name
       t.string :kana
       t.string :category

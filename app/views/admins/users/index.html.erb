@@ -36,7 +36,7 @@
 					<p>
 						<b>" <%= @search_content %> "</b> の検索結果　
 
-						<%= @users.total_count %>件中 <%= @users.offset_value %>～<%= @users.offset_value + @users.length %>件を表示しています
+						<%= render partial: "layouts/pagevalue", locals: {content: @users} %>
 
 						<br class="visible-xs-block" >
 

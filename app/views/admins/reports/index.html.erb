@@ -17,7 +17,7 @@
 			<div class="panel panel-default">
 				
 				<div class="panel-body" style="padding-bottom: 0;">
-					<p><%= @reports.total_count %>件中 <%= @reports.offset_value %>～<%= @reports.offset_value + @reports.length %>件を表示しています</p>
+					<p><%= render partial: "layouts/pagevalue", locals: {content: @reports} %></p>
 					<table class="table table-default">
 						<thead>
 							<tr>

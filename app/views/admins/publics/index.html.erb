@@ -81,7 +81,7 @@
 						<% else %>
 							<b>" <%= @search_content %> "</b> の検索結果
 						<% end %>
-						<%= @public_words.total_count %>件中 <%= @public_words.offset_value %>～<%= @public_words.offset_value + @public_words.length %>件を表示しています
+						<%= render partial: "layouts/pagevalue", locals: {content: @public_words} %>
 						<br class="visible-xs-block" >
 
 						<%= sort_link(@search, :category) do %>

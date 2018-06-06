@@ -16,7 +16,7 @@
 			<div class="panel panel-default">
 				
 				<div class="panel-body" style="padding-bottom: 0;">
-					<p><%= @myhits.total_count %>件中 <%= @myhits.offset_value %>～<%= @myhits.offset_value + @myhits.length %>件を表示しています</p>
+					<p><%= render partial: "layouts/pagevalue", locals: {content: @myhits} %></p>
 					<table class="table table-default">
 						<thead>
 							<tr>
