@@ -5,7 +5,5 @@ class Meaning < ApplicationRecord
   has_many :reports
   has_many :hits
 
-  validates :content, presence: true
-  validates :word_id, presence: true
 
 end

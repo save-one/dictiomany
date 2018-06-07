@@ -89,10 +89,14 @@
 				    					<ul class="dropdown-menu" role="menu">
 				    						<li role="presentation"><%= link_to "コメントを削除する", diction_word_meaning_comment_path(diction_id: @diction.id, word_id: @word.id, meaning_id: @p_meaning.id, id:c.id), method: :delete, class: "comment-destroy" %></li>
 				    						<li role="presentation">
-												<a data-toggle="modal" data-target="#report-comment" data-backdrop="static">通報する</a>
+					    						<a data-toggle="modal" data-target="#report-comment" data-backdrop="static" class="cursor c-report">
+													通報する
+												</a>
 											</li>
 				    					</ul>
 				    				</div>
+				    				<p class="c-id-for-report" style="display: none;"><%= c.id %></p>
+					    			<p class="c-content-for-report" style="display: none;"><%= c.content %></p>
 								</td>
 								<% end %>
 							</tr>

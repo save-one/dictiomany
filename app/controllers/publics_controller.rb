@@ -58,7 +58,7 @@ class PublicsController < ApplicationController
 
   def create
   	public_diction = Diction.find_by(user_id: current_user.id, default_public_flg: true)
-  	word = public_diction.words.create(public_word_params)#meaningのcontentも作成されて入る
+  	word = public_diction.words.save(public_word_params)#meaningのcontentも作成されて入る
   	word.category_parent = params[:category_parent]
     word.category = params[:category]
   	word.save

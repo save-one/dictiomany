@@ -87,8 +87,8 @@
 							<tr>
 								<th>名前</th>
 								<th>カテゴリー</th>
-								<th class="hidden-xs">ユーザ名</th>
-								<th class="hidden-xs"></th>
+								<th class="hidden-xs hidden-sm">ユーザ名</th>
+								<th class="hidden-xs hidden-sm"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -102,10 +102,10 @@
 									<% end %>
 								</td>
 								<td><%= d.category_parent %> / <%= d.category %></td>
-								<td class="hidden-xs"><i class="fas fa-user"></i> <% user_name = User.find(d.user_id) %>
+								<td class="hidden-xs hidden-sm"><i class="fas fa-user"></i> <% user_name = User.find(d.user_id) %>
 									<%= user_name.name %>
 								</td>
-								<td class="hidden-xs">
+								<td class="hidden-xs hidden-sm">
 									<% favo = FavoriteDiction.where(diction_id: d.id).count %>
 									<i class="fas fa-star"></i> <%= favo %>
 								</td>
