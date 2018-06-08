@@ -578,18 +578,78 @@ $(function() {
 });
 
 //サイドのナビゲーション
-$(function() {
-	$('#side-nav').hover(function() {
-		$(this).find('span').stop().animate({
-			'marginRight':'175px'
-		}, 500);
-	},
-	function() {
-		$(this).find('span').stop().animate({
-			'marginRight':'0px'
-		}, 300);
+if (!navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/)) {
+	$(function() {
+		$('#side-nav').hover(function() {
+			console.log('触った');
+			$(this).find('span').stop().animate({
+				'marginRight':'175px'
+			}, 500);
+		},
+		function() {
+			$(this).find('span').stop().animate({
+				'marginRight':'0px'
+			}, 300);
+		});
 	});
-});
+}
+
+//サイドナビ　スマホ用
+if (navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/)) {
+	$(function() {
+		var position;
+		//タッチしたとき
+		$('#side-nav').on('touchstart', function(event) {
+			position = getPosition(event);
+			$(this).css('background-color', 'rgba(255, 255, 255, 0.9)');
+		});
+		//タッチしている間
+		$('#side-nav').on('touchmove', function(event) {
+			// if (position - getPosition(event) > 70) {
+			// 	direction = 'left';
+			// } else if (position - getPosition(event) < -70) {
+			// 	direction = 'right';
+			// }
+
+			if (position - getPosition(event) <= 175 && position - getPosition(event) >= 0) {
+				$(this).find('span').css('margin-right', position - getPosition(event));
+			} else if (position - getPosition(event) > 175) {
+				$(this).find('span').css('margin-right', 175);
+			}
+		});
+		//タッチし終わり離れたとき
+		$('#side-nav').on('touchend', function(event) {
+			var endposition = parseInt($(this).find('span').css('margin-right'));
+			if (endposition > 70) {
+				$(this).find('span').stop().animate({
+					'marginRight':'175px'
+				}, 500);
+			} else {
+				$(this).find('span').stop().animate({
+					'marginRight':'0px'
+				}, 500);
+			}
+			// alert('発火');
+		});
+		//他の要素をタッチしたとき
+		$(document).on('touchstart', function(event) {
+			var target = $(event.target).attr('id');
+			console.log(target);
+
+			if (target === 'side-nav') {
+				console.log('あらら');
+			} else {
+				$('#side-nav').find('span').stop().animate({
+					'marginRight':'0px'
+				}, 500);
+				$('#side-nav').css('background-color', 'rgba(255, 255, 255, 0.7)');
+			}
+		});
+		function getPosition(event) {
+			return event.originalEvent.touches[0].pageX;
+		}
+	});
+}
 
 
 //テスト

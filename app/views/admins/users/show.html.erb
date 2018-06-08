@@ -193,7 +193,7 @@
 														<td><%= w.category_parent %> / <%= w.category %></td>
 														<td>
 															<% if p = Public.find_by(name: w.name, kana: w.kana, category_parent: w.category_parent, category: w.category) %>
-																<%= link_to w.name, admins_mean_path(public_id: p.id, id: m.id) %>
+																<%= link_to m.content, admins_mean_path(public_id: p.id, id: m.id) %>
 															<% else %>
 																<%= link_to m.content, admins_diction_word_meaning_path(diction_id: d.id, word_id: w.id, id: m.id) %>
 															<% end %>

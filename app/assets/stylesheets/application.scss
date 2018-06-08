@@ -361,9 +361,12 @@
 	background-image:url(rss.png);
 }*/
 
- @media(max-width: 767px) {
+ @media (max-width: 767px) {
  	body {
  		margin: 0 20px;
+ 	}
+ 	.top-position {/*追加*/
+ 		width: 90%;
  	}
  	.sort-button {
  		float: none !important;
