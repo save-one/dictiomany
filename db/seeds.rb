@@ -8,11 +8,23 @@
 
 
  25.times do |n|
- 	Diction.create(name: "金融#{n}", category_parent: "金融", category: "金融", user_id: 1, public_flg: true)
+ 	diction = Diction.create(name: "金融#{n}", category_parent: "金融", category: "金融", user_id: 1, public_flg: true)
+ 	27.times do |w|
+		word = Word.create(name: "金融単語#{n}-#{w}", kana: "キンユウタンゴ#{n}-#{w}", category_parent: "金融", category: "金融", diction_id: diction.id)
+		2.times do |m|
+			meaning = Meaning.create(content: "金融意味#{n}-#{w}-#{m}", word_name: "金融単語#{n}-#{w}", word_kana: "キンユウタンゴ#{n}-#{w}", word_category_parent: "金融", word_category: "金融", word_id: word.id)
+		end
+	end
  end
 
  25.times do |n|
- 	Diction.create(name: "建設・不動産#{n}", category_parent: "建設・不動産", category: "建設", user_id: 1, public_flg: true)
+ 	diction = Diction.create(name: "建設・不動産#{n}", category_parent: "建設・不動産", category: "建設", user_id: 1, public_flg: true)
+ 	27.times do |w|
+		word = Word.create(name: "建設単語#{n}-#{w}", kana: "ケンセツタンゴ#{n}-#{w}", category_parent: "建設・不動産", category: "建設", diction_id: diction.id)
+		2.times do |m|
+			meaning = Meaning.create(content: "建設意味#{n}-#{w}-#{m}", word_name: "建設単語#{n}-#{w}", word_kana: "ケンセツタンゴ#{n}-#{w}", word_category_parent: "建設・不動産", word_category: "建設", word_id: word.id)
+		end
+	end
  end
 
  25.times do |n|

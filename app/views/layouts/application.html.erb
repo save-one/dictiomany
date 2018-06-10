@@ -161,6 +161,7 @@
 
 	    		</div>
 
+	    		<!-- レスポンシブで縮小時の、表示される検索バー -->
 	    		<div class="signup header-search2">
 	    		<%= search_form_for(@search_header, url: publics_path(@public_words)) do |f| %>
 							<div class="col-lg-3 col-xs-12 pull-button-cate">
@@ -366,7 +367,9 @@
     	</div>
     </footer>
 
+    <!-- 新規辞書 -->
     <%= render partial: "layouts/newdiction" %>
+    <!-- 新規公開設定済み単語・意味 -->
     <%= render partial: "layouts/newpublic" %>
 
 
