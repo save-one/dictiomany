@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :create_public_diction
 private
 
+  #ログイン後の遷移先
   def after_sign_in_path_for(resource_or_scope)
     # if resource_or_scope == :admin
     #   admins_root_path
@@ -21,6 +22,7 @@ private
 
   end
 
+  #ログアウト後の遷移先
   def after_sign_out_path_for(resource_or_scope)
     if resource_or_scope == :admin
       new_admin_session_path
@@ -84,26 +86,29 @@ private
     @new_public_word.meanings.build
 
     #ランキング用
+    #閲覧数
     hit_ranks = Hit.where.not(public_id: nil)
-    hit_ranks = hit_ranks.group(:public_id).count
-    hit_ranks = hit_ranks.sort_by{|_, v| -v}
+    hit_ranks = hit_ranks.group(:public_id).count#各単語の閲覧数を集計してpublic_idとセットでハッシュとする
+    hit_ranks = hit_ranks.sort_by{|_, v| -v}#閲覧数で並び替え
     @hit_ranks = hit_ranks.take(5)
 
-    favo_all = FavoriteMeaning.joins({:meaning => {:word => :diction}}).where(dictions: {public_flg: true}).pluck(:meaning_id)
-    fmeaning = Meaning.find(favo_all).pluck(:word_id)
-    fword = Word.find(fmeaning).uniq
-    count = []
+    #お気に入り登録数
+    favo_all = FavoriteMeaning.joins({:meaning => {:word => :diction}}).where(dictions: {public_flg: true}).pluck(:meaning_id)#各意味の辞書の公開設定を確認し、meaning_idのみ引き出す
+    fmeaning = Meaning.find(favo_all).pluck(:word_id)#意味を探し、そのword_idを取得
+    fword = Word.find(fmeaning).uniq#重複をなくす
+    count = []#各集計をまとめる用
     fword.each do |fw|
       fm = Meaning.where(word_id: fw.id)
-      fc = 0
+      fc = 0#集計用
+      #お気に入りの数を調べてfcに入れる
       fm.each do |ffm|
         fcc = FavoriteMeaning.where(meaning_id: ffm).count
         fc += fcc
       end
-      count.push(fc)
+      count.push(fc)#配列として集計結果をためる
     end
-    ary = [fword, count].transpose
-    favo_ranks = Hash[*ary.flatten]
+    ary = [fword, count].transpose#単語とそのお気に入り数の集計の二つの配列の中身を結びつける
+    favo_ranks = Hash[*ary.flatten]#閲覧数と同じようなハッシュに変換
     favo_ranks = favo_ranks.sort_by{|_, v| -v}
     @favo_ranks = favo_ranks.take(5)
     # favo_ranks = []
