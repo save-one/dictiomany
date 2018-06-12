@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  devise_for :admins
+  # adminは、admin登録後に見れなくする
+  devise_for :admins#, skip: [:registrations]
   devise_for :users
   root 'tops#show'
 

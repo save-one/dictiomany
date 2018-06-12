@@ -35,7 +35,8 @@
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<!-- adminの登録後、adminの時に見れないようにする -->
+<%= render "devise/shared/links" unless request.fullpath == "/admins/sign_in" %>
 
       </div>
     </div>

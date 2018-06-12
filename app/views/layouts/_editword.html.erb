@@ -8,7 +8,8 @@
 				<h4 class="modal-title">Edit Word</h4>
 			</div>
 			<div class="modal-body newform-body">
-				<%= form_for(@word, url: diction_word_path, html: {:class => "form-group"}) do |f| %>
+				<% editword = @word.id %>
+				<%= form_for(@word, url: diction_word_path(diction_id: @diction.id, id: editword.id, html: {:class => "form-group"}) do |f| %>
 
 				<!-- 名前 -->
 				<div>
